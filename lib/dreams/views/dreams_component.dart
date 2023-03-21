@@ -168,61 +168,64 @@ class _HomePageState extends State<HomePage> implements UNITSView {
       ],
     );
 
-    var _mainPartView = Container(
-      color: Colors.grey.shade300,
-      margin: EdgeInsets.all(8.0),
-      padding: EdgeInsets.all(8.0),
-      child: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: Text("I want to:",style: const TextStyle(fontWeight: FontWeight.bold), textScaleFactor: 1.5,)
-                ,),
-              _unitView,
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: hourFormField(context),
-                  ),
-                  Expanded(
-                    child: minFormField(context),
-                  )
-                ],
-              ),
-              _unitViewTime,
-              Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: Text("I want to sleep for:",style: const TextStyle(fontWeight: FontWeight.bold), textScaleFactor: 1.5,)
-                ,),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: sleepHourFormField(context),
-                  ),
-                  Expanded(
-                    child: sleepMinuteFormField(),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: Text("How many sleep cycles?",style: const TextStyle(fontWeight: FontWeight.bold), textScaleFactor: 1.5)
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: cycleFormField(context),
-                  )
-                ]
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: calculateButton()
-                ,),
-            ],
+    var _mainPartView = Opacity(
+      opacity: 0.8,
+      child: Container(
+        color: Colors.blueGrey,
+        margin: EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top: 10.0),
+                  child: Text("I want to:",style: const TextStyle(fontWeight: FontWeight.bold), textScaleFactor: 1.5,)
+                  ,),
+                _unitView,
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: hourFormField(context),
+                    ),
+                    Expanded(
+                      child: minFormField(context),
+                    )
+                  ],
+                ),
+                _unitViewTime,
+                Padding(
+                  padding: EdgeInsets.only(top: 10.0),
+                  child: Text("I want to sleep for:",style: const TextStyle(fontWeight: FontWeight.bold), textScaleFactor: 1.5,)
+                  ,),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: sleepHourFormField(context),
+                    ),
+                    Expanded(
+                      child: sleepMinuteFormField(),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 10.0),
+                  child: Text("How many sleep cycles?",style: const TextStyle(fontWeight: FontWeight.bold), textScaleFactor: 1.5)
+                ),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: cycleFormField(context),
+                    )
+                  ]
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 10.0),
+                  child: calculateButton()
+                  ,),
+              ],
+            ),
           ),
         ),
       ),
@@ -250,7 +253,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
           centerTitle: true,
           backgroundColor: Colors.blueAccent.shade700,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
