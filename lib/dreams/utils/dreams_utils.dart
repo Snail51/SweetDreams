@@ -4,11 +4,12 @@ import 'dart:math';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
-List<dynamic> calculator(double hour, double minute, double sleepHour, double sleepMinute, UnitType uniType, UnitType unitTypeTime) {
+List<dynamic> calculator(double hour, double minute, double sleepHour, double sleepMinute, UnitType uniType, UnitType unitTypeTime, double cycle) {
 
   List result = new List.filled(3, null, growable: false);
   double tempHour = 0.0;
   double tempMinute = 0.00;
+  double cycle = 90.00;
 
   if(uniType == UnitType.BED) {
     tempHour = hour + sleepHour;
@@ -45,8 +46,8 @@ List<dynamic> calculator(double hour, double minute, double sleepHour, double sl
     tempHour = 12;
   }
 
-  //result = tempHour + (tempMinute/100);
-  result[0] = (tempHour + (tempMinute/100));
+  //result = tempHour + (tempMinute/300);
+  result[0] = (tempHour + (tempMinute/300)); // mess with this
   result[1] = unitTypeTime;
   result[2] = uniType;
   return result;

@@ -19,10 +19,12 @@ class _HomePageState extends State<HomePage> implements UNITSView {
   var _sleepMinuteController = TextEditingController();
   var _hourController = TextEditingController();
   var _minuteController = TextEditingController();
+  var _cycleController = TextEditingController();
   String _hour = "0.0";
   String _minute = "0.0";
   String _sleepMinute = "0.0";
   String _sleepHour = "0.0";
+  String _cycle = "0.0";
   var _resultString = '';
   var _timeString = '';
   var _message = '';
@@ -32,6 +34,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
   final FocusNode _sleepHourFocus = FocusNode();
   final FocusNode _sleepMinuteFocus = FocusNode();
   final FocusNode _minuteFocus = FocusNode();
+  final FocusNode _cycleFocus = FocusNode();
 
   var _formKey = GlobalKey<FormState>();
 
@@ -42,7 +45,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
   }
 
   void handleRadioValueChanged(int? value) {
-    this.widget.presenter.onOptionChanged(value!, sleepHourString: _sleepHour, sleepMinuteString: _sleepMinute );
+    this.widget.presenter.onOptionChanged(value!, sleepHourString: _sleepHour, sleepMinuteString: _sleepMinute, sleepCycle: _cycle);
   }
   void handleRadioValueChangedTime(int? value) {
     this.widget.presenter.onTimeOptionChanged(value!);
@@ -51,7 +54,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
   void _calculator() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      this.widget.presenter.onCalculateClicked(_hour, _minute, _sleepMinute, _sleepHour);
+      this.widget.presenter.onCalculateClicked(_hour, _minute, _sleepMinute, _sleepHour, _cycle);
     }
   }
 
@@ -111,9 +114,15 @@ class _HomePageState extends State<HomePage> implements UNITSView {
       _valueTime = value;
     });
   }
+  @override
+  void updateCycle({required String cycle}) {
+    setState(() {
+      _cycleController.text = cycle != null ? cycle : '';
+    });
+  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
 
     var _unitView = Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -200,6 +209,17 @@ class _HomePageState extends State<HomePage> implements UNITSView {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
+                child: Text("How many sleep cycles?",style: const TextStyle(fontWeight: FontWeight.bold), textScaleFactor: 1.5)
+              ),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: cycleFormField(context),
+                  )
+                ]
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10.0),
                 child: calculateButton()
                 ,),
             ],
@@ -223,22 +243,31 @@ class _HomePageState extends State<HomePage> implements UNITSView {
         ),
       ],
     );
-
+    final urlImage = 'https://w0.peakpx.com/wallpaper/597/857/HD-wallpaper-lo-fi-night-chill-lo-fi.jpg';
     return Scaffold(
         appBar: AppBar(
-          title: Text('Sleep Calculator'),
+          title: Text('Sweet Dreams'),
           centerTitle: true,
           backgroundColor: Colors.blueAccent.shade700,
         ),
         backgroundColor: Colors.white,
-        body: ListView(
-          children: <Widget>[
-            Padding(padding: EdgeInsets.all(5.0)),
-            _mainPartView,
-            Padding(padding: EdgeInsets.all(5.0)),
-            _resultView
-          ],
-        )
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(urlImage),
+              fit: BoxFit.cover,
+            ),
+          ),
+            child: ListView(
+              children: <Widget>[
+                TextField(),
+                Padding(padding: EdgeInsets.all(5.0)),
+                _mainPartView,
+                Padding(padding: EdgeInsets.all(5.0)),
+                _resultView
+              ],
+            ),
+        ),
     );
   }
 
@@ -332,6 +361,25 @@ class _HomePageState extends State<HomePage> implements UNITSView {
         fillColor: Colors.white,
       ),
     );
+  }
+
+  TextFormField cycleFormField(BuildContext context) {
+    return TextFormField(
+      controller: _cycleController,
+      keyboardType: TextInputType.number,
+      textInputAction: TextInputAction.next,
+      focusNode: _cycleFocus,
+      onFieldSubmitted: (term){
+        _fieldFocusChange(context, _cycleFocus, _minuteFocus);
+      },
+      decoration: InputDecoration(
+        hintText: 'e.g.) 2 cycles',
+        labelText: 'Cycles',
+        icon: Icon(Icons.assessment),
+        fillColor: Colors.white,
+      )
+    );
+
   }
 
   TextFormField minFormField(BuildContext context) {

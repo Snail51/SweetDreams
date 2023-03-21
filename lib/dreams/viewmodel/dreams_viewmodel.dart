@@ -12,6 +12,7 @@ class UNITSViewModel {
   double minute = 0.0;
   double sleepHour = 0.0;
   double sleepMinute = 0.0;
+  double cycle = 0.0;
 
   double get units => _units;
   set units(double outResult){
@@ -56,6 +57,7 @@ class UNITSViewModel {
     }
   }
 
+  String get cycleInString => cycle != null ? cycle.toString():'';
   String get timeInString => _timeType;
   String get messageInString => _message;
   String get resultInString => units.toStringAsFixed(2);

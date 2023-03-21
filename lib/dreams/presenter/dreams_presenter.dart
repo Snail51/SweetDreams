@@ -5,10 +5,10 @@ import '../utils/dreams_utils.dart';
 //test
 
 class UNITSPresenter {
-  void onCalculateClicked(String hourString, String minuteString, String sleepMinuteString, String sleepHourString){
+  void onCalculateClicked(String hourString, String minuteString, String sleepMinuteString, String sleepHourString, String cycleString){
 
   }
-  void onOptionChanged(int value, {required String sleepMinuteString, required String sleepHourString}) {
+  void onOptionChanged(int value, {required String sleepMinuteString, required String sleepHourString, required sleepCycle}) {
 
   }
   void onTimeOptionChanged(int value) {
@@ -20,6 +20,7 @@ class UNITSPresenter {
   void onMinuteSubmitted(String minute){}
   void onSleepHourSubmitted(String sleepHour){}
   void onSleepMinuteSubmitted(String sleepMinute){}
+  void onCycleSubmitted(String cycle){}
 }
 
 class BasicPresenter implements UNITSPresenter{
@@ -46,11 +47,12 @@ class BasicPresenter implements UNITSPresenter{
   }
 
   @override
-  void onCalculateClicked(String hourString, String minuteString, String sleepMinuteString, String sleepHourString) {
+  void onCalculateClicked(String hourString, String minuteString, String sleepMinuteString, String sleepHourString, String cycleString) {
     var hour = 0.0;
     var minute = 0.0;
     var sleepHour = 0.0;
     var sleepMinute = 0.0;
+    var cycle = 0.0;
     try {
       hour = double.parse(hourString);
     } catch (e){
@@ -71,13 +73,19 @@ class BasicPresenter implements UNITSPresenter{
     } catch (e) {
 
     }
+    try {
+      cycle = double.parse(cycleString);
+    } catch (e) {
+
+    }
 
     List temp = new List.filled(3, null, growable: false);
     _viewModel.hour = hour;
     _viewModel.minute = minute;
     _viewModel.sleepHour = sleepHour;
     _viewModel.sleepMinute = sleepMinute;
-    temp = calculator(hour,minute,sleepHour, sleepMinute, _viewModel.unitType, _viewModel.unitTypeTime);
+    _viewModel.cycle = cycle;
+    temp = calculator(hour,minute,sleepHour, sleepMinute, _viewModel.unitType, _viewModel.unitTypeTime, cycle);
     //  temp returns a List of the time, AM or PM, and WAKE or BED.
     //  The time that is returned is in the format of a double ex) 12.30 is 12:30.
 
@@ -102,13 +110,14 @@ class BasicPresenter implements UNITSPresenter{
   }
 
   @override
-  void onOptionChanged(int value, {required String sleepMinuteString, required String sleepHourString})  {
+  void onOptionChanged(int value, {required String sleepMinuteString, required String sleepHourString, required sleepCycle})  {
 
     if (value != _viewModel.value) {
       _viewModel.value = value;
       saveValue(_viewModel.value);
       var curOdom = 0.0;
       var fuelUsed = 0.0;
+      var cycle = 0.0;
       if (!isEmptyString(sleepHourString)) {
         try {
           curOdom = double.parse(sleepHourString);
@@ -122,9 +131,27 @@ class BasicPresenter implements UNITSPresenter{
 
         }
       }
+      if (!isEmptyString(sleepCycle)) {
+        try {
+          cycle = double.parse(sleepCycle);
+        } catch (e) {
+
+        }
+      }
       _view.updateUnit(_viewModel.value);
       _view.updateSleepHour(sleepHour: _viewModel.sleepHourInString);
       _view.updateSleepMinute(sleepMinute: _viewModel.sleepMinuteInString);
+      _view.updateCycle(cycle: _viewModel.cycleInString);
+
+    }
+  }
+
+  @override
+  void onCycleSubmitted(String cycle) {
+    try{
+      _viewModel.cycle = double.parse(cycle);
+    }catch(e){
+
     }
   }
 
