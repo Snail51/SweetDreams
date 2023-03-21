@@ -128,20 +128,20 @@ class _HomePageState extends State<HomePage> implements UNITSView {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Radio<int>(
-          activeColor: Colors.blueAccent.shade700,
+          activeColor: Colors.black,
           value: 0, groupValue: _value, onChanged: handleRadioValueChanged,
         ),
         Text(
           'Wake up at',
-          style: TextStyle(color: Colors.blueAccent.shade700),
+          style: TextStyle(color: Colors.black),
         ),
         Radio<int>(
-          activeColor: Colors.blueAccent.shade700,
+          activeColor: Colors.black,
           value: 1, groupValue: _value, onChanged: handleRadioValueChanged,
         ),
         Text(
           'Go to bed at',
-          style: TextStyle(color: Colors.blueAccent.shade700),
+          style: TextStyle(color: Colors.black),
         ),
       ],
     );
@@ -150,20 +150,20 @@ class _HomePageState extends State<HomePage> implements UNITSView {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Radio<int>(
-          activeColor: Colors.blueAccent.shade700,
+          activeColor: Colors.black,
           value: 0, groupValue: _valueTime, onChanged: handleRadioValueChangedTime,
         ),
         Text(
           'AM',
-          style: TextStyle(color: Colors.blueAccent.shade700),
+          style: TextStyle(color: Colors.black),
         ),
         Radio<int>(
-          activeColor: Colors.blueAccent.shade700,
+          activeColor: Colors.black,
           value: 1, groupValue: _valueTime, onChanged: handleRadioValueChangedTime,
         ),
         Text(
           'PM',
-          style: TextStyle(color: Colors.blueAccent.shade700),
+          style: TextStyle(color: Colors.black),
         ),
       ],
     );
@@ -237,7 +237,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
           child: Text(
             '$_message $_resultString $_timeString',
             style: TextStyle(
-                color: Colors.blueAccent.shade700,
+                color: Colors.teal,
                 fontSize: 24.0,
                 fontWeight: FontWeight.w700,
                 fontStyle: FontStyle.italic
@@ -246,7 +246,18 @@ class _HomePageState extends State<HomePage> implements UNITSView {
         ),
       ],
     );
-    final urlImage = 'https://w0.peakpx.com/wallpaper/597/857/HD-wallpaper-lo-fi-night-chill-lo-fi.jpg';
+
+    var _cycleView = Column(
+      children: <Widget>[
+        Center(
+          child: Text(
+
+          )
+        )
+      ]
+    )
+
+    final urlImage = 'https://wallpaper.dog/large/20393704.png';
     return Scaffold(
         appBar: AppBar(
           title: Text('Sweet Dreams'),
