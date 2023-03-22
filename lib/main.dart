@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'dreams/views/dreams_component.dart';
+import 'dreams/views/sleep_log.dart';
 import 'dreams/presenter/dreams_presenter.dart';
 
 void main() {
@@ -28,10 +29,21 @@ class MyApp extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                       primary: Colors.blueAccent
                   ),
-                  child: Text('Begin'),
+                  child: Text('Sleep Calculator'),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
                       return SplashScreen();
+                    }));
+                  },
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.blueAccent
+                  ),
+                  child: Text('Sleep Log'),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                      return SleepLogScreen();
                     }));
                   },
                 )
@@ -53,5 +65,17 @@ class _SplashScreen extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return new HomePage(new BasicPresenter(), title: 'Sweet Dreams', key: Key("UNITS"),);
+  }
+}
+
+class SleepLogScreen extends StatefulWidget {
+  @override
+  _SleepLogScreen createState() => _SleepLogScreen();
+}
+
+class _SleepLogScreen extends State<SleepLogScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new SleepLogPage(new BasicPresenter(), title: 'Sleep Log', key: Key("UNITS"),);
   }
 }
