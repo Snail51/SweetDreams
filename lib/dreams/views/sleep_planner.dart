@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import '../views/dreams_view.dart';
 import '../presenter/dreams_presenter.dart';
 
-class CreateLogPage extends StatefulWidget {
+class SleepPlannerPage extends StatefulWidget {
   final UNITSPresenter presenter;
 
-  CreateLogPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  SleepPlannerPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  _CreateLogPageState createState() => _CreateLogPageState();
+  _SleepPlannerPageState createState() => _SleepPlannerPageState();
 }
 
-class _CreateLogPageState extends State<CreateLogPage>  {
+class _SleepPlannerPageState extends State<SleepPlannerPage>  {
   @override
   void initState() {
     super.initState();
@@ -24,14 +24,14 @@ class _CreateLogPageState extends State<CreateLogPage>  {
         home: Builder(
             builder: (context) => Scaffold(
               appBar: AppBar(
-                title: Text("New Log"),
+                title: Text("Sleep Planner"),
               ),
               body: Center(
                   child: Column(
                     children: <Widget>[
                       Padding(
                           padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                          child: Text("New Log", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
+                          child: Text("Sleep Planner", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
                       ),
                     ],
                   )

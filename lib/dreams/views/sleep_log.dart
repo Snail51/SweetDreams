@@ -38,7 +38,7 @@ class _SleepLogPageState extends State<SleepLogPage>  {
                   style: ElevatedButton.styleFrom(
                       primary: Colors.blueAccent
                   ),
-                  child: Text('Sleep Log'),
+                  child: Text('Create New Log'),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
                       return CreateLogScreen();

@@ -247,15 +247,6 @@ class _HomePageState extends State<HomePage> implements UNITSView {
       ],
     );
 
-    var _cycleView = Column(
-      children: <Widget>[
-        Center(
-          child: Text(
-
-          )
-        )
-      ]
-    )
 
     final urlImage = 'https://wallpaper.dog/large/20393704.png';
     return Scaffold(

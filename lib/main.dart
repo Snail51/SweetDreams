@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dreams/views/dreams_component.dart';
 import 'dreams/views/sleep_log.dart';
 import 'dreams/presenter/dreams_presenter.dart';
+import 'dreams/views/sleep_planner.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,6 +47,17 @@ class MyApp extends StatelessWidget {
                       return SleepLogScreen();
                     }));
                   },
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.blueAccent
+                  ),
+                  child: Text('Sleep Planner'),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                      return SleepPlannerScreen();
+                    }));
+                  },
                 )
               ],
             )
@@ -77,5 +89,17 @@ class _SleepLogScreen extends State<SleepLogScreen> {
   @override
   Widget build(BuildContext context) {
     return new SleepLogPage(new BasicPresenter(), title: 'Sleep Log', key: Key("UNITS"),);
+  }
+}
+
+class SleepPlannerScreen extends StatefulWidget {
+  @override
+  _SleepPlannerScreen createState() => _SleepPlannerScreen();
+}
+
+class _SleepPlannerScreen extends State<SleepPlannerScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new SleepPlannerPage(new BasicPresenter(), title: 'Sleep Planner', key: Key("UNITS"),);
   }
 }
