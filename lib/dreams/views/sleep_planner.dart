@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 
 class SleepPlannerPage extends StatefulWidget {
 
-  SleepPlannerPage({required Key? key, required this.title}) : super(key: key);
-  final String title;
+  SleepPlannerPage();
 
   @override
   _SleepPlannerPageState createState() => _SleepPlannerPageState();
