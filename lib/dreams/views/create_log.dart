@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../views/dreams_view.dart';
-import '../presenter/dreams_presenter.dart';
 
 class CreateLogPage extends StatefulWidget {
-  final UNITSPresenter presenter;
 
-  CreateLogPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  CreateLogPage({required Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
@@ -20,24 +17,23 @@ class _CreateLogPageState extends State<CreateLogPage>  {
   }
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Builder(
-            builder: (context) => Scaffold(
-              appBar: AppBar(
-                title: Text("New Log"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("New Log"),
+        centerTitle: true,
+        backgroundColor: Colors.blueAccent.shade700,
+      ),
+      backgroundColor: Colors.white,
+      body: Center(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                  padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                  child: Text("New Log", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
               ),
-              body: Center(
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                          padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                          child: Text("New Log", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
-                      ),
-                    ],
-                  )
-              ),
-            )
-        )
+            ],
+          )
+      ),
     );
   }
 }

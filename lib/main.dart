@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'dreams/views/dreams_component.dart';
 import 'dreams/views/sleep_log.dart';
-import 'dreams/presenter/dreams_presenter.dart';
 import 'dreams/views/sleep_planner.dart';
+import 'database.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,6 +10,9 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+
+  SleepData database = SleepData();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -43,7 +45,7 @@ class MyApp extends StatelessWidget {
                   ),
                   child: Text('Sleep Log'),
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)  {
                       return SleepLogScreen();
                     }));
                   },
@@ -76,7 +78,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreen extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    return new HomePage(new BasicPresenter(), title: 'Sweet Dreams', key: Key("UNITS"),);
+    return new HomePage(title: 'Sweet Dreams', key: Key("UNITS"),);
   }
 }
 
@@ -88,7 +90,7 @@ class SleepLogScreen extends StatefulWidget {
 class _SleepLogScreen extends State<SleepLogScreen> {
   @override
   Widget build(BuildContext context) {
-    return new SleepLogPage(new BasicPresenter(), title: 'Sleep Log', key: Key("UNITS"),);
+    return new SleepLogPage();
   }
 }
 
@@ -100,6 +102,6 @@ class SleepPlannerScreen extends StatefulWidget {
 class _SleepPlannerScreen extends State<SleepPlannerScreen> {
   @override
   Widget build(BuildContext context) {
-    return new SleepPlannerPage(new BasicPresenter(), title: 'Sleep Planner', key: Key("UNITS"),);
+    return new SleepPlannerPage(title: 'Sleep Planner', key: Key("UNITS"),);
   }
 }
