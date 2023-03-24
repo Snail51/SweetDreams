@@ -1,19 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../views/dreams_view.dart';
-import '../presenter/dreams_presenter.dart';
+import '../utils/dreams_constant.dart';
 
 class HomePage extends StatefulWidget {
-  final UNITSPresenter presenter;
 
-  HomePage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  HomePage({required Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> implements UNITSView {
+class _HomePageState extends State<HomePage>  {
 
   var _sleepHourController = TextEditingController();
   var _sleepMinuteController = TextEditingController();
@@ -30,6 +28,8 @@ class _HomePageState extends State<HomePage> implements UNITSView {
   var _message = '';
   var _value = 0;
   var _valueTime = 0;
+  UnitType _unitType = UnitType.WAKE;
+  UnitType _unitTypeTime = UnitType.AM;
   final FocusNode _hourFocus = FocusNode();
   final FocusNode _sleepHourFocus = FocusNode();
   final FocusNode _sleepMinuteFocus = FocusNode();
@@ -41,80 +41,204 @@ class _HomePageState extends State<HomePage> implements UNITSView {
   @override
   void initState() {
     super.initState();
-    this.widget.presenter.unitsView = this;
   }
 
   void handleRadioValueChanged(int? value) {
-    this.widget.presenter.onOptionChanged(value!, sleepHourString: _sleepHour, sleepMinuteString: _sleepMinute, sleepCycle: _cycle);
+    //this.widget.presenter.onOptionChanged(value!, sleepHourString: _sleepHour, sleepMinuteString: _sleepMinute, sleepCycle: _cycle);
+    onOptionChanged(value!, sleepHourString: _sleepHour, sleepMinuteString: _sleepMinute, sleepCycle: _cycle);
   }
   void handleRadioValueChangedTime(int? value) {
-    this.widget.presenter.onTimeOptionChanged(value!);
+    //this.widget.presenter.onTimeOptionChanged(value!);
+    onTimeOptionChanged(value!);
   }
 
   void _calculator() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      this.widget.presenter.onCalculateClicked(_hour, _minute, _sleepMinute, _sleepHour, _cycle);
+      //this.widget.presenter.onCalculateClicked(_hour, _minute, _sleepMinute, _sleepHour, _cycle);
+      onCalculateClicked(_hour, _minute, _sleepMinute, _sleepHour, _cycle);
     }
   }
 
-  @override
+  void onOptionChanged(int value, {required String sleepMinuteString, required String sleepHourString, required String sleepCycle})  {
+    if (value != _valueTime) value = _valueTime;
+    var curOdom = 0.0;
+    var fuelUsed = 0.0;
+    var cycle = 0.0;
+    if (sleepHourString.isNotEmpty) {
+      try {
+        curOdom = double.parse(sleepHourString);
+      } catch (e) {
+      }
+    }
+    if (sleepMinuteString.isNotEmpty) {
+      try {
+        fuelUsed = double.parse(sleepMinuteString);
+      } catch (e) {
+
+      }
+    }
+    if (sleepCycle.isNotEmpty) {
+      try {
+        cycle = double.parse(sleepCycle);
+      } catch (e) {
+
+      }
+    }
+  }
+
+  void onTimeOptionChanged(int value)  {
+    if (value != _valueTime)  {
+      _valueTime = value;
+    }
+  }
+
+  void onCalculateClicked(String hourString, String minuteString, String sleepMinuteString, String sleepHourString, String cycleString) {
+    var hour = 0.0;
+    var minute = 0.0;
+    var sleepHour = 0.0;
+    var sleepMinute = 0.0;
+    var cycle = 0.0;
+    try {
+      hour = double.parse(hourString);
+    } catch (e){
+
+    }
+    try {
+      minute = double.parse(minuteString);
+    } catch (e){
+
+    }
+    try {
+      sleepHour = double.parse(sleepHourString);
+    } catch (e){
+
+    }
+    try {
+      sleepMinute = double.parse(sleepMinuteString);
+    } catch (e) {
+
+    }
+    try {
+      cycle = double.parse(cycleString);
+    } catch (e) {
+
+    }
+
+    List temp = new List.filled(3, null, growable: false);
+    _hour = hour.toString();
+    _minute = minute.toString();
+    _sleepHour = sleepHour.toString();
+    _sleepMinute = sleepMinute.toString();
+    _cycle = cycle.toString();
+    temp = calculator(hour,minute,sleepHour, sleepMinute, _unitType, _unitTypeTime, cycle);
+  }
+
+  List<dynamic> calculator(double hour, double minute, double sleepHour, double sleepMinute, UnitType uniType, UnitType unitTypeTime, double cycle) {
+
+    List result = new List.filled(3, null, growable: false);
+    double tempHour = 0.0;
+    double tempMinute = 0.00;
+    double cycle = 90.00;
+
+    if(uniType == UnitType.BED) {
+      tempHour = hour + sleepHour;
+      tempMinute = minute + sleepMinute;
+
+      if (tempMinute >= 60) {
+        tempMinute -= 60;
+        tempHour += 1;
+      }
+    }
+    if (uniType == UnitType.WAKE) {
+      tempHour = hour - sleepHour;
+      tempMinute = minute - sleepMinute;
+
+      if(tempMinute < 0){
+        tempMinute += 60.00;
+        tempHour -= 1;
+      }
+    }
+
+    if(tempHour > 12 || tempHour < 0) {
+      switch(unitTypeTime) {
+        case UnitType.AM: { unitTypeTime = UnitType.PM; }
+        break;
+        case UnitType.PM: { unitTypeTime = UnitType.AM; }
+        break;
+        default: {}
+        break;
+      }
+
+      tempHour %= 12;
+    }
+    if(tempHour ==0){
+      tempHour = 12;
+    }
+
+    //result = tempHour + (tempMinute/300);
+    result[0] = (tempHour + (tempMinute/300)); // mess with this
+    result[1] = unitTypeTime;
+    result[2] = uniType;
+    return result;
+  }
+
   void updateResultValue(String resultValue){
     setState(() {
       _resultString = resultValue;
     });
   }
-  @override
+
   void updateTimeString(String timeString){
     setState(() {
       _timeString = timeString;
     });
   }
-  @override
+
   void updateMessage(String message){
     setState(() {
       _message = message;
     });
   }
-  @override
+
   void updateSleepMinute({required String sleepMinute}){
     setState(() {
       // ignore: unnecessary_null_comparison
       _sleepMinuteController.text = sleepMinute != null?sleepMinute:'';
     });
   }
-  @override
+
   void updateSleepHour({required String sleepHour}){
     setState(() {
       // ignore: unnecessary_null_comparison
       _sleepHourController.text = sleepHour != null?sleepHour:'';
     });
   }
-  @override
+
   void updateHour({required String hour}) {
     setState(() {
       _hourController.text = hour != null ? hour : '';
     });
   }
-  @override
+
   void updateMinute({required String minute}) {
     setState(() {
       _minuteController.text = minute != null ? minute : '';
     });
   }
-  @override
+
   void updateUnit(int value){
     setState(() {
       _value = value;
     });
   }
-  @override
+
   void updateTimeUnit(int value){
     setState(() {
       _valueTime = value;
     });
   }
-  @override
+
   void updateCycle({required String cycle}) {
     setState(() {
       _cycleController.text = cycle != null ? cycle : '';
@@ -171,7 +295,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
     var _mainPartView = Opacity(
       opacity: 0.8,
       child: Container(
-        color: Colors.blueGrey,
+        color: Colors.white,
         margin: EdgeInsets.all(8.0),
         padding: EdgeInsets.all(8.0),
         child: SingleChildScrollView(
@@ -248,21 +372,14 @@ class _HomePageState extends State<HomePage> implements UNITSView {
     );
 
 
-    final urlImage = 'https://wallpaper.dog/large/20393704.png';
     return Scaffold(
         appBar: AppBar(
           title: Text('Sweet Dreams'),
           centerTitle: true,
           backgroundColor: Colors.blueAccent.shade700,
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(urlImage),
-              fit: BoxFit.cover,
-            ),
-          ),
             child: ListView(
               children: <Widget>[
                 TextField(),

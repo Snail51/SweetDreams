@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../views/dreams_view.dart';
-import '../presenter/dreams_presenter.dart';
 
 class SleepPlannerPage extends StatefulWidget {
-  final UNITSPresenter presenter;
 
-  SleepPlannerPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  SleepPlannerPage({required Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
@@ -20,24 +17,23 @@ class _SleepPlannerPageState extends State<SleepPlannerPage>  {
   }
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Builder(
-            builder: (context) => Scaffold(
-              appBar: AppBar(
-                title: Text("Sleep Planner"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Sleep Planner"),
+        centerTitle: true,
+        backgroundColor: Colors.blueAccent.shade700,
+      ),
+      backgroundColor: Colors.white,
+      body: Center(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                  padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                  child: Text("Sleep Planner", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
               ),
-              body: Center(
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                          padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                          child: Text("Sleep Planner", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
-                      ),
-                    ],
-                  )
-              ),
-            )
-        )
+            ],
+          )
+      ),
     );
   }
 }
