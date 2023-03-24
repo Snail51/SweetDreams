@@ -102,6 +102,6 @@ class SleepPlannerScreen extends StatefulWidget {
 class _SleepPlannerScreen extends State<SleepPlannerScreen> {
   @override
   Widget build(BuildContext context) {
-    return new SleepPlannerPage(title: 'Sleep Planner', key: Key("UNITS"),);
+    return new SleepPlannerPage();
   }
 }
