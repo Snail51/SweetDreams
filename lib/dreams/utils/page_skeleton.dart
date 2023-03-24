@@ -1,4 +1,13 @@
 /*
+
+Add to main within the page's button
+  onPressed: () {
+    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+      return ScreenName();
+    }));
+  },
+]
+
 Add to main at the bottom [
     class ScreenName extends StatefulWidget {
       @override
