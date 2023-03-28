@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dreams/views/dreams_component.dart';
 import 'dreams/views/sleep_log.dart';
-import 'dreams/views/sleep_planner.dart';
 import 'database.dart';
 
 void main() {
@@ -11,10 +10,13 @@ void main() {
 
 class MyApp extends StatelessWidget {
 
-  SleepData database = SleepData();
+  SleepData database = new SleepData();
 
   @override
   Widget build(BuildContext context) {
+    database.addEvent(DateTime.now().subtract(Duration(hours: 3)),wake: DateTime.now().add(Duration(hours: 3)),quality: 3, dream: "Test Dream Description");
+    database.addEvent(DateTime.now().subtract(Duration(hours: 4)),wake: DateTime.now().add(Duration(hours: 2)),quality: 3, dream: "Test Dream Description");
+    database.addEvent(DateTime.now().subtract(Duration(hours: 5)),wake: DateTime.now().add(Duration(hours: 1)),quality: 4, dream: "Test Dream Description");
     return MaterialApp(
       home: Builder(
         builder: (context) => Scaffold(
@@ -34,9 +36,7 @@ class MyApp extends StatelessWidget {
                   ),
                   child: Text('Sleep Calculator'),
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                      return SplashScreen();
-                    }));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(database: database)));
                   },
                 ),
                 ElevatedButton(
@@ -45,22 +45,9 @@ class MyApp extends StatelessWidget {
                   ),
                   child: Text('Sleep Log'),
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)  {
-                      return SleepLogScreen();
-                    }));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SleepLogPage(database: database)));
                   },
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.blueAccent
-                  ),
-                  child: Text('Sleep Planner'),
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                      return SleepPlannerScreen();
-                    }));
-                  },
-                )
               ],
             )
           ),
@@ -70,38 +57,3 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class SplashScreen extends StatefulWidget {
-  @override
-  _SplashScreen createState() => _SplashScreen();
-}
-
-class _SplashScreen extends State<SplashScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return new HomePage(title: 'Sweet Dreams', key: Key("UNITS"),);
-  }
-}
-
-class SleepLogScreen extends StatefulWidget {
-  @override
-  _SleepLogScreen createState() => _SleepLogScreen();
-}
-
-class _SleepLogScreen extends State<SleepLogScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return new SleepLogPage();
-  }
-}
-
-class SleepPlannerScreen extends StatefulWidget {
-  @override
-  _SleepPlannerScreen createState() => _SleepPlannerScreen();
-}
-
-class _SleepPlannerScreen extends State<SleepPlannerScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return new SleepPlannerPage();
-  }
-}

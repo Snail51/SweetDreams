@@ -2,33 +2,20 @@
 
 Add to main within the page's button
   onPressed: () {
-    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-      return ScreenName();
-    }));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => PageName(database: database)));
   },
 ]
 
-Add to main at the bottom [
-    class ScreenName extends StatefulWidget {
-      @override
-      _ScreenName createState() => _ScreenName();
-    }
-
-    class _ScreenName extends State<ScreenName> {
-      @override
-      Widget build(BuildContext context) {
-        return new PageName();
-      }
-    }
-]
 
 File Skeleton [
     import 'package:flutter/cupertino.dart';
     import 'package:flutter/material.dart';
+    import 'package:units/database.dart';
 
     class PageName extends StatefulWidget {
 
-      PageName();
+      PageName(SleepLogPage({Key? key, required this.database}) : super (key: key);
+      SleepData database;
 
       @override
       _PageNameState createState() => _PageNameState();

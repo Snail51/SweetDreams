@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:units/database.dart';
 
 class CreateLogPage extends StatefulWidget {
 
-  CreateLogPage({required Key? key, required this.title}) : super(key: key);
-  final String title;
+  CreateLogPage({Key? key, required this.database}) : super (key: key);
+  SleepData database;
 
   @override
   _CreateLogPageState createState() => _CreateLogPageState();

@@ -5,12 +5,8 @@ import 'package:units/database.dart';
 
 class SleepLogPage extends StatefulWidget {
 
-  SleepData database = SleepData();
-
-  SleepLogPage()  {
-    database.addEvent(DateTime.now().subtract(Duration(hours: 3)),wake: DateTime.now().add(Duration(hours: 3)),quality: 3, dream: "Test Dream Description");
-    database.addEvent(DateTime.now().subtract(Duration(hours: 4)),wake: DateTime.now().add(Duration(hours: 2)),quality: 3, dream: "Test Dream Description");
-  }
+  SleepLogPage({Key? key, required this.database}) : super (key: key);
+  SleepData database;
 
   @override
   _SleepLogPageState createState() => _SleepLogPageState();
@@ -24,14 +20,16 @@ class _SleepLogPageState extends State<SleepLogPage> {
     super.initState();
   }
 
+  DateTime selectedDate = DateTime.now();
+
   Widget sleepLogToWidget() {
     List<Widget> content = [];
-    for (int i = 0; i < SleepLogPage().database.getData().length; i++) {
+    for (int i = 0; i < widget.database.getData().length; i++) {
       content.add(Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Flex(direction: Axis.horizontal,
-              children: [SleepLogPage().database.getData(index: i)[0].toWidget()]),
+              children: [widget.database.getData(index: i)[0].toWidget()]),
           IconButton(
               onPressed: () => editEvent(i), icon: const Icon(Icons.edit)),
         ],
@@ -54,6 +52,20 @@ class _SleepLogPageState extends State<SleepLogPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    _selectDate(BuildContext context) async{
+      final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate, // Refer step 1
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2025),
+      );
+      if (picked != null && picked != selectedDate)
+        setState(() {
+          selectedDate = picked;
+        });
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Sleep Log'),
@@ -75,27 +87,20 @@ class _SleepLogPageState extends State<SleepLogPage> {
               ),
               child: Text('Create New Log'),
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                  return CreateLogScreen();
-                }));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLogPage(database: widget.database)));
                 },
             ),
+      ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              primary: Colors.blueAccent
+          ),
+          child: Text('Find a Log'),
+          onPressed: () => _selectDate(context)
+      ),
             sleepLogToWidget()
           ],
         ),
       ),
     );
-  }
-}
-
-class CreateLogScreen extends StatefulWidget {
-  @override
-  _CreateLogScreen createState() => _CreateLogScreen();
-}
-
-class _CreateLogScreen extends State<CreateLogScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return new CreateLogPage(title: 'Create Log', key: Key("UNITS"),);
   }
 }

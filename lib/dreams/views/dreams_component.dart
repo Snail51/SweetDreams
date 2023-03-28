@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../utils/dreams_constant.dart';
+import 'package:units/database.dart';
 
 class HomePage extends StatefulWidget {
 
-  HomePage({required Key? key, required this.title}) : super(key: key);
-  final String title;
+  HomePage({Key? key, required this.database}) : super (key: key);
+
+  SleepData database;
 
   @override
   _HomePageState createState() => _HomePageState();
