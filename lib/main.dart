@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dreams/views/dreams_component.dart';
+import 'dreams/views/newCalc.dart';
 import 'dreams/views/sleep_log.dart';
 import 'database.dart';
 
