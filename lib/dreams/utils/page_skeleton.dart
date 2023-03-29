@@ -14,7 +14,7 @@ File Skeleton [
 
     class PageName extends StatefulWidget {
 
-      PageName(SleepLogPage({Key? key, required this.database}) : super (key: key);
+      PageName({Key? key, required this.database}) : super (key: key);
       SleepData database;
 
       @override
