@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../views/create_log.dart';
 import 'package:units/database.dart';
 
@@ -20,34 +21,88 @@ class _SleepLogPageState extends State<SleepLogPage> {
     super.initState();
   }
 
-  DateTime selectedDate = DateTime.now();
+  DateTime selectedDate = DateTime.fromMicrosecondsSinceEpoch(0);
+  String labelSelectButton = "Find Log by Date";
+
+  bool isOnSameDay(DateTime first, DateTime second)
+  {
+    Duration diff = first.difference(second);
+    diff = diff.abs();
+    if(diff.inDays <= 1)
+      {
+        return true;
+      }
+    else
+      {
+        return false;
+      }
+
+  }
+
+  DateTime returnEpoch()
+  {
+    return DateTime.fromMicrosecondsSinceEpoch(0);
+  }
 
   Widget sleepLogToWidget() {
     List<Widget> content = [];
-    for (int i = 0; i < widget.database.getData().length; i++) {
-      content.add(Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Flex(direction: Axis.horizontal,
-              children: [widget.database.getData(index: i)[0].toWidget()]),
-          IconButton(
-              onPressed: () => editEvent(i), icon: const Icon(Icons.edit)),
-        ],
-      ),);
-    }
-    return Column(
-      children: <Widget>[
-        Column(
+    for (int i = 0; i < widget.database.getData().length; i++)
+    {
+      if(selectedDate != returnEpoch())
+        {
+          if(isOnSameDay(widget.database.getData()[i].sleep, selectedDate))
+          {
+            content.add(Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Flex(direction: Axis.horizontal,
+                    children: [widget.database.getData(index: i)[0].toWidget()]),
+                IconButton(
+                    onPressed: () => editEvent(i), icon: const Icon(Icons.edit)),
+              ],
+            ),);
+          }
+        }
+      else {
+        content.add(Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: content,
-        ),
-      ],
-    );
+          children: <Widget>[
+            Flex(direction: Axis.horizontal,
+                children: [widget.database.getData(index: i)[0].toWidget()]),
+            IconButton(
+                onPressed: () => editEvent(i), icon: const Icon(Icons.edit)),
+          ],
+        ),);
+      }
+    }
+    return Expanded(child: ListView.separated(
+        padding: const EdgeInsets.all(8),
+        itemCount: content.length,
+        itemBuilder: (BuildContext context, int index)
+        {
+          return Container(
+          height: 100,
+          color: Colors.blueAccent,
+          child: content[index],
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) => const Divider(),
+        addAutomaticKeepAlives: false,
+    ));
+
   }
 
   void editEvent(int index)
   {
     print("MESSAGE" + index.toString());
+  }
+
+  void nullDateSelection()
+  {
+    setState(() {
+      selectedDate = returnEpoch();
+      labelSelectButton = "Find Log by Date";
+    });
   }
 
   @override
@@ -56,13 +111,14 @@ class _SleepLogPageState extends State<SleepLogPage> {
     _selectDate(BuildContext context) async{ //Date Picker Popup
       final DateTime? picked = await showDatePicker(
         context: context,
-        initialDate: selectedDate, // Refer step 1
+        initialDate: DateTime.now(), // Refer step 1
         firstDate: DateTime(2000),
         lastDate: DateTime(2025),
       );
       if (picked != null && picked != selectedDate)
         setState(() {
-          selectedDate = picked;
+          selectedDate = picked.add(Duration(hours: 12));
+          labelSelectButton = DateFormat.MMMd().format(selectedDate) + ", " + DateFormat.y().format(selectedDate);
         });
     }
 
@@ -90,13 +146,18 @@ class _SleepLogPageState extends State<SleepLogPage> {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLogPage(database: widget.database)));
                 },
             ),
-      ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              primary: Colors.blueAccent
-          ),
-          child: Text('Find a Log'),
-          onPressed: () => _selectDate(context)
-      ),
+            Row(
+              children: <Widget>[
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.blueAccent
+                    ),
+                    child: Text(labelSelectButton),
+                    onPressed: () => _selectDate(context)
+                ),
+                IconButton(onPressed: () => nullDateSelection(), icon: const Icon(Icons.delete_forever), color: Colors.blueAccent,)
+              ],
+            ),
             sleepLogToWidget()
           ],
         ),
