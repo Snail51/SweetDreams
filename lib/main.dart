@@ -32,11 +32,11 @@ class MyApp extends StatelessWidget {
                   ,),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.blueAccent
+                      primary: Colors.tealAccent
                   ),
                   child: Text('Sleep Calculator'),
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(database: database)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CalcPage(database: database)));
                   },
                 ),
                 ElevatedButton(
