@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:units/database.dart';
+import 'package:time_range_picker/time_range_picker.dart';
 
 class CreateLogPage extends StatefulWidget {
 
@@ -20,7 +21,6 @@ class _CreateLogPageState extends State<CreateLogPage>  {
 
   var _rating = 0.0;
   DateTime selectedDate = DateTime.now();
-
 
 
   @override
@@ -56,11 +56,21 @@ class _CreateLogPageState extends State<CreateLogPage>  {
               Padding(
                 padding:EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.blueAccent
-                  ),
-                  child: Text('Select a Date'),
-                  onPressed: () => _selectDate(context)
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.blueAccent
+                    ),
+                    child: Text('Select a Date'),
+                    onPressed: () => _selectDate(context)
+                ),
+              ),
+              Padding(
+                padding:EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.blueAccent
+                    ),
+                    child: Text('Enter Your Sleep Time'),
+                    onPressed: () => showTimeRangePicker(context: context)
                 ),
               ),
               Padding(
@@ -74,7 +84,7 @@ class _CreateLogPageState extends State<CreateLogPage>  {
                     setState(() {
                       _rating = rating;
                     });
-                    },
+                  },
                   ratingWidget: RatingWidget(
                       full: Icon(
                         Icons.star,
@@ -89,13 +99,13 @@ class _CreateLogPageState extends State<CreateLogPage>  {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
-                child: TextField(
-                  decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Write about your dreams/nightmares'
-                  ),
-                )
+                  padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
+                  child: TextField(
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Write about your dreams/nightmares'
+                    ),
+                  )
               ),
             ],
           )
