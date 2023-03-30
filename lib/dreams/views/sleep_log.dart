@@ -7,7 +7,7 @@ import 'package:units/database.dart';
 class SleepLogPage extends StatefulWidget {
 
   SleepLogPage({Key? key, required this.database}) : super (key: key);
-  SleepData database = SleepData("data.csv");
+  SleepData database = SleepData(filename: "data.csv");
 
   @override
   _SleepLogPageState createState() => _SleepLogPageState();

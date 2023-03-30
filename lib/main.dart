@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'dreams/views/dreams_component.dart';
+//import 'dreams/views/dreams_component.dart';
 import 'dreams/views/sleep_log.dart';
 import 'database.dart';
+import 'dreams/views/newCalc.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
                   ),
                   child: Text('Sleep Calculator'),
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(database: database)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CalcPage(database: database)));
                   },
                 ),
                 ElevatedButton(

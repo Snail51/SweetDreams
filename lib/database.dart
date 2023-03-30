@@ -124,7 +124,7 @@ class SleepData {
 
   List<SleepEvent> database = []; // List containing all data via SleepEvents
 
-  SleepData(String? filename)
+  SleepData({String? filename})
   {
     database = [];
 
@@ -266,7 +266,7 @@ class SleepData {
 
 void main() // test func
 {
-  SleepData gen = SleepData("data.csv");
+  SleepData gen = SleepData(filename: "data.csv");
   gen.addEvent(DateTime.now());
   print(gen.getData()[0].toString());
 }
