@@ -90,12 +90,27 @@ class SleepEvent {
     return Center(child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text("Day " + eventNumber.toString(), overflow: TextOverflow.visible),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(DateFormat.Hms().format(sleep) + "\t",overflow: TextOverflow.visible),
-              Text("\t" + DateFormat.Hms().format(wake),overflow: TextOverflow.visible),
+              Container(
+                color: Colors.blueAccent,
+                child: Padding(padding: EdgeInsets.all(5), child: Column(
+                  children: <Widget>[
+                    Text(DateFormat.MMMd().format(sleep) + ", " + DateFormat.y().format(sleep),overflow: TextOverflow.visible),
+                    Text(DateFormat.jm().format(sleep),overflow: TextOverflow.visible),
+                  ],
+                )),
+              ),
+              Container(
+                color: Colors.blueAccent,
+                child: Padding(padding: EdgeInsets.all(5), child: Column(
+                  children: <Widget>[
+                    Text(DateFormat.MMMd().format(wake) + ", " + DateFormat.y().format(wake),overflow: TextOverflow.visible),
+                    Text(DateFormat.jm().format(wake),overflow: TextOverflow.visible),
+                  ],
+                )),
+              ),
             ],
           ),
           Text("Quality: " + quality.toString(),overflow: TextOverflow.visible),
@@ -109,7 +124,7 @@ class SleepData {
 
   List<SleepEvent> database = []; // List containing all data via SleepEvents
 
-  SleepData(String? filename)
+  SleepData({String? filename})
   {
     database = [];
 
@@ -251,7 +266,7 @@ class SleepData {
 
 void main() // test func
 {
-  SleepData gen = SleepData("data.csv");
+  SleepData gen = SleepData(filename: "data.csv");
   gen.addEvent(DateTime.now());
   print(gen.getData()[0].toString());
 }

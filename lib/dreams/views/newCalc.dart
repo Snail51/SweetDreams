@@ -17,7 +17,7 @@ class CalcPage extends StatefulWidget {
   // case the title) provided by the parent (in this case the App widget) and
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
-  SleepData database = new SleepData("data.csv");
+  SleepData database = new SleepData(filename: "data.csv");
 
   @override
   _CalcPageState createState() => _CalcPageState();
