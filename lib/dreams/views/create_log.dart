@@ -19,6 +19,12 @@ class _CreateLogPageState extends State<CreateLogPage>  {
     super.initState();
   }
 
+  DateTime timeConv(TimeOfDay time, DateTime date)
+  {
+    DateTime first;
+
+  }
+
   var _rating = 0.0;
   DateTime selectedDate = DateTime.now();
 
