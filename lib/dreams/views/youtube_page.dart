@@ -1,15 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:units/database.dart';
 
-class SleepPlannerPage extends StatefulWidget {
+class YoutubePage extends StatefulWidget {
 
-  SleepPlannerPage();
+  YoutubePage({Key? key, required this.database}) : super (key: key);
+  SleepData database;
 
   @override
-  _SleepPlannerPageState createState() => _SleepPlannerPageState();
+  _YoutubePageState createState() => _YoutubePageState();
 }
 
-class _SleepPlannerPageState extends State<SleepPlannerPage>  {
+class _YoutubePageState extends State<YoutubePage>  {
   @override
   void initState() {
     super.initState();
@@ -18,7 +20,7 @@ class _SleepPlannerPageState extends State<SleepPlannerPage>  {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sleep Planner"),
+        title: Text("YouTube Videos"),
         centerTitle: true,
         backgroundColor: Colors.blueAccent.shade700,
       ),
@@ -26,10 +28,7 @@ class _SleepPlannerPageState extends State<SleepPlannerPage>  {
       body: Center(
           child: Column(
             children: <Widget>[
-              Padding(
-                  padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                  child: Text("Sleep Planner", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
-              ),
+              //Insert the build within here
             ],
           )
       ),

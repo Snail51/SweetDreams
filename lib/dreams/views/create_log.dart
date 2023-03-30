@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:units/database.dart';
 
 class CreateLogPage extends StatefulWidget {
 
-  CreateLogPage({required Key? key, required this.title}) : super(key: key);
-  final String title;
+  CreateLogPage({Key? key, required this.database}) : super (key: key);
+  SleepData database;
 
   @override
   _CreateLogPageState createState() => _CreateLogPageState();
@@ -18,10 +19,26 @@ class _CreateLogPageState extends State<CreateLogPage>  {
   }
 
   var _rating = 0.0;
+  DateTime selectedDate = DateTime.now();
+
 
 
   @override
   Widget build(BuildContext context) {
+
+    _selectDate(BuildContext context) async{
+      final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate, // Refer step 1
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2025),
+      );
+      if (picked != null && picked != selectedDate)
+        setState(() {
+          selectedDate = picked;
+        });
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("New Log"),
@@ -35,6 +52,16 @@ class _CreateLogPageState extends State<CreateLogPage>  {
               Padding(
                   padding: EdgeInsets.only(top: 20.0,),
                   child: Text("New Log", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
+              ),
+              Padding(
+                padding:EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.blueAccent
+                  ),
+                  child: Text('Select a Date'),
+                  onPressed: () => _selectDate(context)
+                ),
               ),
               Padding(
                 padding:EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
