@@ -90,12 +90,27 @@ class SleepEvent {
     return Center(child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text("Day " + eventNumber.toString(), overflow: TextOverflow.visible),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(DateFormat.Hms().format(sleep) + "\t",overflow: TextOverflow.visible),
-              Text("\t" + DateFormat.Hms().format(wake),overflow: TextOverflow.visible),
+              Container(
+                color: Colors.blueAccent,
+                child: Padding(padding: EdgeInsets.all(5), child: Column(
+                  children: <Widget>[
+                    Text(DateFormat.MMMd().format(sleep) + ", " + DateFormat.y().format(sleep),overflow: TextOverflow.visible),
+                    Text(DateFormat.jm().format(sleep),overflow: TextOverflow.visible),
+                  ],
+                )),
+              ),
+              Container(
+                color: Colors.blueAccent,
+                child: Padding(padding: EdgeInsets.all(5), child: Column(
+                  children: <Widget>[
+                    Text(DateFormat.MMMd().format(wake) + ", " + DateFormat.y().format(wake),overflow: TextOverflow.visible),
+                    Text(DateFormat.jm().format(wake),overflow: TextOverflow.visible),
+                  ],
+                )),
+              ),
             ],
           ),
           Text("Quality: " + quality.toString(),overflow: TextOverflow.visible),
