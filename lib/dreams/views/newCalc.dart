@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../utils/dreams_constant.dart';
 import 'package:units/database.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 
@@ -18,7 +17,7 @@ class CalcPage extends StatefulWidget {
   // case the title) provided by the parent (in this case the App widget) and
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
-  SleepData database;
+  SleepData database = new SleepData("data.csv");
 
   @override
   _CalcPageState createState() => _CalcPageState();
