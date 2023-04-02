@@ -30,10 +30,14 @@ class _CalcPageState extends State<CalcPage> {
   TimeOfDay _endTime = TimeOfDay.fromDateTime(DateTime.now().add(const Duration(hours: 3)));
   double cycle = 90.00;
   double value = 16;
+  List<Widget> modes = [];
 
 
   @override
   void initState() {
+    modes += modeABuilder();
+    modes += modeBBuilder();
+    modes += modeCBuilder();
     super.initState();
   }
 
@@ -43,57 +47,20 @@ class _CalcPageState extends State<CalcPage> {
       appBar: AppBar(
         title: Text('Sleep Calculator'),
       ),
-      body: ListView(children: [
-        Slider(
-          value: value,
-          label: value.round().toString(),
-          activeColor: Colors.red,
-          inactiveColor: Colors.red.shade100,
-          min: 0,
-          max: 16,
-          divisions: 16,
-          onChanged: (value) => setState(() => this.value = value),
-      ),
-        ElevatedButton(
-          onPressed: () async {
-            TimeRange? result = await showTimeRangePicker(
-              context: context,
-              rotateLabels: false,
-              ticks: 12,
-              ticksColor: Colors.grey,
-              ticksOffset: -12,
-              labels: [
-                "24 ",
-                "3 ",
-                "6 ",
-                "9 ",
-                "12 ",
-                "15 ",
-                "18 ",
-                "21 "
-              ].asMap().entries.map((e) {
-                return ClockLabel.fromIndex(
-                    idx: e.key, length: 8   , text: e.value);
-              }).toList(),
-              labelOffset: -30,
-              padding: 55,
-              start: const TimeOfDay(hour: 12, minute: 0),
-              end: const TimeOfDay(hour: 18, minute: 0),
-              /**
-              disabledTime: TimeRange(
-                startTime: const TimeOfDay(hour: 4, minute: 0),
-                endTime: const TimeOfDay(hour: 10, minute: 0),
-              ),
-                  **/
-              maxDuration: const Duration(hours: 6),
-            );
-
-            if (kDebugMode) {
-              print("result $result");
-            }
+      body:
+        Expanded(child: ListView.separated(
+          padding: const EdgeInsets.all(8),
+          itemCount: 3,
+          itemBuilder: (BuildContext context, int index)
+          {
+          return Container(
+          color: Colors.blueAccent,
+          child: modes[index],
+          );
           },
-          child: const Text("Sleep Cycle"),
-        ),
+          separatorBuilder: (BuildContext context, int index) => const Divider(),
+          addAutomaticKeepAlives: false,
+        ));
       ]),
     );
   }
