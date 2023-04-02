@@ -19,8 +19,11 @@ class _CreateLogPageState extends State<CreateLogPage>  {
     super.initState();
   }
 
-  var _rating = 0.0;
+  double rating = 0;
+  var myController = TextEditingController();
   DateTime selectedDate = DateTime.now();
+  TimeRange selectedTime = TimeRange(startTime: TimeOfDay.now(), endTime: TimeOfDay.now());
+
 
 
   @override
@@ -37,6 +40,14 @@ class _CreateLogPageState extends State<CreateLogPage>  {
         setState(() {
           selectedDate = picked;
         });
+    }
+
+    _createLog(DateTime selectedDate, TimeRange selectedTime, double rating, var myController) async  {
+      String tempString = myController.text;
+      DateTime sleep = DateTime(selectedDate.year, selectedDate.month, selectedDate.day, selectedTime.startTime.hour, selectedTime.startTime.minute);
+      DateTime wake = DateTime(selectedDate.year, selectedDate.month, selectedDate.day, selectedTime.endTime.hour, selectedTime.endTime.minute);
+      widget.database.addEvent(sleep, wake: wake, quality: rating.toInt(), dream: myController.text);
+      Navigator.pop(context);
     }
 
     return Scaffold(
@@ -70,7 +81,9 @@ class _CreateLogPageState extends State<CreateLogPage>  {
                         primary: Colors.blueAccent
                     ),
                     child: Text('Enter Your Sleep Time'),
-                    onPressed: () => showTimeRangePicker(context: context)
+                    onPressed: () async  {
+                      selectedTime = await showTimeRangePicker(context: context);
+                }
                 ),
               ),
               Padding(
@@ -80,9 +93,9 @@ class _CreateLogPageState extends State<CreateLogPage>  {
                   maxRating: 5,
                   initialRating: 3,
                   allowHalfRating: false,
-                  onRatingUpdate: (rating)  {
+                  onRatingUpdate: (rate)  {
                     setState(() {
-                      _rating = rating;
+                      rating = rate;
                     });
                   },
                   ratingWidget: RatingWidget(
@@ -105,7 +118,18 @@ class _CreateLogPageState extends State<CreateLogPage>  {
                         border: OutlineInputBorder(),
                         labelText: 'Write about your dreams/nightmares'
                     ),
+                    controller: myController,
                   )
+              ),
+              Padding(
+                padding:EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.blueAccent
+                    ),
+                    child: Text('Done'),
+                    onPressed: () => _createLog(selectedDate, selectedTime, rating, myController)
+                ),
               ),
             ],
           )
