@@ -11,7 +11,7 @@ class SleepEvent {
   int quality = 0; // 1-5 scale
   String dream = ""; // "" if none given
 
-  SleepEvent(int num, DateTime start, {DateTime? end, int? Quality = 0, String? Dream = ""})
+  SleepEvent(int num, DateTime start, {DateTime? end, int? Quality, String? Dream})
   {
     eventNumber = num;
     sleep = start;
