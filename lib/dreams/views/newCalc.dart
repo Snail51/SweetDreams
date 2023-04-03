@@ -27,8 +27,7 @@ class CalcPage extends StatefulWidget {
   class _CalcPageState extends State<CalcPage> {
 
     TimeOfDay _startTime = TimeOfDay.now();
-    TimeOfDay _endTime = TimeOfDay.fromDateTime(
-        DateTime.now().add(const Duration(hours: 3)));
+    TimeOfDay _endTime = TimeOfDay.fromDateTime(DateTime.now().add(const Duration(hours: 3)));
     double cycleLength = 90.00;
     double maxSleepCycle = 16;
     double? cycles;
@@ -272,7 +271,7 @@ class CalcPage extends StatefulWidget {
   }
 }
 
-// copy and pasted from my main computer
+
 
 
 
