@@ -141,15 +141,9 @@ class CalcPage extends StatefulWidget {
                 if (picked != null) {
                   setState(() {
                     fixedSleep = DateTime(
-                      DateTime
-                          .now()
-                          .year,
-                      DateTime
-                          .now()
-                          .month,
-                      DateTime
-                          .now()
-                          .day,
+                      DateTime.now().year,
+                      DateTime.now().month,
+                      DateTime.now().day,
                       picked.hour,
                       picked.minute,
                     );
