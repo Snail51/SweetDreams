@@ -20,7 +20,7 @@ class _SoundsPageState extends State<SoundsPage>  {
   @override
   void initState() {
     players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
-    players.add(WidgetAudioPlayer("One", "test_two.mp3", Icon(Icons.cloud)));
+    players.add(WidgetAudioPlayer("One", "test_two.mp3", Icon(Icons.sunny)));
     for(int i = 0; i < players.length; i++)
       {
         displayables.add(players[i].toWidget());

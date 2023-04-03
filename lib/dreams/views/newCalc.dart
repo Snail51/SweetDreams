@@ -36,10 +36,10 @@ class _CalcPageState extends State<CalcPage> {
   @override
   void initState() {
     /**
-    modes += modeABuilder();
-    modes += modeBBuilder();
-    modes += modeCBuilder();
-        */
+    modes += modeWake();
+    modes += modeSleep();
+    modes += modeCycles();
+     */
     super.initState();
   }
 
