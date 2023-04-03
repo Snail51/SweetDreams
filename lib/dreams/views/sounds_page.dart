@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:units/database.dart';
+import 'package:units/widgetaudioplayer.dart';
 
 class SoundsPage extends StatefulWidget {
 
@@ -12,8 +13,18 @@ class SoundsPage extends StatefulWidget {
 }
 
 class _SoundsPageState extends State<SoundsPage>  {
+  List<WidgetAudioPlayer> players = [];
+  List<Widget> displayables = [];
+
+
   @override
   void initState() {
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
+    players.add(WidgetAudioPlayer("One", "test_two.mp3", Icon(Icons.sunny)));
+    for(int i = 0; i < players.length; i++)
+      {
+        displayables.add(players[i].toWidget());
+      }
     super.initState();
   }
   @override
@@ -27,9 +38,7 @@ class _SoundsPageState extends State<SoundsPage>  {
       backgroundColor: Colors.white,
       body: Center(
           child: Column(
-            children: <Widget>[
-              //Insert the build within here
-            ],
+            children: displayables,
           )
       ),
     );
