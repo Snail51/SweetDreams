@@ -11,7 +11,7 @@ class SleepEvent {
   int quality = 0; // 1-5 scale
   String dream = ""; // "" if none given
 
-  SleepEvent(int num, DateTime start, {DateTime? end, int? quality = 0, String? dream = ""})
+  SleepEvent(int num, DateTime start, {DateTime? end, int? Quality, String? Dream})
   {
     eventNumber = num;
     sleep = start;
@@ -23,8 +23,11 @@ class SleepEvent {
     {
       wake = end;
     }
-    quality = quality;
-    dream = dream;
+    quality = Quality!;
+    //print("Quality Added: " + quality.toString());
+    //print("Event Created");
+    dream = Dream!;
+    //print("Dream: " + dream!);
   }
 
   void set({int? num, DateTime? start, DateTime? end, int? quality, String? dream}) // dynamic setter.
@@ -43,12 +46,14 @@ class SleepEvent {
       }
     if((quality != null)&&(quality >= 1)&&(quality <= 5))
       {
+
         quality = quality;
       }
     if(dream != null)
       {
         dream = dream;
       }
+
   }
 
   @override
@@ -139,9 +144,11 @@ class SleepData {
     try {
 
       final Directory directory = await getApplicationDocumentsDirectory();
-      print("Found File");
+
       //print(directory.toString());
       final File file = File('${directory.path}/$dir');
+
+
       text = await file.readAsString();
 
       //print("file Content read: " + text);
@@ -149,10 +156,11 @@ class SleepData {
       //OPEN THE FILE
       final entries = text.split('\n');
       int length = entries.length;
-      //print("Entries: "+ length.toString());
+      //print("Entries in file: "+ length.toString());
+
       for(int i=0; i < length; i++) {
         if ((i != length - 1)) {
-          print("Entry[" +i.toString() + "]: " + entries[i]);
+          //print("Entry[" +i.toString() + "]: " + entries[i]);
           final line = entries[i].split(',');
           int index = int.parse(line[0]);
           DateTime start = DateTime.parse(line[1]);
@@ -161,6 +169,7 @@ class SleepData {
           String dream = line[4];
           addEvent(start, wake:end, quality:qual, dream:dream);
         }
+        //print("Found File (_read) \n" + '${directory.path}/$dir');
       }
       //WHILE HAS NOT REACHED EOF, ADVANCE ONE LINE
       //extract event Int from substr
@@ -172,14 +181,15 @@ class SleepData {
       //goto start of while
 
     } catch (e) {
-      print("Couldn't read file");
+      print("Couldn't read file (_read)");
     }
     return text;
   }
 
   void addEvent(DateTime sleep, {DateTime? wake = null, int? quality = 0, String? dream = ""}) //adds a sleep event at the last index of the database. A DateTime for the start of the sleep is required but other parameters are optional and will default.
   {
-    database.add(SleepEvent(database.length, sleep, end: wake, quality: quality, dream: dream));
+    database.add(SleepEvent(database.length, sleep, end: wake, Quality: quality, Dream: dream));
+
   }
 
   SleepEvent? delEvent(int index) //Deletes the event at the specified index, returning it. Returns null if no such event exists
@@ -259,6 +269,7 @@ class SleepData {
     final Directory directory = await getApplicationDocumentsDirectory();
     final File file = File('${directory.path}/$dir');
     await file.writeAsString(text);
+    //print("saved at " + '${directory.path}/$dir');
   }
 
 

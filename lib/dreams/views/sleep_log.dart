@@ -8,8 +8,12 @@ import 'package:units/database.dart';
 
 class SleepLogPage extends StatefulWidget {
 
-  SleepLogPage({Key? key, required this.database}) : super (key: key);
-  SleepData database = SleepData(filename: "data.csv");
+  String fileLocation = "";
+  SleepLogPage({Key? key, required this.database, required String file}) : super (key: key) {
+    fileLocation = file;
+  }
+
+  SleepData database = SleepData();
 
   @override
   _SleepLogPageState createState() => _SleepLogPageState();
@@ -97,7 +101,8 @@ class _SleepLogPageState extends State<SleepLogPage> {
   void editEvent(int index)
   {
     print("MESSAGE" + index.toString());
-    //widget.database.save("data.csv");
+
+
   }
 
   void nullDateSelection()
@@ -146,6 +151,8 @@ class _SleepLogPageState extends State<SleepLogPage> {
               ),
               child: Text('Create New Log'),
               onPressed: () {
+                //widget.database.addEvent(DateTime.now().subtract(Duration(hours: 3)),wake: DateTime.now().add(Duration(hours: 3)),quality: 3, dream: "Test Dream Description");
+                //widget.database.save(widget.fileLocation);
                 Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLogPage(database: widget.database)));
                 },
             ),

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:units/database.dart';
+import 'package:time_range_picker/time_range_picker.dart';
 
 class CreateLogPage extends StatefulWidget {
 
@@ -18,10 +19,13 @@ class _CreateLogPageState extends State<CreateLogPage>  {
     super.initState();
   }
 
-  var _rating = 0.0;
+  double rating = 0;
+  var myController = TextEditingController();
   DateTime selectedDate = DateTime.now();
+  TimeRange selectedTime = TimeRange(startTime: TimeOfDay.now(), endTime: TimeOfDay.now());
 
-
+  String labelSelectDate = "Select a Date";
+  String labelSelectTimeRange = "Enter Your Sleep Time";
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +41,28 @@ class _CreateLogPageState extends State<CreateLogPage>  {
         setState(() {
           selectedDate = picked;
         });
+      labelSelectDate = selectedDate.toString();
+    }
+
+    _selectTimeRange(BuildContext context) async{
+      final TimeRange? picked = await showTimeRangePicker(
+          context: context
+      );
+      if (picked != null)
+        {
+          setState(() {
+            selectedTime = picked;
+          });
+        }
+      labelSelectTimeRange = selectedTime.toString();
+    }
+
+    _createLog(DateTime selectedDate, TimeRange selectedTime, double rating, var myController) async  {
+      String tempString = myController.text;
+      DateTime sleep = DateTime(selectedDate.year, selectedDate.month, selectedDate.day, selectedTime.startTime.hour, selectedTime.startTime.minute);
+      DateTime wake = DateTime(selectedDate.year, selectedDate.month, selectedDate.day, selectedTime.endTime.hour, selectedTime.endTime.minute);
+      widget.database.addEvent(sleep, wake: wake, quality: rating.toInt(), dream: myController.text);
+      Navigator.pop(context);
     }
 
     return Scaffold(
@@ -56,11 +82,21 @@ class _CreateLogPageState extends State<CreateLogPage>  {
               Padding(
                 padding:EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.blueAccent
-                  ),
-                  child: Text('Select a Date'),
-                  onPressed: () => _selectDate(context)
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.blueAccent
+                    ),
+                    child: Text(labelSelectDate),
+                    onPressed: () => _selectDate(context)
+                ),
+              ),
+              Padding(
+                padding:EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.blueAccent
+                    ),
+                    child: Text(labelSelectTimeRange),
+                    onPressed: () => _selectTimeRange(context)
                 ),
               ),
               Padding(
@@ -70,11 +106,11 @@ class _CreateLogPageState extends State<CreateLogPage>  {
                   maxRating: 5,
                   initialRating: 3,
                   allowHalfRating: false,
-                  onRatingUpdate: (rating)  {
+                  onRatingUpdate: (rate)  {
                     setState(() {
-                      _rating = rating;
+                      rating = rate;
                     });
-                    },
+                  },
                   ratingWidget: RatingWidget(
                       full: Icon(
                         Icons.star,
@@ -89,13 +125,24 @@ class _CreateLogPageState extends State<CreateLogPage>  {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
-                child: TextField(
-                  decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Write about your dreams/nightmares'
-                  ),
-                )
+                  padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
+                  child: TextField(
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Write about your dreams/nightmares'
+                    ),
+                    controller: myController,
+                  )
+              ),
+              Padding(
+                padding:EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.blueAccent
+                    ),
+                    child: Text('Done'),
+                    onPressed: () => _createLog(selectedDate, selectedTime, rating, myController)
+                ),
               ),
             ],
           )
