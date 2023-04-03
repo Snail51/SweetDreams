@@ -98,8 +98,6 @@ class CalcPage extends StatefulWidget {
           ),
           if (fixedWake != null) ...[
             Text('Selected Wake Time: ${fixedWake!.format(context)}'),
-            Text('Best time to sleep: ${bestSleepTime!.format(context)}'),
-            Text('Best time to Wake up: ${bestWakeTime!.format(context)}'),
           ],
           SizedBox(height: 16),
           Text('Select Wakeup time range:'),
@@ -170,7 +168,6 @@ class CalcPage extends StatefulWidget {
             if (bestWakeTime != null && bestSleepTime != null)
               Column(
                 children: [
-                  Text('Best time to sleep: ${bestSleepTime!.hour}:${bestSleepTime!.minute}'),
                   Text('Best time to Wake up: ${bestWakeTime!.hour}:${bestWakeTime!.minute}')
                 ],
               )
@@ -281,6 +278,8 @@ class CalcPage extends StatefulWidget {
     );
   }
 }
+
+// copy and pasted from my main computer
 
 
 
