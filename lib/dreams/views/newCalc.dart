@@ -27,7 +27,8 @@ class CalcPage extends StatefulWidget {
   class _CalcPageState extends State<CalcPage> {
 
     TimeOfDay _startTime = TimeOfDay.now();
-    TimeOfDay _endTime = TimeOfDay.fromDateTime(DateTime.now().add(const Duration(hours: 3)));
+    TimeOfDay _endTime = TimeOfDay.fromDateTime(
+        DateTime.now().add(const Duration(hours: 3)));
     double cycleLength = 90.00;
     double maxSleepCycle = 16;
     double? cycles;
@@ -61,112 +62,110 @@ class CalcPage extends StatefulWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Select Fixed Wake Time:'),
-          Row(
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  final picked = await showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay.now(),
-                  );
-                  if (picked != null) {
-                    setState(() {
-                      updateWakeTime(picked);
-                    });
-                  }
-                },
-                child: Text('Select Time'),
-              ),
-              SizedBox(width: 8),
-              DropdownButton<String>(
-                value: fixedWake?.period == DayPeriod.am ? 'AM' : 'PM',
-                onChanged: (value) {
-                  setState(() {
-                    final period = value == 'AM' ? DayPeriod.am : DayPeriod.pm;
-                    final time = TimeOfDay(hour: fixedWake!.hour, minute: fixedWake!.minute);
-                    updateWakeTime(time.replacing(period: period));
-                  });
-                },
-                items: ['AM', 'PM']
-                    .map((value) => DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                ))
-                    .toList(),
-              ),
-            ],
-          ),
-          if (fixedWake != null) ...[
-            Text('Selected Wake Time: ${fixedWake!.format(context)}'),
-          ],
-          SizedBox(height: 16),
-          Text('Select Wakeup time range:'),
           ElevatedButton(
             onPressed: () async {
-              final picked = await showTimeRangePicker(
+              final picked = await showTimePicker(
                 context: context,
-                start: TimeOfDay(hour: 6, minute: 0),
-                end: TimeOfDay(hour: 12, minute: 0),
-                interval: Duration(minutes: 30),
+                initialTime: TimeOfDay.now(),
               );
               if (picked != null) {
                 setState(() {
-                  updateWakeTime(picked.start);
+                  updateWakeTime(picked);
                 });
               }
             },
-            child: Text('Select Time Range'),
+            child: Text('Select Time'),
           ),
+          if (fixedWake != null) ...[
+            SizedBox(height: 16),
+            Text('Selected Wake Time: ${fixedWake!.format(context)}'),
+            SizedBox(height: 16),
+            Text('Select Wakeup time range:'),
+            TimeRangePicker(
+              startTime: fixedWake!,
+              endTime: fixedWake!.add(Duration(hours: 6)),
+              interval: Duration(minutes: 30),
+              onRangeChanged: (start, end) {
+                // Check if the user is trying to turn clockwise
+                if (end.isAfter(fixedWake!) || end == fixedWake!) {
+                  // If so, set the end time to the maximum allowed time (6 hours after the wake time)
+                  setState(() {
+                    end = fixedWake!.add(Duration(hours: 6));
+                  });
+                }
+                setState(() {
+                  // Set the start time to the closest multiple of the sleep cycle before the end time
+                  final cyclesCount = ((end.difference(fixedWake!) - cycleLength) / cycleLength).floor();
+                  start = end.subtract(cycleLength * cyclesCount);
+                  updateWakeTime(start);
+                });
+              },
+            ),
+          ],
         ],
       );
     }
 
     Widget modeSleep() {
-      return Container(
+      final now = DateTime.now();
+      final sleepCycle = 90;
+      final maxCycles = 16;
+      final cycleLength = Duration(minutes: sleepCycle);
+      DateTime? fixedSleep;
+      DateTime? bestSleepTime;
+      DateTime? bestWakeTime;
 
-        /**
-         * create time picker for fixed sleep; fixed wake and cycles set to null
-         * starting point will be set to fixed sleep
-         * time range picker outputs to text
-         */
-        child: Column(
-          children: [
-            Text('Select Fixed Sleep Time:'),
-            ElevatedButton(
-              onPressed: () async {
-                final TimeOfDay? picked = await showTimePicker(
-                  context: context,
-                  initialTime: _endTime,
-                );
-                if (picked != null) {
+      void updateSleepTime(TimeOfDay time) {
+        fixedSleep = DateTime(now.year, now.month, now.day, time.hour, time.minute);
+        bestSleepTime = fixedSleep!.subtract(cycleLength * maxCycles);
+        bestWakeTime = fixedSleep!.add(cycleLength * maxCycles);
+      }
+
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Select Fixed Sleep Time:'),
+          ElevatedButton(
+            onPressed: () async {
+              final picked = await showTimePicker(
+                context: context,
+                initialTime: TimeOfDay.now(),
+              );
+              if (picked != null) {
+                setState(() {
+                  updateSleepTime(picked);
+                });
+              }
+            },
+            child: Text('Select Time'),
+          ),
+          if (fixedSleep != null) ...[
+            SizedBox(height: 16),
+            Text('Selected Sleep Time: ${fixedSleep!.format(context)}'),
+            SizedBox(height: 16),
+            Text('Select Sleep time range:'),
+            TimeRangePicker(
+              startTime: fixedSleep!.subtract(Duration(hours: 6)),
+              endTime: fixedSleep!,
+              interval: Duration(minutes: 30),
+              onRangeChanged: (start, end) {
+                // Check if the user is trying to turn clockwise
+                if (start.isBefore(fixedSleep!) || start == fixedSleep!) {
+                  // If so, set the start time to the minimum allowed time (6 hours before the sleep time)
                   setState(() {
-                    fixedSleep = DateTime(
-                      DateTime.now().year,
-                      DateTime.now().month,
-                      DateTime.now().day,
-                      picked.hour,
-                      picked.minute,
-                    );
-                    fixedWake = null;
-                    cycles = null;
-                    _startTime = picked;
-                    bestSleepTime = fixedSleep;
-                    bestWakeTime = fixedSleep!.add(Duration(minutes: (cycles! * cycleLength).toInt()));
+                    start = fixedSleep!.subtract(Duration(hours: 6));
                   });
                 }
+                setState(() {
+                  // Set the end time to the closest multiple of the sleep cycle after the start time
+                  final cyclesCount = ((fixedSleep!.difference(start) - cycleLength) / cycleLength).floor();
+                  end = start.add(cycleLength * cyclesCount);
+                  updateSleepTime(end);
+                });
               },
-              child: Text('Select Time'),
             ),
-            if (fixedSleep != null)
-              Text('Selected Sleep Time: ${fixedSleep!.hour}:${fixedSleep!.minute}'),
-            if (bestWakeTime != null && bestSleepTime != null)
-              Column(
-                children: [
-                  Text('Best time to Wake up: ${bestWakeTime!.hour}:${bestWakeTime!.minute}')
-                ],
-              )
           ],
-        ),
+        ],
       );
     }
     Widget modeCycles() {
