@@ -35,9 +35,11 @@ class _CalcPageState extends State<CalcPage> {
 
   @override
   void initState() {
+    /**
     modes += modeABuilder();
     modes += modeBBuilder();
     modes += modeCBuilder();
+        */
     super.initState();
   }
 
@@ -53,16 +55,16 @@ class _CalcPageState extends State<CalcPage> {
           itemCount: 3,
           itemBuilder: (BuildContext context, int index)
           {
-          return Container(
-          color: Colors.blueAccent,
-          child: modes[index],
-          );
+          return Container
+            (
+              color: Colors.blueAccent,
+              child: modes[index],
+            );
           },
           separatorBuilder: (BuildContext context, int index) => const Divider(),
           addAutomaticKeepAlives: false,
-        ));
-      ]),
-    );
+        )),
+      );
   }
 }
 
