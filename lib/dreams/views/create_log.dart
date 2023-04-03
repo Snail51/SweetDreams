@@ -24,7 +24,8 @@ class _CreateLogPageState extends State<CreateLogPage>  {
   DateTime selectedDate = DateTime.now();
   TimeRange selectedTime = TimeRange(startTime: TimeOfDay.now(), endTime: TimeOfDay.now());
 
-
+  String labelSelectDate = "Select a Date";
+  String labelSelectTimeRange = "Enter Your Sleep Time";
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +41,20 @@ class _CreateLogPageState extends State<CreateLogPage>  {
         setState(() {
           selectedDate = picked;
         });
+      labelSelectDate = selectedDate.toString();
+    }
+
+    _selectTimeRange(BuildContext context) async{
+      final TimeRange? picked = await showTimeRangePicker(
+          context: context
+      );
+      if (picked != null)
+        {
+          setState(() {
+            selectedTime = picked;
+          });
+        }
+      labelSelectTimeRange = selectedTime.toString();
     }
 
     _createLog(DateTime selectedDate, TimeRange selectedTime, double rating, var myController) async  {
@@ -70,7 +85,7 @@ class _CreateLogPageState extends State<CreateLogPage>  {
                     style: ElevatedButton.styleFrom(
                         primary: Colors.blueAccent
                     ),
-                    child: Text('Select a Date'),
+                    child: Text(labelSelectDate),
                     onPressed: () => _selectDate(context)
                 ),
               ),
@@ -80,10 +95,8 @@ class _CreateLogPageState extends State<CreateLogPage>  {
                     style: ElevatedButton.styleFrom(
                         primary: Colors.blueAccent
                     ),
-                    child: Text('Enter Your Sleep Time'),
-                    onPressed: () async  {
-                      selectedTime = await showTimeRangePicker(context: context);
-                }
+                    child: Text(labelSelectTimeRange),
+                    onPressed: () => _selectTimeRange(context)
                 ),
               ),
               Padding(
