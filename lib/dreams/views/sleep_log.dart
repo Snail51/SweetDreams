@@ -63,9 +63,10 @@ class _SleepLogPageState extends State<SleepLogPage> {
                 Flex(direction: Axis.horizontal,
                     children: [widget.database.getData(index: i)[0].toWidget()]),
                 IconButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(
+                    onPressed: () async{
+                      await Navigator.push(context, MaterialPageRoute(
                           builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0])));
+                      nullDateSelection();
                     },
                     //=> editEvent(i),
                     icon: const Icon(Icons.edit)),
@@ -80,9 +81,10 @@ class _SleepLogPageState extends State<SleepLogPage> {
             Flex(direction: Axis.horizontal,
                 children: [widget.database.getData(index: i)[0].toWidget()]),
             IconButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(
+                onPressed: () async{
+                  await Navigator.push(context, MaterialPageRoute(
                       builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0])));
+                  nullDateSelection();
                 },
                 icon: const Icon(Icons.edit)),
           ],
@@ -158,8 +160,9 @@ class _SleepLogPageState extends State<SleepLogPage> {
                   primary: Colors.blueAccent
               ),
               child: Text('Create New Log'),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLogPage(database: widget.database)));
+              onPressed: () async{
+                await Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLogPage(database: widget.database)));
+                nullDateSelection();
                 },
             ),
             Row(
