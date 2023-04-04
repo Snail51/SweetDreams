@@ -17,7 +17,7 @@ class CalcPage extends StatefulWidget {
   // case the title) provided by the parent (in this case the App widget) and
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
-  SleepData database = new SleepData(filename: "data.csv");
+  SleepData database;
 
   @override
   _CalcPageState createState() => _CalcPageState();
@@ -47,24 +47,31 @@ class _CalcPageState extends State<CalcPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text('Sleep Calculator'),
+        backgroundColor: Colors.blueAccent.shade700,
       ),
-      body:
-        Expanded(child: ListView.separated(
-          padding: const EdgeInsets.all(8),
-          itemCount: 3,
-          itemBuilder: (BuildContext context, int index)
-          {
-          return Container
-            (
-              color: Colors.blueAccent,
-              child: modes[index],
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) => const Divider(),
-          addAutomaticKeepAlives: false,
-        )),
-      );
+      backgroundColor: Colors.white,
+        body: Center(
+            child: Column(
+              children: <Widget>[
+                Expanded(child: ListView.separated(
+                  padding: const EdgeInsets.all(8),
+                  itemCount: 3,
+                  itemBuilder: (BuildContext context, int index)
+                  {
+                    return Container(
+                      color: Colors.blueAccent,
+                      child: modes[index],
+                    );
+                    },
+                  separatorBuilder: (BuildContext context, int index) => const Divider(),
+                  addAutomaticKeepAlives: false,
+                )),
+              ],
+            )
+        )
+    );
   }
 }
 
