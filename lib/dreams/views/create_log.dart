@@ -55,11 +55,11 @@ class _CreateLogPageState extends State<CreateLogPage>  {
           context: context
       );
       if (picked != null)
-        {
-          setState(() {
-            selectedTime = picked;
-          });
-        }
+      {
+        setState(() {
+          selectedTime = picked;
+        });
+      }
       labelSelectTimeRange = selectedTime.startTime.hour.toString() + ":" + selectedTime.startTime.minute.toString() + " - "
           + selectedTime.endTime.hour.toString() + ":" + selectedTime.endTime.minute.toString();
     }

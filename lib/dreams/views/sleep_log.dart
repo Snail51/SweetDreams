@@ -34,13 +34,13 @@ class _SleepLogPageState extends State<SleepLogPage> {
     Duration diff = first.difference(second);
     diff = diff.abs();
     if(diff.inDays <= 1)
-      {
-        return true;
-      }
+    {
+      return true;
+    }
     else
-      {
-        return false;
-      }
+    {
+      return false;
+    }
 
   }
 
@@ -54,26 +54,26 @@ class _SleepLogPageState extends State<SleepLogPage> {
     for (int i = 0; i < widget.database.getData().length; i++)
     {
       if(selectedDate != returnEpoch())
+      {
+        if(isOnSameDay(widget.database.getData()[i].sleep, selectedDate))
         {
-          if(isOnSameDay(widget.database.getData()[i].sleep, selectedDate))
-          {
-            content.add(Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Flex(direction: Axis.horizontal,
-                    children: [widget.database.getData(index: i)[0].toWidget()]),
-                IconButton(
-                    onPressed: () async{
-                      await Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0])));
-                      nullDateSelection();
-                    },
-                    //=> editEvent(i),
-                    icon: const Icon(Icons.edit)),
-              ],
-            ),);
-          }
+          content.add(Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Flex(direction: Axis.horizontal,
+                  children: [widget.database.getData(index: i)[0].toWidget()]),
+              IconButton(
+                  onPressed: () async{
+                    await Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0])));
+                    nullDateSelection();
+                  },
+                  //=> editEvent(i),
+                  icon: const Icon(Icons.edit)),
+            ],
+          ),);
         }
+      }
       else {
         content.add(Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -92,18 +92,18 @@ class _SleepLogPageState extends State<SleepLogPage> {
       }
     }
     return Expanded(child: ListView.separated(
-        padding: const EdgeInsets.all(8),
-        itemCount: content.length,
-        itemBuilder: (BuildContext context, int index)
-        {
-          return Container(
+      padding: const EdgeInsets.all(8),
+      itemCount: content.length,
+      itemBuilder: (BuildContext context, int index)
+      {
+        return Container(
           height: 100,
           color: Colors.blueAccent,
           child: content[index],
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) => const Divider(),
-        addAutomaticKeepAlives: false,
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) => const Divider(),
+      addAutomaticKeepAlives: false,
     ));
 
   }
@@ -163,7 +163,7 @@ class _SleepLogPageState extends State<SleepLogPage> {
               onPressed: () async{
                 await Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLogPage(database: widget.database)));
                 nullDateSelection();
-                },
+              },
             ),
             Padding(
               padding: EdgeInsets.only(left: 47),

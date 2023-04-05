@@ -33,26 +33,26 @@ class SleepEvent {
   void set({int? num, DateTime? Start, DateTime? End, int? Quality, String? Dream}) // dynamic setter.
   {
     if(num != null)
-      {
-        eventNumber = num;
-      }
+    {
+      eventNumber = num;
+    }
     if(Start != null)
-      {
-        sleep = Start;
-      }
+    {
+      sleep = Start;
+    }
     if(End != null)
-      {
-        wake = End;
-      }
+    {
+      wake = End;
+    }
     if((Quality != null)&&(Quality >= 0)&&(Quality <= 5))
-      {
+    {
 
-        quality = Quality;
-      }
+      quality = Quality;
+    }
     if(Dream != null)
-      {
-        dream = Dream;
-      }
+    {
+      dream = Dream;
+    }
 
   }
 
@@ -66,24 +66,24 @@ class SleepEvent {
 
     composite += "Your rating of the quality of your Sleep: ";
     if(quality == 0)
-      {
-        composite += "Not Given\n";
-      }
+    {
+      composite += "Not Given\n";
+    }
     else
-      {
-        composite += quality.toString() + "\n";
-      }
+    {
+      composite += quality.toString() + "\n";
+    }
 
     composite += "---------------------------\n";
     composite += "Dreams you had that night:\n";
     if(dream == "")
-      {
+    {
       composite += "\tNone.\n";
-      }
+    }
     else
-      {
-        composite += "\t" + dream + "\n";
-      }
+    {
+      composite += "\t" + dream + "\n";
+    }
 
     composite += "=======================\n";
 
@@ -93,7 +93,7 @@ class SleepEvent {
   Widget toWidget()
   {
     return Center(child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -243,15 +243,15 @@ class SleepData {
   List<SleepEvent> getData({int? index}) // Returns the full database list UNLESS an index is provided as an integer, in which case a list containing just that entry is returned
   {
     if(index == null)
-      {
-        return database;
-      }
+    {
+      return database;
+    }
     else
-      {
-        List<SleepEvent> tmp = [];
-        tmp.add(database[index]);
-        return tmp;
-      }
+    {
+      List<SleepEvent> tmp = [];
+      tmp.add(database[index]);
+      return tmp;
+    }
   }
   void save(String dir)
   {
