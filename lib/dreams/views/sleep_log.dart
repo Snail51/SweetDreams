@@ -165,7 +165,10 @@ class _SleepLogPageState extends State<SleepLogPage> {
                 nullDateSelection();
                 },
             ),
-            Row(
+            Padding(
+              padding: EdgeInsets.only(left: 47),
+              child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -176,6 +179,7 @@ class _SleepLogPageState extends State<SleepLogPage> {
                 ),
                 IconButton(onPressed: () => nullDateSelection(), icon: const Icon(Icons.delete_forever), color: Colors.blueAccent,)
               ],
+            ),
             ),
             sleepLogToWidget()
           ],

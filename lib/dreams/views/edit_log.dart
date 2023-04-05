@@ -174,6 +174,19 @@ class _EditLogPageState extends State<EditLogPage>  {
                 ),
               ),
               Padding(
+                padding:EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.blueAccent
+                    ),
+                    child: Text('Delete Log'),
+                    onPressed: () {
+                      widget.database.delEvent(widget.log.eventNumber);
+                      Navigator.pop(context);
+                    }
+                ),
+              ),
+              Padding(
                   padding: EdgeInsets.only(top: 20.0,),
                   child: Text(labelError, style: const TextStyle(
                       fontWeight: FontWeight.bold,
