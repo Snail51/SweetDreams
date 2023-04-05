@@ -45,3 +45,4 @@ app.*.map.json
 
 .medadata
 analysis_options.yaml
+pubspec.lock
