@@ -21,10 +21,19 @@ class _SoundsPageState extends State<SoundsPage> {
   void update()
   {
     setState(() {
-      displayables = [];
+      List<Widget> holder = [];
       for (int i = 0; i < players.length; i++) {
-        displayables.add(players[i].toWidget());
+        if(players[i].needsUpdating)
+          {
+            holder.add(players[i].toWidget());
+            players[i].needsUpdating = false;
+          }
+        else
+          {
+            holder.add(displayables[i]);
+          }
       }
+      displayables = holder;
     });
   }
 

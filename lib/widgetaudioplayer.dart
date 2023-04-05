@@ -14,6 +14,7 @@ class WidgetAudioPlayer
   Color buttonColor = Colors.white70;
   double volume = 1.0;
   final AudioPlayer player = AudioPlayer();
+  bool needsUpdating = true;
 
   WidgetAudioPlayer(String Name, String srcdir, Icon display)
   {
@@ -40,6 +41,7 @@ class WidgetAudioPlayer
 
   void toggle()
   {
+    needsUpdating = true;
     isPlaying = !isPlaying;
     if(isPlaying)
       {
@@ -53,9 +55,9 @@ class WidgetAudioPlayer
 
   void updateVolume(double newVol)
   {
+    needsUpdating = true;
     volume = newVol;
     player.setVolume(volume);
-    print(volume);
   }
 
 
@@ -64,13 +66,13 @@ class WidgetAudioPlayer
     return Container(
       color: Colors.amber,
       height: 150,
-      width: 100,
+      width: 150,
       child: Column(
         children: <Widget>[
           Text(name),
           IconButton(onPressed: toggle, icon: icon),
           Slider(
-            value: volume, onChanged: updateVolume, min: 0, max: 1,)
+            value: volume, onChanged: updateVolume, min: 0, max: 1, label: volume.toString(),)
         ],
       ),
     );
