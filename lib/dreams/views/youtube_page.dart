@@ -34,14 +34,32 @@ class _YoutubePageState extends State<YoutubePage> {
               ListTile(   //Used example from https://code.tutsplus.com/tutorials/how-to-create-lists-in-your-app-with-flutter--cms-36937
                           //by Arooha Arif for reference about making list
               leading:InkWell(
-              onTap: () => launchUrl(Uri.parse('https://youtu.be/P1mVmRxMMak')),
-              child : Text(''),
+              onTap: () => _launchUrl(Uri.parse('https://youtu.be/P1mVmRxMMak')),
+              child : Text('AAAAAAAAAAAAAAAAA'),
 
-              )
+              ),
+
           //title: Text(''),
               ),
               ListTile(
-                title: Text(''),
+                  leading: InkWell(
+                    onTap: () => _launchUrl(Uri.parse('https://youtu.be/P1mVmRxMMak')),
+                    child: Icon(Icons.play_arrow),
+                  ),
+                  title: Text("Video 1"),
+                  subtitle:
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "Here is a description",
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
               ),
               ListTile(
                 title: Text(''),
