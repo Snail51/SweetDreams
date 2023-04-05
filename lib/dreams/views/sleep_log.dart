@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../views/create_log.dart';
 import 'package:units/database.dart';
+import '../views/edit_log.dart';
 
 class SleepLogPage extends StatefulWidget {
 
@@ -62,7 +63,13 @@ class _SleepLogPageState extends State<SleepLogPage> {
               Flex(direction: Axis.horizontal,
                   children: [widget.database.getData(index: i)[0].toWidget()]),
               IconButton(
-                  onPressed: () => editEvent(i), icon: const Icon(Icons.edit)),
+                  onPressed: () async{
+                    await Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0])));
+                    nullDateSelection();
+                  },
+                  //=> editEvent(i),
+                  icon: const Icon(Icons.edit)),
             ],
           ),);
         }
@@ -74,7 +81,12 @@ class _SleepLogPageState extends State<SleepLogPage> {
             Flex(direction: Axis.horizontal,
                 children: [widget.database.getData(index: i)[0].toWidget()]),
             IconButton(
-                onPressed: () => editEvent(i), icon: const Icon(Icons.edit)),
+                onPressed: () async{
+                  await Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0])));
+                  nullDateSelection();
+                },
+                icon: const Icon(Icons.edit)),
           ],
         ),);
       }
@@ -148,10 +160,9 @@ class _SleepLogPageState extends State<SleepLogPage> {
                   primary: Colors.blueAccent
               ),
               child: Text('Create New Log'),
-              onPressed: () {
-                //widget.database.addEvent(DateTime.now().subtract(Duration(hours: 3)),wake: DateTime.now().add(Duration(hours: 3)),quality: 3, dream: "Test Dream Description");
-                //widget.database.save(widget.fileLocation);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLogPage(database: widget.database)));
+              onPressed: () async{
+                await Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLogPage(database: widget.database)));
+                nullDateSelection();
               },
             ),
             Row(

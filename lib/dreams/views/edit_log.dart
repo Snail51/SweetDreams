@@ -4,16 +4,17 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:units/database.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 
-class CreateLogPage extends StatefulWidget {
+class EditLogPage extends StatefulWidget {
 
-  CreateLogPage({Key? key, required this.database}) : super (key: key);
+  EditLogPage({Key? key, required this.database, required this.log}) : super (key: key);
   SleepData database;
+  SleepEvent log;
 
   @override
-  _CreateLogPageState createState() => _CreateLogPageState();
+  _EditLogPageState createState() => _EditLogPageState();
 }
 
-class _CreateLogPageState extends State<CreateLogPage>  {
+class _EditLogPageState extends State<EditLogPage>  {
   @override
   void initState() {
     super.initState();
@@ -23,8 +24,8 @@ class _CreateLogPageState extends State<CreateLogPage>  {
   bool check2 = false;
   bool check3 = false;
   bool check4 = false;
-  double rating = 0;
 
+  double rating = 0;
   var myController = TextEditingController();
   DateTime selectedDate = DateTime.now();
   TimeRange selectedTime = TimeRange(startTime: TimeOfDay.now(), endTime: TimeOfDay.now());
@@ -64,14 +65,21 @@ class _CreateLogPageState extends State<CreateLogPage>  {
           + selectedTime.endTime.hour.toString() + ":" + selectedTime.endTime.minute.toString();
     }
 
-    _createLog(DateTime selectedDate, TimeRange selectedTime, double rating, var myController) async  {
-      if ((check1 != false) && (check2 != false) && (check3 != false) && (check4 != false))  {
-        DateTime sleep = DateTime(selectedDate.year, selectedDate.month, selectedDate.day, selectedTime.startTime.hour, selectedTime.startTime.minute);
-        DateTime wake = DateTime(selectedDate.year, selectedDate.month, selectedDate.day, selectedTime.endTime.hour, selectedTime.endTime.minute);
-        widget.database.addEvent(sleep, wake: wake, quality: rating.toInt(), dream: myController.text);
+    _editLog(DateTime selectedDate, TimeRange selectedTime, double rating, var myController) async  {
+      if ((check1 != false) && (check2 != false) && (check3 != false) && (check4 != false)) {
+        DateTime sleep = DateTime(
+            selectedDate.year, selectedDate.month, selectedDate.day,
+            selectedTime.startTime.hour, selectedTime.startTime.minute);
+        DateTime wake = DateTime(
+            selectedDate.year, selectedDate.month, selectedDate.day,
+            selectedTime.endTime.hour, selectedTime.endTime.minute);
+        widget.database.editEvent(widget.log.eventNumber, Start: sleep,
+            End: wake,
+            Quality: rating.toInt(),
+            Dream: myController.text);
         Navigator.pop(context);
       }
-      else  {
+      else {
         setState(() {
           labelError = "Error: Not all Entries are Filled";
         });
@@ -80,7 +88,7 @@ class _CreateLogPageState extends State<CreateLogPage>  {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("New Log"),
+        title: Text("Edit Log"),
         centerTitle: true,
         backgroundColor: Colors.blueAccent.shade700,
       ),
@@ -90,7 +98,7 @@ class _CreateLogPageState extends State<CreateLogPage>  {
             children: <Widget>[
               Padding(
                   padding: EdgeInsets.only(top: 20.0,),
-                  child: Text("New Log", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
+                  child: Text("Edit Log", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
               ),
               Padding(
                 padding:EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
@@ -162,7 +170,7 @@ class _CreateLogPageState extends State<CreateLogPage>  {
                         primary: Colors.blueAccent
                     ),
                     child: Text('Done'),
-                    onPressed: () => _createLog(selectedDate, selectedTime, rating, myController)
+                    onPressed: () => _editLog(selectedDate, selectedTime, rating, myController)
                 ),
               ),
               Padding(
