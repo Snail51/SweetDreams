@@ -171,37 +171,43 @@ class _CalcPageState extends State<CalcPage> {
 
     void updateSleepTime(TimeOfDay time) {
       fixedSleep = DateTime(now.year, now.month, now.day, time.hour, time.minute);
-      print(fixedSleep.toString());
+      print(fixedWake.toString());
     }
 
     void updateRangePickerButtonLabel(TimeOfDay input) {
       labelRangePickerButton = input.toString();
     }
 
-    content.add(Text("Select Fixed Sleep Time:"));
-    content.add(ElevatedButton(
-      onPressed: () async {
-        final picked = await showTimePicker(
-          context: context,
-          initialTime: TimeOfDay.now(),
-        );
-        print("PICK" + picked.toString());
-        if (picked != null) {
-          setState(() {
-            updateSleepTime(picked);
-          });
-        }
-      },
-      child: Text('Select Time'),
-      style: ElevatedButton.styleFrom(
-        primary: Colors.blueGrey,
-        textStyle: TextStyle(fontSize: 20),
-        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+    content.add(Text("Select Fixed Wake Time:"));
+    content.add(
+      ElevatedButton.icon(
+        onPressed: () async {
+          final picked = await showTimePicker(
+            context: context,
+            initialTime: TimeOfDay.now(),
+          );
+          print("PICK" + picked.toString());
+          if (picked != null) {
+            setState(() {
+              updateSleepTime(picked);
+            });
+          }
+        },
+        icon: Icon(Icons.alarm),
+        label: Text('Select Time'),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.purple,
+          onPrimary: Colors.white,
+          elevation: 5,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
       ),
-    ));
+    );
     content.add(
       SizedBox(
-        width: 300,
+        width: 100,
         height: 100,
         child: Text(
           "Selected Sleep Time: " + (fixedSleep?.toString() ?? ""),
@@ -210,29 +216,27 @@ class _CalcPageState extends State<CalcPage> {
     );
     content.add(
       SizedBox(
-        width: 300,
+        width: 100,
         height: 100,
         child: Text(
-          "Select Sleep Time Range: ",
+          "Select sleep time range: ",
         ),
       ),
     );
     content.add(
       SizedBox(
         height: 100,
-        child: ElevatedButton(
-          child: Text(
-            labelRangePickerButton,
-            style: TextStyle(fontSize: 20),
-          ),
+        child: ElevatedButton.icon(
+          icon: Icon(Icons.access_time),
+          label: Text(labelRangePickerButton),
           onPressed: () async {
             if (fixedSleep == null) {
-              // Show an error message if fixedSleep is not set
+              // Show an error message if fixedWake is not set
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
                   title: Text("Error"),
-                  content: Text("Please select a fixed sleep time first."),
+                  content: Text("Please select a fixed wake time first."),
                 ),
               );
               return;
@@ -257,20 +261,21 @@ class _CalcPageState extends State<CalcPage> {
             );
           },
           style: ElevatedButton.styleFrom(
-            primary: Colors.blueGrey,
-            textStyle: TextStyle(fontSize: 20),
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+            primary: Colors.green,
+            onPrimary: Colors.white,
+            elevation: 5,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
           ),
         ),
       ),
     );
-
-    return Container(
-      child: Column(
-        children: content,
-      ),
+    return Column(
+      children: content,
     );
   }
+
   Widget modeCycles() {
     final sleepCycle = 90;
     final maxCycles = 16;
