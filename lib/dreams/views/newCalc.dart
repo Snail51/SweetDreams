@@ -10,7 +10,9 @@ import 'dart:async';
 
 class CalcPage extends StatefulWidget {
 
-  CalcPage({Key? key}) : super (key: key);
+  CalcPage({Key? key, required this.database}) : super (key: key);
+  SleepData database;
+
 
   @override
   _CalcPageState createState() => _CalcPageState();
