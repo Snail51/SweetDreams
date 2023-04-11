@@ -277,19 +277,13 @@ class CycleWidget {
                 maxRange = (selectedCycles * 6) * sleepCycle.toDouble();
               },
             ),
-            SizedBox(
-              width: 100,
-              height: 100,
-              child: Text(
-                "Selected Cycles: " + selectedCycles.toString(),
-              ),
+            Text(
+              "Selected Cycles: " + selectedCycles.toString(),
+              style: TextStyle(fontSize: 20),
             ),
-            SizedBox(
-              width: 100,
-              height: 100,
-              child: Text(
-                "Select Sleep time range: ",
-              ),
+            Text(
+              "Select Sleep time range: ",
+              style: TextStyle(fontSize: 20),
             ),
             SizedBox(
               height: 100,
