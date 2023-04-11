@@ -71,7 +71,7 @@ class _CalcPageState extends State<CalcPage> { // PAGE CLASS THAT WANTS TO DYNAM
       ),
       backgroundColor: Colors.white,
       body: Center(
-          child: Column(
+          child: ListView(
             children: displayables,
           )
       ),
@@ -81,11 +81,11 @@ class _CalcPageState extends State<CalcPage> { // PAGE CLASS THAT WANTS TO DYNAM
 
 
 
+
+
+
+
 /**
-
-
-
-
 class CalcPage extends StatefulWidget {
   CalcPage({Key? key, required this.database}) : super (key: key);
 
