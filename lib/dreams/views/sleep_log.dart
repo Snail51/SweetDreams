@@ -86,6 +86,7 @@ class _SleepLogPageState extends State<SleepLogPage> {
                       builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0])));
                   nullDateSelection();
                 },
+                color: Colors.white,
                 icon: const Icon(Icons.edit)),
           ],
         ),);
@@ -98,7 +99,7 @@ class _SleepLogPageState extends State<SleepLogPage> {
       {
         return Container(
           height: 100,
-          color: Colors.blueAccent,
+          color: Colors.deepPurple,
           child: content[index],
         );
       },
@@ -132,6 +133,24 @@ class _SleepLogPageState extends State<SleepLogPage> {
         initialDate: DateTime.now(), // Refer step 1
         firstDate: DateTime(2000),
         lastDate: DateTime(2025),
+        builder: (context, child) {
+          return Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: ColorScheme.light(
+                primary: Colors.deepPurple,
+                onPrimary: Colors.white,
+                onSurface: Colors.deepPurple.shade300,
+              ),
+              dialogBackgroundColor: Colors.grey.shade900,
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                  primary: Colors.deepPurple, // button text color
+                ),
+              ),
+            ),
+            child: child!,
+          );
+        },
       );
       if (picked != null && picked != selectedDate)
         setState(() {
@@ -144,20 +163,20 @@ class _SleepLogPageState extends State<SleepLogPage> {
       appBar: AppBar(
         title: Text('Sleep Log'),
         centerTitle: true,
-        backgroundColor: Colors.blueAccent.shade700,
+        backgroundColor: Colors.deepPurple,
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey.shade900,
       body: Container(
         alignment: Alignment.center,
         child: Column(
           children: <Widget>[
             Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                child: Text("Sleep Log", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
+                child: Text("Sleep Log", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.deepPurple), textScaleFactor: 3,)
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  primary: Colors.blueAccent
+                  primary: Colors.deepPurple
               ),
               child: Text('Create New Log'),
               onPressed: () async{
@@ -172,12 +191,12 @@ class _SleepLogPageState extends State<SleepLogPage> {
               children: <Widget>[
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.blueAccent
+                        primary: Colors.deepPurple
                     ),
                     child: Text(labelSelectButton),
                     onPressed: () => _selectDate(context)
                 ),
-                IconButton(onPressed: () => nullDateSelection(), icon: const Icon(Icons.delete_forever), color: Colors.blueAccent,)
+                IconButton(onPressed: () => nullDateSelection(), icon: const Icon(Icons.delete_forever), color: Colors.deepPurple,)
               ],
             ),
             ),

@@ -23,19 +23,24 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         home: Builder(
             builder: (context) => Scaffold(
+              backgroundColor: Colors.grey.shade900,
               appBar: AppBar(
                 title: Text("Sweet Dreams"),
+                backgroundColor: Colors.deepPurple,
               ),
               body: Center(
                   child: Column(
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                        child: Text("Sweet Dreams!",style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
+                        child: Text("Sweet Dreams!",style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.deepPurple),
+                          textScaleFactor: 3,)
                         ,),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: Colors.blueAccent
+                            primary: Colors.deepPurple
                         ),
                         child: Text('Sleep Calculator'),
                         onPressed: () {
@@ -44,7 +49,7 @@ class MyApp extends StatelessWidget {
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: Colors.blueAccent
+                            primary: Colors.deepPurple
                         ),
                         child: Text('Sleep Log'),
                         onPressed: () {
@@ -53,7 +58,7 @@ class MyApp extends StatelessWidget {
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: Colors.blueAccent
+                            primary: Colors.deepPurple
                         ),
                         child: Text('More Info'),
                         onPressed: () {
@@ -62,7 +67,7 @@ class MyApp extends StatelessWidget {
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: Colors.blueAccent
+                            primary: Colors.deepPurple
                         ),
                         child: Text('Sleep Sounds'),
                         onPressed: () {
