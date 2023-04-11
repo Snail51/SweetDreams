@@ -7,12 +7,11 @@ import '../views/edit_log.dart';
 
 class SleepLogPage extends StatefulWidget {
 
-  String fileLocation = "";
-  SleepLogPage({Key? key, required this.database, required String file}) : super (key: key) {
-    fileLocation = file;
-  }
+
+  SleepLogPage({Key? key, required this.database, required this.fileLocation}) : super (key: key){}
 
   SleepData database = SleepData();
+  String fileLocation = "";
 
   @override
   _SleepLogPageState createState() => _SleepLogPageState();
@@ -65,7 +64,7 @@ class _SleepLogPageState extends State<SleepLogPage> {
               IconButton(
                   onPressed: () async{
                     await Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0])));
+                        builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0], fileLocation: widget.fileLocation)));
                     nullDateSelection();
                   },
                   //=> editEvent(i),
@@ -83,7 +82,7 @@ class _SleepLogPageState extends State<SleepLogPage> {
             IconButton(
                 onPressed: () async{
                   await Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0])));
+                      builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0], fileLocation: widget.fileLocation)));
                   nullDateSelection();
                 },
                 color: Colors.white,
@@ -180,7 +179,7 @@ class _SleepLogPageState extends State<SleepLogPage> {
               ),
               child: Text('Create New Log'),
               onPressed: () async{
-                await Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLogPage(database: widget.database)));
+                await Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLogPage(database: widget.database, fileLocation: widget.fileLocation,)));
                 nullDateSelection();
               },
             ),

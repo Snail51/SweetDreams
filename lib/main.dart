@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
                         ),
                         child: Text('Sleep Log'),
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SleepLogPage(database: database, file: file)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SleepLogPage(database: database, fileLocation: file)));
                         },
                       ),
                       ElevatedButton(
