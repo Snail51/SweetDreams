@@ -8,7 +8,9 @@ packages:
       sha256: bfe67ef28df125b7dddcea62755991f807aa39a2492a23e1550161692950bbe0
       url: "https://pub.dev"
     source: hosted
+
     version: "2.10.0"
+Adam_Test
   audioplayers:
     dependency: "direct main"
     description:
