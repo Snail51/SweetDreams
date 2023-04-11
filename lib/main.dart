@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
                             color: Colors.deepPurple),
                           textScaleFactor: 3,)
                         ,),
+
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             primary: Colors.deepPurple
@@ -47,13 +48,16 @@ class MyApp extends StatelessWidget {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => CalcPage(database: database)));
                         },
                       ),
+
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             primary: Colors.deepPurple
                         ),
                         child: Text('Sleep Log'),
                         onPressed: () {
+
                           Navigator.push(context, MaterialPageRoute(builder: (context) => SleepLogPage(database: database, fileLocation: file)));
+
                         },
                       ),
                       ElevatedButton(
@@ -74,6 +78,8 @@ class MyApp extends StatelessWidget {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => SoundsPage(database: database)));
                         },
                       ),
+
+
                     ],
                   )
               ),

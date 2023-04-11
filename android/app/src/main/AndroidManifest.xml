@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sweetdreams">
-   <application
+
+    <application
         android:label="sweetdreams"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
@@ -32,6 +33,7 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+
     <!-- https://stackoverflow.com/questions/63625023/flutter-url-launcher-unhandled-exception-could-not-launch-youtube-url-caused-b-->
     <queries>
         <intent>
@@ -47,4 +49,5 @@
             <data android:mimeType="*/*" />
         </intent>
     </queries>
+
 </manifest>

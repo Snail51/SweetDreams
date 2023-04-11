@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:units/database.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 
-
+/**
 class CalcPage extends StatefulWidget {
   CalcPage({Key? key, required this.database}) : super (key: key);
 
@@ -36,6 +36,8 @@ class _CalcPageState extends State<CalcPage> {
   DateTime? fixedSleep;
   DateTime? bestSleepTime;
   DateTime? bestWakeTime;
+
+
 
   @override
   void initState() {
@@ -156,6 +158,7 @@ class _CalcPageState extends State<CalcPage> {
     );
     return Column(
       children: content,
+
     );
   }
 
@@ -165,6 +168,7 @@ class _CalcPageState extends State<CalcPage> {
     final maxCycles = 16;
     final cycleLength = Duration(minutes: sleepCycle);
     DateTime? fixedSleep;
+
     List<Widget> content = [];
 
     String labelRangePickerButton = "Select Time Range";
@@ -380,6 +384,7 @@ class _CalcPageState extends State<CalcPage> {
       );
       }
    */
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -407,17 +412,22 @@ class _CalcPageState extends State<CalcPage> {
               },
               child: Text('Fixed Wake Time'),
             ),
+
+            
             ElevatedButton(
               onPressed: () {
                 showModalBottomSheet(
                   context: context,
                   builder: (BuildContext context) {
                     return modeSleep();
+
                   }
+
                 );
               },
               child: Text('Fixed Sleep Time'),
             ),
+
             ElevatedButton(
               onPressed: () {
                 showModalBottomSheet(
@@ -455,6 +465,7 @@ class _CalcPageState extends State<CalcPage> {
                 child: Text('Number of Sleep Cycles'),
                 ),
              */
+
             SizedBox(height: 16.0),
             if (fixedWake != null)
               Text('Selected Wake Time: ${fixedWake!.hour}:${fixedWake!
@@ -471,6 +482,7 @@ class _CalcPageState extends State<CalcPage> {
     );
   }
 }
+**/
 
 
 
