@@ -24,14 +24,14 @@ class _SoundsPageState extends State<SoundsPage> {
       List<Widget> holder = [];
       for (int i = 0; i < players.length; i++) {
         if(players[i].needsUpdating)
-          {
-            holder.add(players[i].toWidget());
-            players[i].needsUpdating = false;
-          }
+        {
+          holder.add(players[i].toWidget());
+          players[i].needsUpdating = false;
+        }
         else
-          {
-            holder.add(displayables[i]);
-          }
+        {
+          holder.add(displayables[i]);
+        }
       }
       displayables = holder;
     });
@@ -85,7 +85,7 @@ class _SoundsPageState extends State<SoundsPage> {
       backgroundColor: Colors.white,
       body: Center(
           child: GridView.count(
-              crossAxisCount: 3,
+            crossAxisCount: 3,
             children: displayables,
           )
       ),

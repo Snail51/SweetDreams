@@ -520,5 +520,3 @@ class _CalcPageState extends State<CalcPage> { // PAGE CLASS THAT WANTS TO DYNAM
 
 
 
-
-

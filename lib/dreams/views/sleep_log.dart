@@ -16,7 +16,6 @@ class SleepLogPage extends StatefulWidget {
   @override
   _SleepLogPageState createState() => _SleepLogPageState();
 
-
 }
 
 class _SleepLogPageState extends State<SleepLogPage> {
