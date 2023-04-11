@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:units/database.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 
@@ -35,7 +36,6 @@ class _CalcPageState extends State<CalcPage> {
   DateTime? fixedSleep;
   DateTime? bestSleepTime;
   DateTime? bestWakeTime;
-  String _selectedPeriod = 'AM';
 
   @override
   void initState() {
@@ -48,60 +48,114 @@ class _CalcPageState extends State<CalcPage> {
     final maxCycles = 16;
     final cycleLength = Duration(minutes: sleepCycle);
     DateTime? fixedWake;
-    DateTime? bestSleepTime;
-    DateTime? bestWakeTime;
+    List<Widget> content = [];
+
+    String labelRangePickerButton = "Select Time Range";
 
     void updateWakeTime(TimeOfDay time) {
       fixedWake = DateTime(now.year, now.month, now.day, time.hour, time.minute);
-      bestSleepTime = fixedWake!.subtract(cycleLength * maxCycles);
-      bestWakeTime = fixedWake;
+      print(fixedWake.toString());
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Select Fixed Wake Time:'),
-        ElevatedButton(
-          onPressed: () async {
-            final picked = await showTimePicker(
-              context: context,
-              initialTime: TimeOfDay.now(),
-            );
-            if (picked != null) {
-              setState(() {
-                updateWakeTime(picked);
-              });
-            }
-          },
-          child: Text('Select Time'),
-        ),
-        if (fixedWake != null) ...[
-          SizedBox(height: 16),
-          Text('Selected Wake Time: ${fixedWake!.format(context)}'),
-          SizedBox(height: 16),
-          Text('Select Wakeup time range:'),
-          TimeRangePicker(
-            startTime: fixedWake!,
-            endTime: fixedWake!.add(Duration(hours: 6)),
-            interval: Duration(minutes: 30),
-            onRangeChanged: (start, end) {
-              // Check if the user is trying to turn clockwise
-              if (end.isAfter(fixedWake!) || end == fixedWake!) {
-                // If so, set the end time to the maximum allowed time (6 hours after the wake time)
-                setState(() {
-                  end = fixedWake!.add(Duration(hours: 6));
-                });
-              }
-              setState(() {
-                // Set the start time to the closest multiple of the sleep cycle before the end time
-                final cyclesCount = ((end.difference(fixedWake!) - cycleLength) / cycleLength).floor();
-                start = end.subtract(cycleLength * cyclesCount);
-                updateWakeTime(start);
-              });
-            },
+    void updateRangePickerButtonLabel(TimeOfDay input) {
+      labelRangePickerButton = input.toString();
+    }
+
+    content.add(Text("Select Fixed Wake Time:"));
+    content.add(
+      ElevatedButton.icon(
+        onPressed: () async {
+          final picked = await showTimePicker(
+            context: context,
+            initialTime: TimeOfDay.now(),
+          );
+          print("PICK" + picked.toString());
+          if (picked != null) {
+            setState(() {
+              updateWakeTime(picked);
+            });
+          }
+        },
+        icon: Icon(Icons.alarm),
+        label: Text('Select Time'),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.purple,
+          onPrimary: Colors.white,
+          elevation: 5,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
           ),
-        ],
-      ],
+        ),
+      ),
+    );
+    content.add(
+      SizedBox(
+        width: 100,
+        height: 100,
+        child: Text(
+          "Selected Wake Time: " + (fixedWake?.toString() ?? ""),
+        ),
+      ),
+    );
+    content.add(
+      SizedBox(
+        width: 100,
+        height: 100,
+        child: Text(
+          "Select Wakeup time range: ",
+        ),
+      ),
+    );
+    content.add(
+      SizedBox(
+        height: 100,
+        child: ElevatedButton.icon(
+          icon: Icon(Icons.access_time),
+          label: Text(labelRangePickerButton),
+          onPressed: () async {
+            if (fixedWake == null) {
+              // Show an error message if fixedWake is not set
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text("Error"),
+                  content: Text("Please select a fixed wake time first."),
+                ),
+              );
+              return;
+            }
+            final picked = await showTimeRangePicker(
+              context: context,
+              start: TimeOfDay(hour: fixedWake?.hour ?? TimeOfDay.now().hour, minute: fixedWake?.minute ?? TimeOfDay.now().minute),
+              minDuration: Duration(minutes: 90),
+              interval: Duration(minutes: 90),
+              onStartChange: (time) {
+                updateRangePickerButtonLabel(time);
+                setState(() {
+                  _startTime = _startTime;
+                });
+              },
+              onEndChange: (time) {
+                updateRangePickerButtonLabel(time);
+                setState(() {
+                  _endTime = time;
+                });
+              },
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            primary: Colors.green,
+            onPrimary: Colors.white,
+            elevation: 5,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+        ),
+      ),
+    );
+    return Column(
+      children: content,
     );
   }
 
@@ -111,98 +165,221 @@ class _CalcPageState extends State<CalcPage> {
     final maxCycles = 16;
     final cycleLength = Duration(minutes: sleepCycle);
     DateTime? fixedSleep;
-    DateTime? bestSleepTime;
-    DateTime? bestWakeTime;
+    List<Widget> content = [];
+
+    String labelRangePickerButton = "Select Time Range";
 
     void updateSleepTime(TimeOfDay time) {
       fixedSleep = DateTime(now.year, now.month, now.day, time.hour, time.minute);
-      bestSleepTime = fixedSleep!.subtract(cycleLength * maxCycles);
-      bestWakeTime = fixedSleep!.add(cycleLength * maxCycles);
+      print(fixedWake.toString());
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Select Fixed Sleep Time:'),
-        ElevatedButton(
-          onPressed: () async {
-            final picked = await showTimePicker(
-              context: context,
-              initialTime: TimeOfDay.now(),
-            );
-            if (picked != null) {
-              setState(() {
-                updateSleepTime(picked);
-              });
-            }
-          },
-          child: Text('Select Time'),
-        ),
-        if (fixedSleep != null) ...[
-          SizedBox(height: 16),
-          Text('Selected Sleep Time: ${fixedSleep!.format(context)}'),
-          SizedBox(height: 16),
-          Text('Select Sleep time range:'),
-          TimeRangePicker(
-            startTime: fixedSleep!.subtract(Duration(hours: 6)),
-            endTime: fixedSleep!,
-            interval: Duration(minutes: 30),
-            onRangeChanged: (start, end) {
-              // Check if the user is trying to turn clockwise
-              if (start.isBefore(fixedSleep!) || start == fixedSleep!) {
-                // If so, set the start time to the minimum allowed time (6 hours before the sleep time)
-                setState(() {
-                  start = fixedSleep!.subtract(Duration(hours: 6));
-                });
-              }
-              setState(() {
-                // Set the end time to the closest multiple of the sleep cycle after the start time
-                final cyclesCount = ((fixedSleep!.difference(start) - cycleLength) / cycleLength).floor();
-                end = start.add(cycleLength * cyclesCount);
-                updateSleepTime(end);
-              });
-            },
-          ),
-        ],
-      ],
-    );
-  }
-  Widget modeCycles() {
-    return Container(
+    void updateRangePickerButtonLabel(TimeOfDay input) {
+      labelRangePickerButton = input.toString();
+    }
 
-      /**
-       * cycles is set to slider value
-       * time range picker is created with fixed duration = cycles * 90
-       * output of time range picker is pushed to text
-       */
-      child: Column(
-        children: [
-          Text('Select Number of Sleep Cycles: ${cycles?.toInt() ?? 0}'),
-          Slider(
-            value: cycles ?? 0,
-            min: 0,
-            max: maxSleepCycle,
-            divisions: maxSleepCycle.toInt(),
-            onChanged: (value) {
-              setState(() {
-                cycles = value;
-                fixedWake = null;
-                fixedSleep = null;
-                _startTime = TimeOfDay.fromDateTime(DateTime.now());
-                _endTime = _startTime.replacing(
-                    hour: _startTime.hour + (cycles! * cycleLength ~/ 60));
-              });
-            },
+    content.add(Text("Select Fixed Wake Time:"));
+    content.add(
+      ElevatedButton.icon(
+        onPressed: () async {
+          final picked = await showTimePicker(
+            context: context,
+            initialTime: TimeOfDay.now(),
+          );
+          print("PICK" + picked.toString());
+          if (picked != null) {
+            setState(() {
+              updateSleepTime(picked);
+            });
+          }
+        },
+        icon: Icon(Icons.alarm),
+        label: Text('Select Time'),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.purple,
+          onPrimary: Colors.white,
+          elevation: 5,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
           ),
-          if (cycles != null)
-            Text(
-                'Selected Sleep Time: ${_startTime.format(context)} - ${_endTime
-                    .format(context)}')
-        ],
+        ),
       ),
     );
+    content.add(
+      SizedBox(
+        width: 100,
+        height: 100,
+        child: Text(
+          "Selected Sleep Time: " + (fixedSleep?.toString() ?? ""),
+        ),
+      ),
+    );
+    content.add(
+      SizedBox(
+        width: 100,
+        height: 100,
+        child: Text(
+          "Select sleep time range: ",
+        ),
+      ),
+    );
+    content.add(
+      SizedBox(
+        height: 100,
+        child: ElevatedButton.icon(
+          icon: Icon(Icons.access_time),
+          label: Text(labelRangePickerButton),
+          onPressed: () async {
+            if (fixedSleep == null) {
+              // Show an error message if fixedWake is not set
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text("Error"),
+                  content: Text("Please select a fixed wake time first."),
+                ),
+              );
+              return;
+            }
+            final picked = await showTimeRangePicker(
+              context: context,
+              start: TimeOfDay(hour: fixedSleep?.hour ?? TimeOfDay.now().hour, minute: fixedSleep?.minute ?? TimeOfDay.now().minute),
+              minDuration: Duration(minutes: 90),
+              interval: Duration(minutes: 90),
+              onStartChange: (time) {
+                updateRangePickerButtonLabel(time);
+                setState(() {
+                  _startTime = _startTime;
+                });
+              },
+              onEndChange: (time) {
+                updateRangePickerButtonLabel(time);
+                setState(() {
+                  _endTime = time;
+                });
+              },
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            primary: Colors.green,
+            onPrimary: Colors.white,
+            elevation: 5,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+        ),
+      ),
+    );
+    return Column(
+      children: content,
+    );
   }
 
+  Widget modeCycles() {
+    final sleepCycle = 90;
+    final maxCycles = 16;
+    List<Widget> content = [];
+
+    int selectedCycles = 1;
+    double minRange = 0;
+    double maxRange = (selectedCycles * 6) * sleepCycle.toDouble();
+
+    content.add(Text("Select Number of Sleep Cycles:"));
+
+    content.add(Slider(
+      value: selectedCycles.toDouble(),
+      min: 1,
+      max: maxCycles.toDouble(),
+      divisions: maxCycles - 1,
+      label: selectedCycles.toString(),
+      onChanged: (double value) {
+        setState(() {
+          selectedCycles = value.toInt();
+          maxRange = (selectedCycles * 6) * sleepCycle.toDouble();
+        });
+      },
+    ));
+
+    content.add(
+      SizedBox(
+        width: 100,
+        height: 100,
+        child: Text(
+          "Selected Cycles: " + selectedCycles.toString(),
+        ),
+      ),
+    );
+
+    content.add(
+      SizedBox(
+        width: 100,
+        height: 100,
+        child: Text(
+          "Select Sleep time range: ",
+        ),
+      ),
+    );
+
+    content.add(
+      SizedBox(
+        height: 100,
+        child: RangeSlider(
+          values: RangeValues(minRange, maxRange),
+          min: 0,
+          max: (maxCycles * 6) * sleepCycle.toDouble(),
+          onChanged: (RangeValues values) {
+            setState(() {
+              minRange = values.start;
+              maxRange = values.end;
+            });
+          },
+        ),
+      ),
+    );
+
+    return Column(
+      children: content,
+    );
+  }
+  /**
+
+
+      Widget modeCycles() {
+      return Container(
+      /**
+   * cycles is set to slider value
+   * time range picker is created with fixed duration = cycles * 90
+   * output of time range picker is pushed to text
+      */
+      child: Column(
+      children: [
+      Text('Select Number of Sleep Cycles: ${cycles?.toInt() ?? 0}'),
+      Slider(
+      value: cycles ?? 0,
+      min: 0,
+      max: maxSleepCycle,
+      divisions: maxSleepCycle.toInt(),
+      onChanged: (value) {
+      setState(() {
+      cycles = value;
+      fixedWake = null;
+      fixedSleep = null;
+      _startTime = TimeOfDay.fromDateTime(DateTime.now());
+      _endTime = _startTime.replacing(
+      hour: _startTime.hour + (cycles! * cycleLength ~/ 60));
+      });
+      },
+      ),
+      if (cycles != null)
+      Text(
+      'Selected Sleep Time: ${_startTime.format(context)} - ${_endTime
+      .format(context)}')
+      ],
+      ),
+      );
+      }
+   */
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -230,30 +407,54 @@ class _CalcPageState extends State<CalcPage> {
               },
               child: Text('Fixed Wake Time'),
             ),
-            SizedBox(height: 8.0),
             ElevatedButton(
               onPressed: () {
                 showModalBottomSheet(
                   context: context,
                   builder: (BuildContext context) {
                     return modeSleep();
-                  },
+                  }
                 );
               },
               child: Text('Fixed Sleep Time'),
             ),
-            SizedBox(height: 8.0),
             ElevatedButton(
               onPressed: () {
                 showModalBottomSheet(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return modeCycles();
-                  },
+                    context: context,
+                    builder: (BuildContext context) {
+                      return modeCycles();
+                    }
                 );
               },
-              child: Text('Number of Sleep Cycles'),
+              child: Text('Sleep Cycles'),
             ),
+            SizedBox(height: 8.0),
+            /**
+                ElevatedButton(
+                onPressed: () {
+                showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                return modeSleep();
+                },
+                );
+                },
+                child: Text('Fixed Sleep Time'),
+                ),
+                SizedBox(height: 8.0),
+                ElevatedButton(
+                onPressed: () {
+                showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                return modeCycles();
+                },
+                );
+                },
+                child: Text('Number of Sleep Cycles'),
+                ),
+             */
             SizedBox(height: 16.0),
             if (fixedWake != null)
               Text('Selected Wake Time: ${fixedWake!.hour}:${fixedWake!
@@ -270,6 +471,8 @@ class _CalcPageState extends State<CalcPage> {
     );
   }
 }
+
+
 
 
 

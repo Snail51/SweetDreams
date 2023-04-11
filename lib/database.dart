@@ -30,29 +30,29 @@ class SleepEvent {
     //print("Dream: " + dream!);
   }
 
-  void set({int? num, DateTime? start, DateTime? end, int? quality, String? dream}) // dynamic setter.
+  void set({int? num, DateTime? Start, DateTime? End, int? Quality, String? Dream}) // dynamic setter.
   {
     if(num != null)
-      {
-        eventNumber = num;
-      }
-    if(start != null)
-      {
-        sleep = start;
-      }
-    if(end != null)
-      {
-        wake = end;
-      }
-    if((quality != null)&&(quality >= 1)&&(quality <= 5))
-      {
+    {
+      eventNumber = num;
+    }
+    if(Start != null)
+    {
+      sleep = Start;
+    }
+    if(End != null)
+    {
+      wake = End;
+    }
+    if((Quality != null)&&(Quality >= 0)&&(Quality <= 5))
+    {
 
-        quality = quality;
-      }
-    if(dream != null)
-      {
-        dream = dream;
-      }
+      quality = Quality;
+    }
+    if(Dream != null)
+    {
+      dream = Dream;
+    }
 
   }
 
@@ -66,24 +66,24 @@ class SleepEvent {
 
     composite += "Your rating of the quality of your Sleep: ";
     if(quality == 0)
-      {
-        composite += "Not Given\n";
-      }
+    {
+      composite += "Not Given\n";
+    }
     else
-      {
-        composite += quality.toString() + "\n";
-      }
+    {
+      composite += quality.toString() + "\n";
+    }
 
     composite += "---------------------------\n";
     composite += "Dreams you had that night:\n";
     if(dream == "")
-      {
+    {
       composite += "\tNone.\n";
-      }
+    }
     else
-      {
-        composite += "\t" + dream + "\n";
-      }
+    {
+      composite += "\t" + dream + "\n";
+    }
 
     composite += "=======================\n";
 
@@ -93,7 +93,7 @@ class SleepEvent {
   Widget toWidget()
   {
     return Center(child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -186,7 +186,7 @@ class SleepData {
     return text;
   }
 
-  void addEvent(DateTime sleep, {DateTime? wake = null, int? quality = 0, String? dream = ""}) //adds a sleep event at the last index of the database. A DateTime for the start of the sleep is required but other parameters are optional and will default.
+  void addEvent(DateTime sleep, {DateTime? wake, int? quality, String? dream}) //adds a sleep event at the last index of the database. A DateTime for the start of the sleep is required but other parameters are optional and will default.
   {
     database.add(SleepEvent(database.length, sleep, end: wake, Quality: quality, Dream: dream));
 
@@ -204,28 +204,32 @@ class SleepData {
     return holder;
   }
 
-  int editEvent(int index, {DateTime? start, DateTime? end, int? quality, String? dream}) // 0 - Failure, 1 - No change, 2 - Change(s) made
+  int editEvent(int index, {DateTime? Start, DateTime? End, int? Quality, String? Dream}) // 0 - Failure, 1 - No change, 2 - Change(s) made
   {
     if ((database.length - 1 < index) && (index >= 0)) {
       return 0; //Index is not valid
     }
 
+    /*delEvent(index);
+    database.add(SleepEvent(index, start!, end: end, Quality: quality, Dream: dream));
+    return 1;
+    */
     int changes = 0;
 
-    if (start != null) {
-      database[index].set(start: start);
+    if (Start != null) {
+      database[index].set(Start: Start);
       changes++;
     }
-    if (end != null) {
-      database[index].set(end: end);
+    if (End != null) {
+      database[index].set(End: End);
       changes++;
     }
-    if (quality != null) {
-      database[index].set(quality: quality);
+    if (Quality != null) {
+      database[index].set(Quality: Quality);
       changes++;
     }
-    if (dream != null) {
-      database[index].set(dream: dream);
+    if (Dream != null) {
+      database[index].set(Dream: Dream);
       changes++;
     }
 
@@ -239,15 +243,15 @@ class SleepData {
   List<SleepEvent> getData({int? index}) // Returns the full database list UNLESS an index is provided as an integer, in which case a list containing just that entry is returned
   {
     if(index == null)
-      {
-        return database;
-      }
+    {
+      return database;
+    }
     else
-      {
-        List<SleepEvent> tmp = [];
-        tmp.add(database[index]);
-        return tmp;
-      }
+    {
+      List<SleepEvent> tmp = [];
+      tmp.add(database[index]);
+      return tmp;
+    }
   }
   void save(String dir)
   {

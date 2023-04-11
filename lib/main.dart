@@ -69,15 +69,6 @@ class MyApp extends StatelessWidget {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => SoundsPage(database: database)));
                         },
                       ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.blueAccent
-                        ),
-                        child: Text('Sleep Sounds'),
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SoundsPage(database: database)));
-                        },
-                      ),
                     ],
                   )
               ),
