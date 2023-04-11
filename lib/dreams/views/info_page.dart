@@ -66,7 +66,8 @@ class _InfoPageState extends State<InfoPage>  {
           children: [
             Row(
                 children: <Widget>[
-                  Expanded(child: Text(desc[i]))]
+                  Expanded(child: Text(desc[i]))
+                ]
                 ),
               ],
             ),
@@ -82,7 +83,7 @@ class _InfoPageState extends State<InfoPage>  {
       {
         return Container(
           height: 75,
-          color: Colors.greenAccent,
+          color: Colors.deepPurple,
           child: content[index],
         );
       },
@@ -103,15 +104,15 @@ class _InfoPageState extends State<InfoPage>  {
       appBar: AppBar(
         title: Text("Sleep Information"),
         centerTitle: true,
-        backgroundColor: Colors.blueAccent.shade700,
+        backgroundColor: Colors.deepPurple,
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey.shade900,
       body: Center(
           child: Column(
             children: <Widget>[
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent
+                    backgroundColor: Colors.deepPurple
                 ),
                 child: Text('Youtube Videos'),
                 onPressed: () {
