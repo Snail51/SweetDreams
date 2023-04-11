@@ -6,9 +6,9 @@ import 'package:time_range_picker/time_range_picker.dart';
 
 class CreateLogPage extends StatefulWidget {
 
-  CreateLogPage({Key? key, required this.database}) : super (key: key);
+  CreateLogPage({Key? key, required this.database, required this.fileLocation}) : super (key: key);
   SleepData database;
-
+  String fileLocation;
   @override
   _CreateLogPageState createState() => _CreateLogPageState();
 }
@@ -69,6 +69,7 @@ class _CreateLogPageState extends State<CreateLogPage>  {
         DateTime sleep = DateTime(selectedDate.year, selectedDate.month, selectedDate.day, selectedTime.startTime.hour, selectedTime.startTime.minute);
         DateTime wake = DateTime(selectedDate.year, selectedDate.month, selectedDate.day, selectedTime.endTime.hour, selectedTime.endTime.minute);
         widget.database.addEvent(sleep, wake: wake, quality: rating.toInt(), dream: myController.text);
+        widget.database.save(widget.fileLocation);
         Navigator.pop(context);
       }
       else  {

@@ -41,6 +41,28 @@ class _SoundsPageState extends State<SoundsPage> {
   void initState() {
     players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
     players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
     update();
     super.initState();
   }
@@ -62,7 +84,8 @@ class _SoundsPageState extends State<SoundsPage> {
       ),
       backgroundColor: Colors.white,
       body: Center(
-          child: Column(
+          child: GridView.count(
+              crossAxisCount: 3,
             children: displayables,
           )
       ),

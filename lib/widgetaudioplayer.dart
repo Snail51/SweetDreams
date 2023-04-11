@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart';
-import 'dart:typed_data';
 
 
 class WidgetAudioPlayer
@@ -63,18 +62,22 @@ class WidgetAudioPlayer
 
   Widget toWidget()
   {
-    return Container(
-      color: Colors.amber,
-      height: 150,
-      width: 150,
-      child: Column(
-        children: <Widget>[
-          Text(name),
-          IconButton(onPressed: toggle, icon: icon),
-          Slider(
-            value: volume, onChanged: updateVolume, min: 0, max: 1, label: volume.toString(),)
-        ],
-      ),
+    return Padding(
+      padding: EdgeInsets.all(5),
+      child: Container(
+        color: Colors.amber,
+        height: 150,
+        width: 150,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(name),
+            IconButton(onPressed: toggle, icon: icon),
+            Slider(
+              value: volume, onChanged: updateVolume, min: 0, max: 1, label: volume.toString(),)
+          ],
+        ),
+      )
     );
   }
 
