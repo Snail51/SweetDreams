@@ -1,7 +1,7 @@
 //import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-//class serviceNotifications{
-      //serviceNotifications();
+//class serviceNotifications{   //Guide and example code provided by Codemagic:
+      //serviceNotifications(); //https://blog.codemagic.io/flutter-local-notifications/
 
       //final _notiLocal = FlutterLocalNotificationsPlugin();
 

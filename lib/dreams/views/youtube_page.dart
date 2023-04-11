@@ -31,30 +31,22 @@ class _YoutubePageState extends State<YoutubePage> {
           child: Column(
             children: <Widget>[
 
-              ListTile(   //Used example from https://code.tutsplus.com/tutorials/how-to-create-lists-in-your-app-with-flutter--cms-36937
+                //Used example from https://code.tutsplus.com/tutorials/how-to-create-lists-in-your-app-with-flutter--cms-36937
                           //by Arooha Arif for reference about making list
-              leading:InkWell(
-              onTap: () => _launchUrl(Uri.parse('https://youtu.be/P1mVmRxMMak')),
-              child : Text('AAAAAAAAAAAAAAAAA'),
-
-              ),
-
-          //title: Text(''),
-              ),
               ListTile(
                   leading: InkWell(
                     onTap: () => _launchUrl(Uri.parse('https://youtu.be/P1mVmRxMMak')),
                     child: Icon(Icons.play_arrow),
                   ),
-                  title: Text("Video 1"),
-                  subtitle:
-                  Column(
+                  title: Text("Healthy Sleep"), //Option 1 stack overflow solution provided by user
+                  subtitle:                     // Zimes for finding a way to using list tiles and inkwells
+                  Column(                       //https://stackoverflow.com/questions/62257275/how-to-handle-right-overflowed-inside-listtile-flutter
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
                           Text(
-                            "Here is a description",
+                            "AASM video explaining the science behind healthy sleep ",
                           ),
                         ],
                       ),
@@ -62,9 +54,45 @@ class _YoutubePageState extends State<YoutubePage> {
                   ),
               ),
               ListTile(
-                title: Text(''),
+                leading: InkWell(
+                  onTap: () => _launchUrl(Uri.parse('https://youtu.be/uckGbixdXgs')),
+                  child: Icon(Icons.play_arrow),
+                ),
+                title: Text("Improving Sleep"),
+                subtitle:
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "AASM video detailing methods for improving the quality of your sleep",
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-
+              ListTile(
+                leading: InkWell(
+                  onTap: () => _launchUrl(Uri.parse('https://youtu.be/FPifL8-f5m0')),
+                  child: Icon(Icons.play_arrow),
+                ),
+                title: Text("Sleep and Wellness"),
+                subtitle:
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "AASM video describing the direct correlation between sleep and personal wellness",
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
               //Insert the build within here
             ],
           )
