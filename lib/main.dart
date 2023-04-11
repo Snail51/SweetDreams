@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
               appBar: AppBar(
                 title: Text("Sweet Dreams"),
                 backgroundColor: Colors.deepPurple,
+                centerTitle: true,
               ),
               body: Center(
                   child: Column(

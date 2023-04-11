@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:units/database.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 
-/**
+
 class CalcPage extends StatefulWidget {
   CalcPage({Key? key, required this.database}) : super (key: key);
 
@@ -390,18 +390,23 @@ class _CalcPageState extends State<CalcPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Sleep Calculator'),
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple,
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+      backgroundColor: Colors.grey.shade900,
+      body: Center(
+        child: Padding( padding: EdgeInsets.all(20.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             Text(
               'Select a mode:',
-              style: TextStyle(fontSize: 18.0),
+              style: TextStyle(fontSize: 18.0, color: Colors.white),
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.deepPurple
+              ),
               onPressed: () {
                 showModalBottomSheet(
                   context: context,
@@ -415,20 +420,24 @@ class _CalcPageState extends State<CalcPage> {
 
             
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.deepPurple
+              ),
               onPressed: () {
                 showModalBottomSheet(
                   context: context,
                   builder: (BuildContext context) {
                     return modeSleep();
-
                   }
-
                 );
               },
               child: Text('Fixed Sleep Time'),
             ),
 
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.deepPurple
+              ),
               onPressed: () {
                 showModalBottomSheet(
                     context: context,
@@ -479,10 +488,11 @@ class _CalcPageState extends State<CalcPage> {
           ],
         ),
       ),
+    ),
     );
   }
 }
-**/
+
 
 
 

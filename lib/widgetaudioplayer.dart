@@ -65,7 +65,7 @@ class WidgetAudioPlayer
     return Padding(
       padding: EdgeInsets.all(5),
       child: Container(
-        color: Colors.amber,
+        color: Colors.deepPurple,
         height: 150,
         width: 150,
         child: Column(
@@ -73,8 +73,12 @@ class WidgetAudioPlayer
           children: <Widget>[
             Text(name),
             IconButton(onPressed: toggle, icon: icon),
-            Slider(
-              value: volume, onChanged: updateVolume, min: 0, max: 1, label: volume.toString(),)
+            SliderTheme(data: SliderThemeData(
+              thumbColor: Colors.white,
+              activeTrackColor: Colors.white
+            ),
+                child: Slider(
+                  value: volume, onChanged: updateVolume, min: 0, max: 1, label: volume.toString(),))
           ],
         ),
       )

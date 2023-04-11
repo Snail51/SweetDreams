@@ -57,16 +57,19 @@ class _InfoPageState extends State<InfoPage>  {
       content.add(ListTile(
         leading: InkWell(
           onTap: () => _launchUrl(Uri.parse(links[i])),
-          child: Icon(Icons.open_in_new),
+          child: Icon(Icons.open_in_new, color: Colors.white),
         ),
-        title: Text(names[i]),
+        title: Text(names[i], style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white)),
         subtitle:
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
                 children: <Widget>[
-                  Expanded(child: Text(desc[i]))
+                  Expanded(child: Text(desc[i], style: const TextStyle(
+                      color: Colors.white)))
                 ]
                 ),
               ],
@@ -77,7 +80,7 @@ class _InfoPageState extends State<InfoPage>  {
 
 
     return Expanded(child: ListView.separated(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(20),
       itemCount: content.length,
       itemBuilder: (BuildContext context, int index)
       {
@@ -110,14 +113,16 @@ class _InfoPageState extends State<InfoPage>  {
       body: Center(
           child: Column(
             children: <Widget>[
-              ElevatedButton(
+              Padding(padding: const EdgeInsets.all(20),
+              child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple
+                    backgroundColor: Colors.deepPurple,
                 ),
                 child: Text('Youtube Videos'),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => YoutubePage(database: widget.database)));
                 },
+              )
               ),
               linksToWidget()
             ],

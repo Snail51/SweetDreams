@@ -24,21 +24,27 @@ class _YoutubePageState extends State<YoutubePage> {
       appBar: AppBar(
         title: Text("YouTube Videos"),
         centerTitle: true,
-        backgroundColor: Colors.blueAccent.shade700,
+        backgroundColor: Colors.deepPurple,
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey.shade900,
       body: Center(
           child: Column(
             children: <Widget>[
 
                 //Used example from https://code.tutsplus.com/tutorials/how-to-create-lists-in-your-app-with-flutter--cms-36937
                           //by Arooha Arif for reference about making list
-              ListTile(
+              Padding(padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
+              child: Container(
+                  height: 75,
+                  color: Colors.deepPurple,
+                  child: ListTile(
                   leading: InkWell(
                     onTap: () => _launchUrl(Uri.parse('https://youtu.be/P1mVmRxMMak')),
-                    child: Icon(Icons.play_arrow),
+                    child: Icon(Icons.play_arrow, color: Colors.white),
                   ),
-                  title: Text("Healthy Sleep"), //Option 1 stack overflow solution provided by user
+                  title: Text("Healthy Sleep", style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)), //Option 1 stack overflow solution provided by user
                   subtitle:                     // Zimes for finding a way to using list tiles and inkwells
                   Column(                       //https://stackoverflow.com/questions/62257275/how-to-handle-right-overflowed-inside-listtile-flutter
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,19 +52,27 @@ class _YoutubePageState extends State<YoutubePage> {
                       Row(
                         children: [
                           Text(
-                            "AASM video explaining the science behind healthy sleep ",
-                          ),
+                            "AASM video explaining the science behind \nhealthy sleep ", style: const TextStyle(
+                              color: Colors.white)),
                         ],
                       ),
                     ],
                   ),
+              )
               ),
-              ListTile(
+      ),
+      Padding(padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
+          child: Container(
+            height: 75,
+            color: Colors.deepPurple,
+            child: ListTile(
                 leading: InkWell(
                   onTap: () => _launchUrl(Uri.parse('https://youtu.be/uckGbixdXgs')),
-                  child: Icon(Icons.play_arrow),
+                  child: Icon(Icons.play_arrow, color: Colors.white),
                 ),
-                title: Text("Improving Sleep"),
+                title: Text("Improving Sleep", style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white)),
                 subtitle:
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,19 +80,27 @@ class _YoutubePageState extends State<YoutubePage> {
                     Row(
                       children: [
                         Text(
-                          "AASM video detailing methods for improving the quality of your sleep",
-                        ),
+                          "AASM video detailing methods for improving\nthe quality of your sleep", style: const TextStyle(
+                            color: Colors.white)),
                       ],
                     ),
                   ],
                 ),
               ),
-              ListTile(
+          ),
+      ),
+      Padding(padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
+          child: Container(
+            height: 75,
+            color: Colors.deepPurple,
+            child: ListTile(
                 leading: InkWell(
                   onTap: () => _launchUrl(Uri.parse('https://youtu.be/FPifL8-f5m0')),
-                  child: Icon(Icons.play_arrow),
+                  child: Icon(Icons.play_arrow, color: Colors.white),
                 ),
-                title: Text("Sleep and Wellness"),
+                title: Text("Sleep and Wellness", style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white)),
                 subtitle:
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,13 +108,15 @@ class _YoutubePageState extends State<YoutubePage> {
                     Row(
                       children: [
                         Text(
-                          "AASM video describing the direct correlation between sleep and personal wellness",
-                        ),
+                          "AASM video describing the direct correlation\nbetween sleep and personal wellness", style: const TextStyle(
+                            color: Colors.white)),
                       ],
                     ),
                   ],
                 ),
               ),
+          ),
+      ),
               //Insert the build within here
             ],
           )
