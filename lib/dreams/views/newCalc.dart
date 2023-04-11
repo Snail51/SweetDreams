@@ -3,7 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:units/database.dart';
+import 'package:units/widgetcalc.dart';
 import 'package:time_range_picker/time_range_picker.dart';
+import 'dart:async';
 
 
 class CalcPage extends StatefulWidget {
@@ -36,19 +38,75 @@ class _CalcPageState extends State<CalcPage> {
   DateTime? fixedSleep;
   DateTime? bestSleepTime;
   DateTime? bestWakeTime;
+  List<dynamic> modes = [];
+  List<Widget> displayables = [];
+
+  void update()
+  {
+    setState(() {
+      List<Widget> holder = [];
+      for (int i = 0; i < modes.length; i++) {
+        if(modes[i].needsUpdating)
+        {
+          holder.add(modes[i].toWidget());
+          modes[i].needsUpdating = false;
+        }
+        else
+        {
+          holder.add(displayables[i]);
+        }
+      }
+      displayables = holder;
+    });
+  }
 
   @override
   void initState() {
+    initContent();
+    update();
     super.initState();
   }
 
+  void initContent()
+  {
+    modes.add(widgetModeWake("wake", context));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    final periodicTimer = Timer.periodic(
+      const Duration(milliseconds: 200), //adjust this number for how often you want the screen refreshed
+          (timer) {
+        update();
+      },
+    );
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Example of updating widgets that were dynamically created outside of a build function, because when they are outside of a build function they don't have access to setState()"),
+        centerTitle: true,
+        backgroundColor: Colors.blueAccent.shade700,
+      ),
+      backgroundColor: Colors.white,
+      body: Center(
+          child: Column(
+            children: displayables,
+          )
+      ),
+    );
+  }
+}
+
+  /**
+
   Widget modeWake() {
-    final now = DateTime.now();
-    final sleepCycle = 90;
-    final maxCycles = 16;
-    final cycleLength = Duration(minutes: sleepCycle);
-    DateTime? fixedWake;
-    List<Widget> content = [];
+      final now = DateTime.now();
+      final sleepCycle = 90;
+      final maxCycles = 16;
+      final cycleLength = Duration(minutes: sleepCycle);
+      DateTime? fixedWake;
+      List<Widget> content = [];
 
     String labelRangePickerButton = "Select Time Range";
 
@@ -342,44 +400,7 @@ class _CalcPageState extends State<CalcPage> {
       children: content,
     );
   }
-  /**
 
-
-      Widget modeCycles() {
-      return Container(
-      /**
-   * cycles is set to slider value
-   * time range picker is created with fixed duration = cycles * 90
-   * output of time range picker is pushed to text
-      */
-      child: Column(
-      children: [
-      Text('Select Number of Sleep Cycles: ${cycles?.toInt() ?? 0}'),
-      Slider(
-      value: cycles ?? 0,
-      min: 0,
-      max: maxSleepCycle,
-      divisions: maxSleepCycle.toInt(),
-      onChanged: (value) {
-      setState(() {
-      cycles = value;
-      fixedWake = null;
-      fixedSleep = null;
-      _startTime = TimeOfDay.fromDateTime(DateTime.now());
-      _endTime = _startTime.replacing(
-      hour: _startTime.hour + (cycles! * cycleLength ~/ 60));
-      });
-      },
-      ),
-      if (cycles != null)
-      Text(
-      'Selected Sleep Time: ${_startTime.format(context)} - ${_endTime
-      .format(context)}')
-      ],
-      ),
-      );
-      }
-   */
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -430,31 +451,6 @@ class _CalcPageState extends State<CalcPage> {
               child: Text('Sleep Cycles'),
             ),
             SizedBox(height: 8.0),
-            /**
-                ElevatedButton(
-                onPressed: () {
-                showModalBottomSheet(
-                context: context,
-                builder: (BuildContext context) {
-                return modeSleep();
-                },
-                );
-                },
-                child: Text('Fixed Sleep Time'),
-                ),
-                SizedBox(height: 8.0),
-                ElevatedButton(
-                onPressed: () {
-                showModalBottomSheet(
-                context: context,
-                builder: (BuildContext context) {
-                return modeCycles();
-                },
-                );
-                },
-                child: Text('Number of Sleep Cycles'),
-                ),
-             */
             SizedBox(height: 16.0),
             if (fixedWake != null)
               Text('Selected Wake Time: ${fixedWake!.hour}:${fixedWake!
@@ -472,6 +468,7 @@ class _CalcPageState extends State<CalcPage> {
   }
 }
 
+      **/
 
 
 
