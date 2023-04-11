@@ -3,9 +3,85 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:units/database.dart';
+import 'package:units/widgetCalcModes.dart';
 import 'package:units/widgetcalc.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 import 'dart:async';
+
+class CalcPage extends StatefulWidget {
+
+  CalcPage({Key? key}) : super (key: key);
+
+  @override
+  _CalcPageState createState() => _CalcPageState();
+}
+
+class _CalcPageState extends State<CalcPage> { // PAGE CLASS THAT WANTS TO DYNAMICALLY COELLATE WIDGETS THAT WERE GENERATED EXTERNALLY
+  List<dynamic> content = [];
+  List<Widget> displayables = [];
+
+  @override
+  void initState() {
+    initContent();
+    update();
+    super.initState();
+  }
+
+  void update()
+  {
+    setState(() {
+      List<Widget> holder = [];
+      for (int i = 0; i < content.length; i++) {
+        if(content[i].needsUpdating) //ONLY REDRAW WIDGETS THAT ACTUALLY NEED REDRAWING
+            {
+          holder.add(content[i].toWidget());
+          content[i].needsUpdating = false;
+        }
+        else
+        {
+          holder.add(displayables[i]);
+        }
+      }
+      displayables = holder;
+    });
+  }
+
+  void initContent()
+  {
+    content.add(CalcSleepWidgit(context));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    final periodicTimer = Timer.periodic(
+      const Duration(milliseconds: 200), //adjust this number for how often you want the screen refreshed
+          (timer) {
+        update();
+      },
+    );
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Example of updating widgets that were dynamically created outside of a build function, because when they are outside of a build function they don't have access to setState()"),
+        centerTitle: true,
+        backgroundColor: Colors.blueAccent.shade700,
+      ),
+      backgroundColor: Colors.white,
+      body: Center(
+          child: Column(
+            children: displayables,
+          )
+      ),
+    );
+  }
+}
+
+
+
+/**
+
+
 
 
 class CalcPage extends StatefulWidget {
@@ -98,7 +174,7 @@ class _CalcPageState extends State<CalcPage> {
   }
 }
 
-  /**
+
 
   Widget modeWake() {
       final now = DateTime.now();

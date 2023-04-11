@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
                         ),
                         child: Text('Sleep Calculator'),
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => CalcPage(database: database)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => CalcPage()));
                         },
                       ),
                       ElevatedButton(
