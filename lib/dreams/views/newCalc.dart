@@ -48,7 +48,9 @@ class _CalcPageState extends State<CalcPage> { // PAGE CLASS THAT WANTS TO DYNAM
 
   void initContent()
   {
-    content.add(CalcSleepWidgit(context));
+    content.add(CalcWakeWidget(context));
+    content.add(CalcSleepWidget(context));
+    content.add(CycleWidget(context));
   }
 
   @override
@@ -63,7 +65,7 @@ class _CalcPageState extends State<CalcPage> { // PAGE CLASS THAT WANTS TO DYNAM
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Example of updating widgets that were dynamically created outside of a build function, because when they are outside of a build function they don't have access to setState()"),
+        title: Text("Sleep Calculator"),
         centerTitle: true,
         backgroundColor: Colors.blueAccent.shade700,
       ),

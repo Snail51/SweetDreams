@@ -29,6 +29,7 @@ class widgetModeWake {
   String labelRangePickerButton = "Select Time Range";
 
   Widget toWidget() {
+
     content.add(Text("Select Fixed Wake Time:"));
     content.add(
       ElevatedButton.icon(
@@ -108,6 +109,7 @@ class widgetModeWake {
                 updateRangePickerButtonLabel(time);
                 end = time;
                 needsUpdating = true;
+                print(end);
               },
             );
           },
@@ -128,10 +130,10 @@ class widgetModeWake {
   }
 
   void updateWakeTime(TimeOfDay time) {
+    needsUpdating = true;
     fixedWake =
         DateTime(now.year, now.month, now.day, time.hour, time.minute);
     print(fixedWake.toString());
-    needsUpdating = true;
   }
 
   void updateRangePickerButtonLabel(TimeOfDay input) {
@@ -140,6 +142,7 @@ class widgetModeWake {
   }
 
 }
+
 
 
 
