@@ -43,13 +43,13 @@ class WidgetAudioPlayer
     needsUpdating = true;
     isPlaying = !isPlaying;
     if(isPlaying)
-    {
-      player.resume();
-    }
+      {
+        player.resume();
+      }
     else
-    {
-      player.stop();
-    }
+      {
+        player.stop();
+      }
   }
 
   void updateVolume(double newVol)
@@ -63,21 +63,25 @@ class WidgetAudioPlayer
   Widget toWidget()
   {
     return Padding(
-        padding: EdgeInsets.all(5),
-        child: Container(
-          color: Colors.amber,
-          height: 150,
-          width: 150,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(name),
-              IconButton(onPressed: toggle, icon: icon),
-              Slider(
-                value: volume, onChanged: updateVolume, min: 0, max: 1, label: volume.toString(),)
-            ],
-          ),
-        )
+      padding: EdgeInsets.all(5),
+      child: Container(
+        color: Colors.deepPurple,
+        height: 150,
+        width: 150,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(name),
+            IconButton(onPressed: toggle, icon: icon),
+            SliderTheme(data: SliderThemeData(
+              thumbColor: Colors.white,
+              activeTrackColor: Colors.white
+            ),
+                child: Slider(
+                  value: volume, onChanged: updateVolume, min: 0, max: 1, label: volume.toString(),))
+          ],
+        ),
+      )
     );
   }
 

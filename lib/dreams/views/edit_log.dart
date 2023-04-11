@@ -44,6 +44,24 @@ class _EditLogPageState extends State<EditLogPage>  {
         initialDate: selectedDate, // Refer step 1
         firstDate: DateTime(2000),
         lastDate: DateTime(2025),
+        builder: (context, child) {
+          return Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: ColorScheme.light(
+                primary: Colors.deepPurple,
+                onPrimary: Colors.white,
+                onSurface: Colors.deepPurple.shade300,
+              ),
+              dialogBackgroundColor: Colors.grey.shade900,
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                  primary: Colors.deepPurple, // button text color
+                ),
+              ),
+            ),
+            child: child!,
+          );
+        },
       );
       if (picked != null && picked != selectedDate)
         setState(() {
@@ -54,7 +72,27 @@ class _EditLogPageState extends State<EditLogPage>  {
 
     _selectTimeRange(BuildContext context) async{
       final TimeRange? picked = await showTimeRangePicker(
-          context: context
+          context: context,
+          strokeColor: Colors.deepPurple,
+          handlerColor: Colors.deepPurple,
+          selectedColor: Colors.deepPurple.shade200,
+          builder: (context, child) {
+            return Theme(
+              data: Theme.of(context).copyWith(
+                colorScheme: ColorScheme.light(
+                  primary: Colors.deepPurple,
+                ),
+                dialogBackgroundColor: Colors.grey.shade900,
+                primaryColor: Colors.deepPurple,
+                textButtonTheme: TextButtonThemeData(
+                  style: TextButton.styleFrom(
+                    primary: Colors.deepPurple, // button text color
+                  ),
+                ),
+              ),
+              child: child!,
+            );
+            },
       );
       if (picked != null)
       {
@@ -92,21 +130,21 @@ class _EditLogPageState extends State<EditLogPage>  {
       appBar: AppBar(
         title: Text("Edit Log"),
         centerTitle: true,
-        backgroundColor: Colors.blueAccent.shade700,
+        backgroundColor: Colors.deepPurple,
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey.shade900,
       body: Center(
           child: Column(
             children: <Widget>[
               Padding(
                   padding: EdgeInsets.only(top: 20.0,),
-                  child: Text("Edit Log", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
+                  child: Text("Edit Log", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.deepPurple), textScaleFactor: 3,)
               ),
               Padding(
                 padding:EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.blueAccent
+                        primary: Colors.deepPurple
                     ),
                     child: Text(labelSelectDate),
                     onPressed: () {
@@ -119,7 +157,7 @@ class _EditLogPageState extends State<EditLogPage>  {
                 padding:EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.blueAccent
+                        primary: Colors.deepPurple
                     ),
                     child: Text(labelSelectTimeRange),
                     onPressed: () {
@@ -144,9 +182,9 @@ class _EditLogPageState extends State<EditLogPage>  {
                   ratingWidget: RatingWidget(
                       full: Icon(
                         Icons.star,
-                        color: Colors.yellow,
+                        color: Colors.deepPurple,
                       ),
-                      half: Image.asset("star_half.png", color: Colors.yellow),
+                      half: Image.asset("star_half.png", color: Colors.deepPurple),
                       empty: Icon(
                         Icons.star,
                         color: Colors.grey,
@@ -158,9 +196,13 @@ class _EditLogPageState extends State<EditLogPage>  {
                   padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
                   child: TextField(
                     decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.deepPurple)),
                         border: OutlineInputBorder(),
-                        labelText: 'Write about your dreams/nightmares'
+                        labelText: 'Write about your dreams/nightmares',
+                        labelStyle: new TextStyle(color: Colors.deepPurple)
                     ),
+                    style: TextStyle(color: Colors.white),
+                    cursorColor: Colors.white,
                     controller: myController,
                     onTap: () {check4 = true;},
                   )
@@ -169,7 +211,7 @@ class _EditLogPageState extends State<EditLogPage>  {
                 padding:EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.blueAccent
+                        primary: Colors.deepPurple
                     ),
                     child: Text('Done'),
                     onPressed: () => _editLog(selectedDate, selectedTime, rating, myController)
@@ -179,7 +221,7 @@ class _EditLogPageState extends State<EditLogPage>  {
                 padding:EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.blueAccent
+                        primary: Colors.deepPurple
                     ),
                     child: Text('Delete Log'),
                     onPressed: () {

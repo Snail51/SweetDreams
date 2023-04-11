@@ -39,30 +39,30 @@ class _SoundsPageState extends State<SoundsPage> {
 
   @override
   void initState() {
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
+    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
+    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
     update();
     super.initState();
   }
@@ -80,9 +80,9 @@ class _SoundsPageState extends State<SoundsPage> {
       appBar: AppBar(
         title: Text("Sleep Sounds"),
         centerTitle: true,
-        backgroundColor: Colors.blueAccent.shade700,
+        backgroundColor: Colors.deepPurple,
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey.shade900,
       body: Center(
           child: GridView.count(
             crossAxisCount: 3,

@@ -99,27 +99,27 @@ class SleepEvent {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
-                color: Colors.blueAccent,
+                color: Colors.deepPurple,
                 child: Padding(padding: EdgeInsets.all(5), child: Column(
                   children: <Widget>[
-                    Text(DateFormat.MMMd().format(sleep) + ", " + DateFormat.y().format(sleep),overflow: TextOverflow.visible),
-                    Text(DateFormat.jm().format(sleep),overflow: TextOverflow.visible),
+                    Text(DateFormat.MMMd().format(sleep) + ", " + DateFormat.y().format(sleep),overflow: TextOverflow.visible, style: TextStyle(color: Colors.white)),
+                    Text(DateFormat.jm().format(sleep),overflow: TextOverflow.visible, style: TextStyle(color: Colors.white)),
                   ],
                 )),
               ),
               Container(
-                color: Colors.blueAccent,
+                color: Colors.deepPurple,
                 child: Padding(padding: EdgeInsets.all(5), child: Column(
                   children: <Widget>[
-                    Text(DateFormat.MMMd().format(wake) + ", " + DateFormat.y().format(wake),overflow: TextOverflow.visible),
-                    Text(DateFormat.jm().format(wake),overflow: TextOverflow.visible),
+                    Text(DateFormat.MMMd().format(wake) + ", " + DateFormat.y().format(wake),overflow: TextOverflow.visible, style: TextStyle(color: Colors.white)),
+                    Text(DateFormat.jm().format(wake),overflow: TextOverflow.visible, style: TextStyle(color: Colors.white)),
                   ],
                 )),
               ),
             ],
           ),
-          Text("Quality: " + quality.toString(),overflow: TextOverflow.visible),
-          Text("Dream Log:\n\t" + dream.toString(),overflow: TextOverflow.visible),
+          Text("Quality: " + quality.toString(),overflow: TextOverflow.visible, style: TextStyle(color: Colors.white)),
+          Text("Dream Log:\n\t" + dream.toString(),overflow: TextOverflow.visible, style: TextStyle(color: Colors.white)),
         ]
     ));
   }
