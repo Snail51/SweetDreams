@@ -12,7 +12,7 @@ class WidgetAudioPlayer
   Icon icon = Icon(Icons.question_mark);
   Color buttonColor = Colors.white70;
   double volume = 1.0;
-  final AudioPlayer player = AudioPlayer();
+  final AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
   bool needsUpdating = true;
 
   WidgetAudioPlayer(String Name, String srcdir, Icon display)
@@ -25,7 +25,6 @@ class WidgetAudioPlayer
     volume = 1.0;
 
 
-    player.pause();
     player.setReleaseMode(ReleaseMode.LOOP);
     player.setVolume(volume);
     setAudio();
@@ -36,6 +35,7 @@ class WidgetAudioPlayer
     final localAudioCache = AudioCache(prefix: "assets/audiosrc/");
     final url = await localAudioCache.load(source);
     player.setUrl(url.path, isLocal: true);
+    player.stop();
   }
 
   void toggle()
