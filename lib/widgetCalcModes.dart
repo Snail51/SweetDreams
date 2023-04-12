@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:time_range_picker/time_range_picker.dart';
+import 'package:tuple/tuple.dart';
 
 
 class CalcWakeWidget {
@@ -13,6 +14,7 @@ class CalcWakeWidget {
   String labelRangePickerButton = "";
   TimeOfDay pickerStart = TimeOfDay.now();
   TimeOfDay pickerEnd = TimeOfDay.now();
+  CycleWidget? cycleWidget;
 
   CalcWakeWidget(BuildContext ctx) {
     context = ctx;
@@ -27,6 +29,18 @@ class CalcWakeWidget {
   void updateRangePickerButtonLabel(TimeOfDay input) {
     needsUpdating = true;
     labelRangePickerButton = input.toString();
+  }
+
+  DateTime getNearestWakeTime(int numCycles) {
+    int minutes = numCycles * 90;
+    DateTime targetTime = fixedWake.subtract(Duration(minutes: minutes));
+    int diff = targetTime.difference(DateTime.now()).inMinutes;
+    if (diff >= 0) {
+      return targetTime;
+    } else {
+      // Round up to the next sleep cycle
+      return targetTime.add(Duration(minutes: 90 - (diff % 90)));
+    }
   }
 
   Widget toWidget() {
@@ -240,7 +254,6 @@ class CalcSleepWidget {
 
 
 class CycleWidget {
-
   final sleepCycle = 90;
   final maxCycles = 16;
   BuildContext? context;
@@ -250,16 +263,26 @@ class CycleWidget {
   double minRange = 0;
   double maxRange = 0;
 
-  CycleWidget(BuildContext ctx) {
-    context = ctx;
-    maxRange = (selectedCycles * 6) * sleepCycle.toDouble();
+  void updateRange(double min, double max) {
+    minRange = min;
+    maxRange = max;
+    selectedCycles = ((maxRange - minRange) / (sleepCycle * 6)).round();
+    needsUpdating = true;
+    CalcWakeWidget c = CalcWakeWidget(context!);
+    c.fixedWake = c.getNearestWakeTime(selectedCycles);
+  }
+
+  CycleWidget(BuildContext context,
+      {required Tuple2<double, double> updateRange}) {
+    this.minRange = updateRange.item1;
+    this.maxRange = updateRange.item2;
   }
 
   Widget toWidget() {
     return Padding(
       padding: EdgeInsets.all(5),
       child: Container(
-        height: 400,
+        height: 200,
         width: 400,
         color: Colors.amber,
         child: Column(
@@ -272,33 +295,12 @@ class CycleWidget {
               divisions: maxCycles - 1,
               label: selectedCycles.toString(),
               onChanged: (double value) {
-                needsUpdating = true;
-                selectedCycles = value.toInt();
-                maxRange = (selectedCycles * 6) * sleepCycle.toDouble();
+                updateRange(minRange, (value * 6) * sleepCycle);
               },
             ),
             Text(
               "Selected Cycles: " + selectedCycles.toString(),
               style: TextStyle(fontSize: 20),
-            ),
-            Text(
-              "Select Sleep time range: ",
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(
-              height: 100,
-              child: RangeSlider(
-                values: RangeValues(minRange, maxRange),
-                min: 0,
-                max: (maxCycles * 6) * sleepCycle.toDouble(),
-                onChanged: (RangeValues values) {
-                  needsUpdating = true;
-                  minRange = values.start;
-                  maxRange = values.end;
-                  selectedCycles =
-                      (maxRange / (6 * sleepCycle.toDouble())).ceil();
-                },
-              ),
             ),
           ],
         ),
@@ -306,6 +308,8 @@ class CycleWidget {
     );
   }
 }
+
+
 
 
 

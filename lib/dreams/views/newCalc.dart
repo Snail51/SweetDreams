@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:tuple/tuple.dart';
 import 'package:units/database.dart';
 import 'package:units/widgetCalcModes.dart';
 import 'package:units/widgetcalc.dart';
@@ -52,7 +53,7 @@ class _CalcPageState extends State<CalcPage> { // PAGE CLASS THAT WANTS TO DYNAM
   {
     content.add(CalcWakeWidget(context));
     content.add(CalcSleepWidget(context));
-    content.add(CycleWidget(context));
+    content.add(CycleWidget(context, updateRange: Tuple2<double, double>(0.0, 0.0)));
   }
 
   @override
