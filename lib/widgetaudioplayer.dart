@@ -9,8 +9,8 @@ class WidgetAudioPlayer
   bool isPlaying = false;
   String source = "";
   String name = "";
-  Icon icon = Icon(Icons.question_mark);
-  Color buttonColor = Colors.white70;
+  Icon icon = Icon(Icons.question_mark, color: Colors.red); //obvious init to find erros
+  Color buttonColor = Colors.grey;
   double volume = 1.0;
   final AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
   bool needsUpdating = true;
@@ -18,10 +18,11 @@ class WidgetAudioPlayer
   WidgetAudioPlayer(String Name, String srcdir, Icon display)
   {
     icon = display;
+    buttonColor = Colors.grey;
+    icon = Icon(icon.icon, color: buttonColor);
     source = srcdir;
     name = Name;
     isPlaying = false;
-    buttonColor = Colors.white70;
     volume = 1.0;
 
 
@@ -45,11 +46,14 @@ class WidgetAudioPlayer
     if(isPlaying)
     {
       player.resume();
+      buttonColor = Colors.white;
     }
     else
     {
       player.stop();
+      buttonColor = Colors.grey;
     }
+    icon = Icon(icon.icon, color: buttonColor);
   }
 
   void updateVolume(double newVol)
