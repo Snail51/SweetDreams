@@ -12,7 +12,7 @@ class WidgetAudioPlayer
   Icon icon = Icon(Icons.question_mark);
   Color buttonColor = Colors.white70;
   double volume = 1.0;
-  final AudioPlayer player = AudioPlayer();
+  final AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
   bool needsUpdating = true;
 
   WidgetAudioPlayer(String Name, String srcdir, Icon display)
@@ -25,7 +25,6 @@ class WidgetAudioPlayer
     volume = 1.0;
 
 
-    player.pause();
     player.setReleaseMode(ReleaseMode.LOOP);
     player.setVolume(volume);
     setAudio();
@@ -36,6 +35,7 @@ class WidgetAudioPlayer
     final localAudioCache = AudioCache(prefix: "assets/audiosrc/");
     final url = await localAudioCache.load(source);
     player.setUrl(url.path, isLocal: true);
+    player.stop();
   }
 
   void toggle()
@@ -43,13 +43,13 @@ class WidgetAudioPlayer
     needsUpdating = true;
     isPlaying = !isPlaying;
     if(isPlaying)
-      {
-        player.resume();
-      }
+    {
+      player.resume();
+    }
     else
-      {
-        player.stop();
-      }
+    {
+      player.stop();
+    }
   }
 
   void updateVolume(double newVol)
@@ -63,25 +63,25 @@ class WidgetAudioPlayer
   Widget toWidget()
   {
     return Padding(
-      padding: EdgeInsets.all(5),
-      child: Container(
-        color: Colors.deepPurple,
-        height: 150,
-        width: 150,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(name),
-            IconButton(onPressed: toggle, icon: icon),
-            SliderTheme(data: SliderThemeData(
-              thumbColor: Colors.white,
-              activeTrackColor: Colors.white
-            ),
-                child: Slider(
-                  value: volume, onChanged: updateVolume, min: 0, max: 1, label: volume.toString(),))
-          ],
-        ),
-      )
+        padding: EdgeInsets.all(5),
+        child: Container(
+          color: Colors.deepPurple,
+          height: 150,
+          width: 150,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(name),
+              IconButton(onPressed: toggle, icon: icon),
+              SliderTheme(data: SliderThemeData(
+                  thumbColor: Colors.white,
+                  activeTrackColor: Colors.white
+              ),
+                  child: Slider(
+                    value: volume, onChanged: updateVolume, min: 0, max: 1, label: volume.toString(),))
+            ],
+          ),
+        )
     );
   }
 

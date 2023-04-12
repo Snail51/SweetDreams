@@ -53,6 +53,16 @@ class _SoundsPageState extends State<SoundsPage> {
     update();
     super.initState();
   }
+
+  void killAll()
+  {
+    for(int i = 0; i < players.length; i++)
+      {
+        players[i].player.stop();
+      }
+    players = [];
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -63,19 +73,24 @@ class _SoundsPageState extends State<SoundsPage> {
       },
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Sleep Sounds"),
-        centerTitle: true,
-        backgroundColor: Colors.deepPurple,
-      ),
-      backgroundColor: Colors.grey.shade900,
-      body: Center(
-          child: GridView.count(
-            crossAxisCount: 3,
-            children: displayables,
-          )
-      ),
-    );
+    return WillPopScope(
+      onWillPop: () async {
+        killAll();
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Sleep Sounds"),
+          centerTitle: true,
+          backgroundColor: Colors.deepPurple,
+        ),
+        backgroundColor: Colors.grey.shade900,
+        body: Center(
+            child: GridView.count(
+              crossAxisCount: 3,
+              children: displayables,
+            )
+        ),
+      ),);
   }
 }

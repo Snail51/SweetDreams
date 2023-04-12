@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:units/database.dart';
@@ -71,10 +72,10 @@ class _InfoPageState extends State<InfoPage>  {
                   Expanded(child: Text(desc[i], style: const TextStyle(
                       color: Colors.white)))
                 ]
-                ),
-              ],
             ),
+          ],
         ),
+      ),
       );
     }
 
@@ -95,8 +96,9 @@ class _InfoPageState extends State<InfoPage>  {
     ));
   }
 
+
   Future<void> _launchUrl(_url) async {
-    if (!await launchUrl(_url)) {
+    if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch $_url');
     }
   }
@@ -114,15 +116,15 @@ class _InfoPageState extends State<InfoPage>  {
           child: Column(
             children: <Widget>[
               Padding(padding: const EdgeInsets.all(20),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple,
-                ),
-                child: Text('Youtube Videos'),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => YoutubePage(database: widget.database)));
-                },
-              )
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepPurple,
+                    ),
+                    child: Text('Youtube Videos'),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => YoutubePage(database: widget.database)));
+                    },
+                  )
               ),
               linksToWidget()
             ],
