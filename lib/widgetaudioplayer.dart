@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart';
-import 'dart:typed_data';
 
 
 class WidgetAudioPlayer
@@ -13,7 +12,7 @@ class WidgetAudioPlayer
   Icon icon = Icon(Icons.question_mark);
   Color buttonColor = Colors.white70;
   double volume = 1.0;
-  final AudioPlayer player = AudioPlayer();
+  final AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
   bool needsUpdating = true;
 
   WidgetAudioPlayer(String Name, String srcdir, Icon display)
@@ -26,7 +25,6 @@ class WidgetAudioPlayer
     volume = 1.0;
 
 
-    player.pause();
     player.setReleaseMode(ReleaseMode.LOOP);
     player.setVolume(volume);
     setAudio();
@@ -37,6 +35,7 @@ class WidgetAudioPlayer
     final localAudioCache = AudioCache(prefix: "assets/audiosrc/");
     final url = await localAudioCache.load(source);
     player.setUrl(url.path, isLocal: true);
+    player.stop();
   }
 
   void toggle()
@@ -63,18 +62,26 @@ class WidgetAudioPlayer
 
   Widget toWidget()
   {
-    return Container(
-      color: Colors.amber,
-      height: 150,
-      width: 150,
-      child: Column(
-        children: <Widget>[
-          Text(name),
-          IconButton(onPressed: toggle, icon: icon),
-          Slider(
-            value: volume, onChanged: updateVolume, min: 0, max: 1, label: volume.toString(),)
-        ],
-      ),
+    return Padding(
+      padding: EdgeInsets.all(5),
+      child: Container(
+        color: Colors.deepPurple,
+        height: 150,
+        width: 150,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(name),
+            IconButton(onPressed: toggle, icon: icon),
+            SliderTheme(data: SliderThemeData(
+              thumbColor: Colors.white,
+              activeTrackColor: Colors.white
+            ),
+                child: Slider(
+                  value: volume, onChanged: updateVolume, min: 0, max: 1, label: volume.toString(),))
+          ],
+        ),
+      )
     );
   }
 

@@ -37,6 +37,8 @@ class _CalcPageState extends State<CalcPage> {
   DateTime? bestSleepTime;
   DateTime? bestWakeTime;
 
+
+
   @override
   void initState() {
     super.initState();
@@ -156,6 +158,7 @@ class _CalcPageState extends State<CalcPage> {
     );
     return Column(
       children: content,
+
     );
   }
 
@@ -165,6 +168,7 @@ class _CalcPageState extends State<CalcPage> {
     final maxCycles = 16;
     final cycleLength = Duration(minutes: sleepCycle);
     DateTime? fixedSleep;
+
     List<Widget> content = [];
 
     String labelRangePickerButton = "Select Time Range";
@@ -380,23 +384,29 @@ class _CalcPageState extends State<CalcPage> {
       );
       }
    */
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Sleep Calculator'),
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple,
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+      backgroundColor: Colors.grey.shade900,
+      body: Center(
+        child: Padding( padding: EdgeInsets.all(20.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             Text(
               'Select a mode:',
-              style: TextStyle(fontSize: 18.0),
+              style: TextStyle(fontSize: 18.0, color: Colors.white),
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.deepPurple
+              ),
               onPressed: () {
                 showModalBottomSheet(
                   context: context,
@@ -407,7 +417,12 @@ class _CalcPageState extends State<CalcPage> {
               },
               child: Text('Fixed Wake Time'),
             ),
+
+            
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.deepPurple
+              ),
               onPressed: () {
                 showModalBottomSheet(
                   context: context,
@@ -418,7 +433,11 @@ class _CalcPageState extends State<CalcPage> {
               },
               child: Text('Fixed Sleep Time'),
             ),
+
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.deepPurple
+              ),
               onPressed: () {
                 showModalBottomSheet(
                     context: context,
@@ -455,6 +474,7 @@ class _CalcPageState extends State<CalcPage> {
                 child: Text('Number of Sleep Cycles'),
                 ),
              */
+
             SizedBox(height: 16.0),
             if (fixedWake != null)
               Text('Selected Wake Time: ${fixedWake!.hour}:${fixedWake!
@@ -468,9 +488,11 @@ class _CalcPageState extends State<CalcPage> {
           ],
         ),
       ),
+    ),
     );
   }
 }
+
 
 
 
