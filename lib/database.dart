@@ -11,6 +11,7 @@ class SleepEvent {
   int quality = 0; // 1-5 scale
   String dream = ""; // "" if none given
 
+
   SleepEvent(int num, DateTime start, {DateTime? end, int? Quality, String? Dream})
   {
     eventNumber = num;
@@ -128,7 +129,7 @@ class SleepEvent {
 class SleepData {
 
   List<SleepEvent> database = []; // List containing all data via SleepEvents
-
+  String delimeter = "🂿";
   SleepData({String? filename})
   {
     database = [];
@@ -161,7 +162,7 @@ class SleepData {
       for(int i=0; i < length; i++) {
         if ((i != length - 1)) {
           //print("Entry[" +i.toString() + "]: " + entries[i]);
-          final line = entries[i].split(',');
+          final line = entries[i].split(delimeter);
           int index = int.parse(line[0]);
           DateTime start = DateTime.parse(line[1]);
           DateTime end = DateTime.parse(line[2]);
@@ -258,10 +259,10 @@ class SleepData {
     String writeBuffer = "";
     int len = database.length;
     for( var i = 0 ; i < len; i++ ) {
-      writeBuffer += database[i].eventNumber.toString() + ",";
-      writeBuffer += database[i].sleep.toString() + ",";
-      writeBuffer += database[i].wake.toString() + ",";
-      writeBuffer += database[i].quality.toString() + ",";
+      writeBuffer += database[i].eventNumber.toString() + delimeter;
+      writeBuffer += database[i].sleep.toString() + delimeter;
+      writeBuffer += database[i].wake.toString() + delimeter;
+      writeBuffer += database[i].quality.toString() + delimeter;
       writeBuffer += database[i].dream.toString();
       writeBuffer += "\n";
     }
