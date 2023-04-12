@@ -176,6 +176,16 @@ class _SleepLogPageState extends State<SleepLogPage> {
               style: ElevatedButton.styleFrom(
                   primary: Colors.deepPurple
               ),
+              child: Text('Sleep History'),
+              onPressed: () async{
+                await Navigator.push(context, MaterialPageRoute(builder: (context) => SleepHistory(database: widget.database)));
+                nullDateSelection();
+              },
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.deepPurple
+              ),
               child: Text('Create New Log'),
               onPressed: () async{
                 await Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLogPage(database: widget.database)));
