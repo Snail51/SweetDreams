@@ -57,32 +57,36 @@ class _InfoPageState extends State<InfoPage>  {
       content.add(ListTile(
         leading: InkWell(
           onTap: () => _launchUrl(Uri.parse(links[i])),
-          child: Icon(Icons.open_in_new),
+          child: Icon(Icons.open_in_new, color: Colors.white),
         ),
-        title: Text(names[i]),
+        title: Text(names[i], style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white)),
         subtitle:
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
                 children: <Widget>[
-                  Expanded(child: Text(desc[i]))]
+                  Expanded(child: Text(desc[i], style: const TextStyle(
+                      color: Colors.white)))
+                ]
+                ),
+              ],
             ),
-          ],
         ),
-      ),
       );
     }
 
 
     return Expanded(child: ListView.separated(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(20),
       itemCount: content.length,
       itemBuilder: (BuildContext context, int index)
       {
         return Container(
           height: 75,
-          color: Colors.greenAccent,
+          color: Colors.deepPurple,
           child: content[index],
         );
       },
@@ -103,20 +107,22 @@ class _InfoPageState extends State<InfoPage>  {
       appBar: AppBar(
         title: Text("Sleep Information"),
         centerTitle: true,
-        backgroundColor: Colors.blueAccent.shade700,
+        backgroundColor: Colors.deepPurple,
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey.shade900,
       body: Center(
           child: Column(
             children: <Widget>[
-              ElevatedButton(
+              Padding(padding: const EdgeInsets.all(20),
+              child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent
+                    backgroundColor: Colors.deepPurple,
                 ),
                 child: Text('Youtube Videos'),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => YoutubePage(database: widget.database)));
                 },
+              )
               ),
               linksToWidget()
             ],
