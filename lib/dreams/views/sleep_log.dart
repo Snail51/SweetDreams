@@ -4,14 +4,14 @@ import 'package:intl/intl.dart';
 import '../views/create_log.dart';
 import 'package:units/database.dart';
 import '../views/edit_log.dart';
+import '../views/sleep_history.dart';
 
 class SleepLogPage extends StatefulWidget {
 
 
-  SleepLogPage({Key? key, required this.database, required this.fileLocation}) : super (key: key){}
+  SleepLogPage({Key? key, required this.database}) : super (key: key){}
 
   SleepData database = SleepData();
-  String fileLocation = "";
 
   @override
   _SleepLogPageState createState() => _SleepLogPageState();
@@ -63,7 +63,7 @@ class _SleepLogPageState extends State<SleepLogPage> {
               IconButton(
                   onPressed: () async{
                     await Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0], fileLocation: widget.fileLocation)));
+                        builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0])));
                     nullDateSelection();
                   },
                   //=> editEvent(i),
@@ -81,7 +81,7 @@ class _SleepLogPageState extends State<SleepLogPage> {
             IconButton(
                 onPressed: () async{
                   await Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0], fileLocation: widget.fileLocation)));
+                      builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0])));
                   nullDateSelection();
                 },
                 color: Colors.white,
@@ -178,10 +178,11 @@ class _SleepLogPageState extends State<SleepLogPage> {
               ),
               child: Text('Create New Log'),
               onPressed: () async{
-                await Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLogPage(database: widget.database, fileLocation: widget.fileLocation,)));
+                await Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLogPage(database: widget.database)));
                 nullDateSelection();
               },
             ),
+
             Padding(
               padding: EdgeInsets.only(left: 47),
               child: Row(

@@ -13,8 +13,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  String file = "data.csv";
-  SleepData database = new SleepData(filename: "data.csv");
+  String file = "logData.csv";
+  SleepData database = new SleepData(filename: "logData.csv");
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
                         child: Text('Sleep Log'),
                         onPressed: () {
 
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SleepLogPage(database: database, fileLocation: file)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SleepLogPage(database: database)));
 
                         },
                       ),
