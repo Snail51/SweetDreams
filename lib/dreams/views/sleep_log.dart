@@ -122,6 +122,11 @@ class _SleepLogPageState extends State<SleepLogPage> {
     });
   }
 
+  void popSave()
+  {
+    widget.database.save("data.csv");
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -157,51 +162,57 @@ class _SleepLogPageState extends State<SleepLogPage> {
         });
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Sleep Log'),
-        centerTitle: true,
-        backgroundColor: Colors.deepPurple,
-      ),
-      backgroundColor: Colors.grey.shade900,
-      body: Container(
-        alignment: Alignment.center,
-        child: Column(
-          children: <Widget>[
-            Padding(
-                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                child: Text("Sleep Log", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.deepPurple), textScaleFactor: 3,)
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.deepPurple
-              ),
-              child: Text('Create New Log'),
-              onPressed: () async{
-                await Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLogPage(database: widget.database, fileLocation: widget.fileLocation,)));
-                nullDateSelection();
-              },
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 47),
-              child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.deepPurple
-                    ),
-                    child: Text(labelSelectButton),
-                    onPressed: () => _selectDate(context)
-                ),
-                IconButton(onPressed: () => nullDateSelection(), icon: const Icon(Icons.delete_forever), color: Colors.deepPurple,)
-              ],
-            ),
-            ),
-            sleepLogToWidget()
-          ],
+
+    return WillPopScope(
+      onWillPop: () async {
+        popSave();
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Sleep Log'),
+          centerTitle: true,
+          backgroundColor: Colors.deepPurple,
         ),
-      ),
-    );
+        backgroundColor: Colors.grey.shade900,
+        body: Container(
+          alignment: Alignment.center,
+          child: Column(
+            children: <Widget>[
+              Padding(
+                  padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                  child: Text("Sleep Log", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.deepPurple), textScaleFactor: 3,)
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.deepPurple
+                ),
+                child: Text('Create New Log'),
+                onPressed: () async{
+                  await Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLogPage(database: widget.database, fileLocation: widget.fileLocation,)));
+                  nullDateSelection();
+                },
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 47),
+                child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.deepPurple
+                      ),
+                      child: Text(labelSelectButton),
+                      onPressed: () => _selectDate(context)
+                  ),
+                  IconButton(onPressed: () => nullDateSelection(), icon: const Icon(Icons.delete_forever), color: Colors.deepPurple,)
+                ],
+              ),
+              ),
+              sleepLogToWidget()
+            ],
+          ),
+        ),
+    ));
   }
 }
