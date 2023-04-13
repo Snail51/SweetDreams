@@ -198,7 +198,7 @@ class Diary {
     }
   }
 
-  void save(String dir)
+  void save()
   {
     String writeBuffer = "";
     int len = database.length;
