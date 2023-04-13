@@ -11,7 +11,7 @@ class WidgetAudioPlayer
   String name = "";
   Icon icon = Icon(Icons.question_mark, color: Colors.red); //obvious init to find erros
   Color buttonColor = Colors.grey;
-  double volume = 1.0;
+  double volume = 0.5;
   final AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
   bool needsUpdating = true;
 
@@ -23,7 +23,7 @@ class WidgetAudioPlayer
     source = srcdir;
     name = Name;
     isPlaying = false;
-    volume = 1.0;
+    volume = 0.5;
 
 
     player.setReleaseMode(ReleaseMode.LOOP);
