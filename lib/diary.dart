@@ -110,7 +110,7 @@ class Diary {
       for(int i=0; i < length; i++) {
         if ((i != length - 1)) {
           //print("Entry[" +i.toString() + "]: " + entries[i]);
-          final line = entries[i].split(',');
+          final line = entries[i].split(delimiter);
           int index = int.parse(line[0]);
           DateTime ref = DateTime.parse(line[1]);
           String title = line[2];
