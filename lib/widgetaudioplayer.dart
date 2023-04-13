@@ -11,18 +11,19 @@ class WidgetAudioPlayer
   String name = "";
   Icon icon = Icon(Icons.question_mark, color: Colors.red); //obvious init to find erros
   Color buttonColor = Colors.grey;
-  double volume = 1.0;
+  double volume = 0.5;
   final AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
   bool needsUpdating = true;
 
   WidgetAudioPlayer(String Name, String srcdir, Icon display)
   {
     icon = display;
+    buttonColor = Colors.grey;
+    icon = Icon(icon.icon, color: buttonColor);
     source = srcdir;
     name = Name;
     isPlaying = false;
-    buttonColor = Colors.white70;
-    volume = 1.0;
+    volume = 0.5;
 
 
     player.setReleaseMode(ReleaseMode.LOOP);
@@ -74,7 +75,9 @@ class WidgetAudioPlayer
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(name),
+              Text(name,
+              style: TextStyle(color: Colors.white),
+              ),
               IconButton(onPressed: toggle, icon: icon),
               SliderTheme(data: SliderThemeData(
                   thumbColor: Colors.white,
