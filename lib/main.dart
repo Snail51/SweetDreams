@@ -5,6 +5,7 @@ import 'database.dart';
 import 'dreams/views/newCalc.dart';
 import 'dreams/views/info_page.dart';
 import 'dreams/views/sounds_page.dart';
+import 'dreams/views/sleep_diary.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,6 +59,17 @@ class MyApp extends StatelessWidget {
                         onPressed: () {
 
                           Navigator.push(context, MaterialPageRoute(builder: (context) => SleepLogPage(database: database, fileLocation: file)));
+
+                        },
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.deepPurple
+                        ),
+                        child: Text('Sleep Diary'),
+                        onPressed: () {
+
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => DiaryPage(database: database, fileLocation: file)));
 
                         },
                       ),
