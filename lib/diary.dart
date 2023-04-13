@@ -66,7 +66,7 @@ class DiaryEntry {
         children: <Widget>[
           Text(title),
           Text(DateFormat.MMMd().format(timeRef) + ", " + DateFormat.y().format(timeRef),overflow: TextOverflow.visible, style: TextStyle(color: Colors.white)),
-          Text(content.replaceRange(32, content.length, content)),
+          Text("content"),
         ],
     )));
   }

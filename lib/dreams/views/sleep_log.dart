@@ -9,7 +9,7 @@ import '../views/sleep_history.dart';
 class SleepLogPage extends StatefulWidget {
 
 
-  SleepLogPage({Key? key, required this.database}) : super (key: key){}
+  SleepLogPage({Key? key, required this.database}) : super (key: key);
 
   SleepData database = SleepData();
 

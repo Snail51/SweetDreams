@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:units/database.dart';
+import 'package:units/diary.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 
 class CreateDiaryPage extends StatefulWidget {
 
-  CreateDiaryPage({Key? key, required this.database, required this.fileLocation}) : super (key: key);
-  SleepData database;
-  String fileLocation = "";
+  CreateDiaryPage({Key? key, required this.diary}) : super (key: key);
+  Diary diary;
 
   @override
   _CreateDiaryPageState createState() => _CreateDiaryPageState();
@@ -22,7 +21,9 @@ class _CreateDiaryPageState extends State<CreateDiaryPage> {
   bool check1 = false;
   bool check2 = false;
   bool check3 = false;
-  var myController = TextEditingController();
+  bool check4 = false;
+  var title = TextEditingController();
+  var textField = TextEditingController();
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay.now();
 
@@ -85,8 +86,10 @@ class _CreateDiaryPageState extends State<CreateDiaryPage> {
       }
     }
 
-    _createDiary(DateTime selectedDate, var myController) async {
-      if ((check1 != false) && (check2 != false) && (check3 != false)) {
+    _createDiary(DateTime selectedDate, TimeOfDay selectedTime, var title, var textField) async {
+      if ((check1 != false) && (check2 != false) && (check3 != false) && (check4 != false)) {
+        DateTime tempTime = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day, selectedTime.hour, selectedTime.minute);
+        widget.diary.addEvent(tempTime, Title: title.text, Content: textField.text);
         Navigator.pop(context);
       }
 
@@ -144,6 +147,27 @@ class _CreateDiaryPageState extends State<CreateDiaryPage> {
               ),
 
               Padding(
+                  padding: EdgeInsets.only(top: 20.0, left: 110.0, right: 110.0,),
+                  child: TextField(
+                    maxLength: 20,
+                    decoration: InputDecoration(
+                      counterStyle: new TextStyle(color: Colors.white),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.deepPurple)),
+                        border: OutlineInputBorder(),
+                        labelText: 'Title',
+                        labelStyle: new TextStyle(color: Colors.deepPurple)
+                    ),
+                    style: TextStyle(color: Colors.white),
+                    cursorColor: Colors.white,
+                    controller: title,
+                    onTap: () {
+                      check4 = true;
+                    },
+                  )
+              ),
+
+              Padding(
                   padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
                   child: TextField(
                     decoration: InputDecoration(
@@ -155,7 +179,7 @@ class _CreateDiaryPageState extends State<CreateDiaryPage> {
                     ),
                     style: TextStyle(color: Colors.white),
                     cursorColor: Colors.white,
-                    controller: myController,
+                    controller: textField,
                     onTap: () {
                       check3 = true;
                     },
@@ -170,7 +194,7 @@ class _CreateDiaryPageState extends State<CreateDiaryPage> {
                     ),
                     child: Text('Done'),
                     onPressed: () =>
-                        _createDiary(selectedDate, myController)
+                        _createDiary(selectedDate, selectedTime, title, textField)
                 ),
               ),
 
