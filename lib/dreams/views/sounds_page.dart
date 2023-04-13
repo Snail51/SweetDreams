@@ -24,14 +24,14 @@ class _SoundsPageState extends State<SoundsPage> {
       List<Widget> holder = [];
       for (int i = 0; i < players.length; i++) {
         if(players[i].needsUpdating)
-          {
-            holder.add(players[i].toWidget());
-            players[i].needsUpdating = false;
-          }
+        {
+          holder.add(players[i].toWidget());
+          players[i].needsUpdating = false;
+        }
         else
-          {
-            holder.add(displayables[i]);
-          }
+        {
+          holder.add(displayables[i]);
+        }
       }
       displayables = holder;
     });
@@ -39,33 +39,30 @@ class _SoundsPageState extends State<SoundsPage> {
 
   @override
   void initState() {
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
-    players.add(WidgetAudioPlayer("One", "test_one.mp3", Icon(Icons.cloud, color: Colors.white)));
-    players.add(WidgetAudioPlayer("Two", "test_two.mp3", Icon(Icons.sunny, color: Colors.white)));
+    players.add(WidgetAudioPlayer("Summer Night", "Summer_Night.mp3", Icon(Icons.wb_twighlight, color: Colors.white)));
+    players.add(WidgetAudioPlayer("Rain", "Rain.mp3", Icon(Icons.wb_cloudy, color: Colors.white)));
+    players.add(WidgetAudioPlayer("Wind", "Wind.mp3", Icon(Icons.wind_power, color: Colors.white)));
+    players.add(WidgetAudioPlayer("Womb", "Womb.mp3", Icon(Icons.favorite, color: Colors.white)));
+    players.add(WidgetAudioPlayer("Brook", "Brook.mp3", Icon(Icons.water, color: Colors.white)));
+    players.add(WidgetAudioPlayer("Ocean", "Ocean.mp3", Icon(Icons.tsunami, color: Colors.white)));
+    players.add(WidgetAudioPlayer("Bird", "Bird.mp3", Icon(Icons.notification_important, color: Colors.grey)));
+    players.add(WidgetAudioPlayer("Seagull", "Seagull.mp3", Icon(Icons.beach_access, color: Colors.grey)));
+    players.add(WidgetAudioPlayer("Bouy", "Bouy.mp3", Icon(Icons.directions_boat, color: Colors.grey)));
+    players.add(WidgetAudioPlayer("Thunder", "Thunder.mp3", Icon(Icons.bolt, color: Colors.grey)));
+
     update();
     super.initState();
   }
+
+  void killAll()
+  {
+    for(int i = 0; i < players.length; i++)
+      {
+        players[i].player.stop();
+      }
+    players = [];
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -76,19 +73,24 @@ class _SoundsPageState extends State<SoundsPage> {
       },
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Sleep Sounds"),
-        centerTitle: true,
-        backgroundColor: Colors.deepPurple,
-      ),
-      backgroundColor: Colors.grey.shade900,
-      body: Center(
-          child: GridView.count(
+    return WillPopScope(
+      onWillPop: () async {
+        killAll();
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Sleep Sounds"),
+          centerTitle: true,
+          backgroundColor: Colors.deepPurple,
+        ),
+        backgroundColor: Colors.grey.shade900,
+        body: Center(
+            child: GridView.count(
               crossAxisCount: 3,
-            children: displayables,
-          )
-      ),
-    );
+              children: displayables,
+            )
+        ),
+      ),);
   }
 }

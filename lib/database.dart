@@ -11,6 +11,7 @@ class SleepEvent {
   int quality = 0; // 1-5 scale
   String dream = ""; // "" if none given
 
+
   SleepEvent(int num, DateTime start, {DateTime? end, int? Quality, String? Dream})
   {
     eventNumber = num;
@@ -128,12 +129,14 @@ class SleepEvent {
 class SleepData {
 
   List<SleepEvent> database = []; // List containing all data via SleepEvents
-
+  String delimeter = "🂿";
+  String fileLocation = "";
   SleepData({String? filename})
   {
     database = [];
 
     if (filename != null) {
+      fileLocation = filename;
       _read(filename);
     }
   }
@@ -161,7 +164,7 @@ class SleepData {
       for(int i=0; i < length; i++) {
         if ((i != length - 1)) {
           //print("Entry[" +i.toString() + "]: " + entries[i]);
-          final line = entries[i].split(',');
+          final line = entries[i].split(delimeter);
           int index = int.parse(line[0]);
           DateTime start = DateTime.parse(line[1]);
           DateTime end = DateTime.parse(line[2]);
@@ -171,14 +174,6 @@ class SleepData {
         }
         //print("Found File (_read) \n" + '${directory.path}/$dir');
       }
-      //WHILE HAS NOT REACHED EOF, ADVANCE ONE LINE
-      //extract event Int from substr
-      //extract sleep DateTime from substr
-      //extract wake DateTime from substr
-      //extract quality Int from substr
-      //extract dream string from substr
-      //database.add(start, end, qual, dream);
-      //goto start of while
 
     } catch (e) {
       print("Couldn't read file (_read)");
@@ -253,25 +248,25 @@ class SleepData {
       return tmp;
     }
   }
-  void save(String dir)
+  void save()
   {
     String writeBuffer = "";
     int len = database.length;
     for( var i = 0 ; i < len; i++ ) {
-      writeBuffer += database[i].eventNumber.toString() + ",";
-      writeBuffer += database[i].sleep.toString() + ",";
-      writeBuffer += database[i].wake.toString() + ",";
-      writeBuffer += database[i].quality.toString() + ",";
+      writeBuffer += database[i].eventNumber.toString() + delimeter;
+      writeBuffer += database[i].sleep.toString() + delimeter;
+      writeBuffer += database[i].wake.toString() + delimeter;
+      writeBuffer += database[i].quality.toString() + delimeter;
       writeBuffer += database[i].dream.toString();
       writeBuffer += "\n";
     }
-    _write(writeBuffer, dir);
+    _write(writeBuffer);
   }
 
-  _write(String text, dir) async { // from https://stackoverflow.com/questions/54122850/how-to-read-and-write-a-text-file-in-flutter
+  _write(String text) async { // from https://stackoverflow.com/questions/54122850/how-to-read-and-write-a-text-file-in-flutter
     await Future.delayed(const Duration( seconds: 2), () {});
     final Directory directory = await getApplicationDocumentsDirectory();
-    final File file = File('${directory.path}/$dir');
+    final File file = File('${directory.path}/$fileLocation');
     await file.writeAsString(text);
     //print("saved at " + '${directory.path}/$dir');
   }

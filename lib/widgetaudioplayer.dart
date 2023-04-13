@@ -9,23 +9,23 @@ class WidgetAudioPlayer
   bool isPlaying = false;
   String source = "";
   String name = "";
-  Icon icon = Icon(Icons.question_mark);
-  Color buttonColor = Colors.white70;
-  double volume = 1.0;
-  final AudioPlayer player = AudioPlayer();
+  Icon icon = Icon(Icons.question_mark, color: Colors.red); //obvious init to find erros
+  Color buttonColor = Colors.grey;
+  double volume = 0.5;
+  final AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
   bool needsUpdating = true;
 
   WidgetAudioPlayer(String Name, String srcdir, Icon display)
   {
     icon = display;
+    buttonColor = Colors.grey;
+    icon = Icon(icon.icon, color: buttonColor);
     source = srcdir;
     name = Name;
     isPlaying = false;
-    buttonColor = Colors.white70;
-    volume = 1.0;
+    volume = 0.5;
 
 
-    player.pause();
     player.setReleaseMode(ReleaseMode.LOOP);
     player.setVolume(volume);
     setAudio();
@@ -36,6 +36,7 @@ class WidgetAudioPlayer
     final localAudioCache = AudioCache(prefix: "assets/audiosrc/");
     final url = await localAudioCache.load(source);
     player.setUrl(url.path, isLocal: true);
+    player.stop();
   }
 
   void toggle()
@@ -43,13 +44,16 @@ class WidgetAudioPlayer
     needsUpdating = true;
     isPlaying = !isPlaying;
     if(isPlaying)
-      {
-        player.resume();
-      }
+    {
+      player.resume();
+      buttonColor = Colors.white;
+    }
     else
-      {
-        player.stop();
-      }
+    {
+      player.stop();
+      buttonColor = Colors.grey;
+    }
+    icon = Icon(icon.icon, color: buttonColor);
   }
 
   void updateVolume(double newVol)
@@ -63,25 +67,27 @@ class WidgetAudioPlayer
   Widget toWidget()
   {
     return Padding(
-      padding: EdgeInsets.all(5),
-      child: Container(
-        color: Colors.deepPurple,
-        height: 150,
-        width: 150,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(name),
-            IconButton(onPressed: toggle, icon: icon),
-            SliderTheme(data: SliderThemeData(
-              thumbColor: Colors.white,
-              activeTrackColor: Colors.white
-            ),
-                child: Slider(
-                  value: volume, onChanged: updateVolume, min: 0, max: 1, label: volume.toString(),))
-          ],
-        ),
-      )
+        padding: EdgeInsets.all(5),
+        child: Container(
+          color: Colors.deepPurple,
+          height: 150,
+          width: 150,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(name,
+              style: TextStyle(color: Colors.white),
+              ),
+              IconButton(onPressed: toggle, icon: icon),
+              SliderTheme(data: SliderThemeData(
+                  thumbColor: Colors.white,
+                  activeTrackColor: Colors.white
+              ),
+                  child: Slider(
+                    value: volume, onChanged: updateVolume, min: 0, max: 1, label: volume.toString(),))
+            ],
+          ),
+        )
     );
   }
 
