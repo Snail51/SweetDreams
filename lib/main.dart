@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
-import 'package:units/diary.dart';
+//import 'package:units/diary.dart';
 import 'dreams/views/sleep_log.dart';
 import 'database.dart';
 import 'dreams/views/newCalc.dart';
@@ -16,7 +16,7 @@ void main() {
 class MyApp extends StatelessWidget {
   String logFile = "sleepLogData.csv";
   String diaryFile = "diaryData.csv";
-  Diary diary = new Diary(filename: "diaryData.csv");
+  //Diary diary = new Diary(filename: "diaryData.csv");
   SleepData database = new SleepData(filename: "sleepLogData.csv");
 
   @override
@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
                         child: Text('Sleep Log'),
                         onPressed: () {
 
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SleepLogPage(database: database, fileLocation: file)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SleepLogPage(database: database, fileLocation: logFile)));
 
                         },
                       ),

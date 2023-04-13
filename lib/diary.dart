@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'dart:core';
-
+/**
 class DiaryEntry {
   int eventNumber = 0;
   DateTime timeRef = DateTime.now();
@@ -114,7 +114,7 @@ class Diary {
           DateTime end = DateTime.parse(line[2]);
           int qual = int.parse(line[3]);
           String dream = line[4];
-          addEvent(start, wake:end, quality:qual, dream:dream);
+          addEvent(start, r:end, quality:qual, dream:dream);
         }
         //print("Found File (_read) \n" + '${directory.path}/$dir');
       }

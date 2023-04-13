@@ -75,7 +75,9 @@ class WidgetAudioPlayer
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(name),
+              Text(name,
+              style: TextStyle(color: Colors.white),
+              ),
               IconButton(onPressed: toggle, icon: icon),
               SliderTheme(data: SliderThemeData(
                   thumbColor: Colors.white,
