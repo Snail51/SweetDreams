@@ -16,19 +16,19 @@ class SoundsPage extends StatefulWidget {
 class _SoundsPageState extends State<SoundsPage> {
   List<WidgetAudioPlayer> players = [];
   List<Widget> displayables = [];
+  Timer refreshTimer = Timer.periodic(Duration(hours: 2), (timer) { });
+
 
 
   void update()
   {
     setState(() {
       List<Widget> holder = [];
-      int Changes = 0;
       for (int i = 0; i < players.length; i++) {
         if(players[i].needsUpdating)
         {
           holder.add(players[i].toWidget());
           players[i].needsUpdating = false;
-          Changes++;
         }
         else
         {
@@ -36,12 +36,18 @@ class _SoundsPageState extends State<SoundsPage> {
         }
       }
       displayables = holder;
-      //print("Changes: " + Changes);
     });
   }
 
   @override
   void initState() {
+    refreshTimer = Timer.periodic(
+      const Duration(milliseconds: 200), (timer)
+      {
+        update();
+      },
+    );
+
     players.add(WidgetAudioPlayer("Summer Night", "Summer_Night.mp3", Icon(Icons.wb_twighlight)));
     players.add(WidgetAudioPlayer("Rain", "Rain.mp3", Icon(Icons.wb_cloudy)));
     players.add(WidgetAudioPlayer("Wind", "Wind.mp3", Icon(Icons.wind_power)));
@@ -62,20 +68,14 @@ class _SoundsPageState extends State<SoundsPage> {
     for(int i = 0; i < players.length; i++)
       {
         players[i].player.stop();
-        players[i].player.dispose();
+        //players[i].player.dispose();
       }
     players = [];
+    refreshTimer.cancel();
   }
 
   @override
   Widget build(BuildContext context) {
-
-    final periodicTimer = Timer.periodic(
-      const Duration(milliseconds: 200),
-          (timer) {
-        update();
-      },
-    );
 
     return WillPopScope(
       onWillPop: () async {
