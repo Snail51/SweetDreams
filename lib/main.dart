@@ -6,6 +6,7 @@ import 'database.dart';
 import 'dreams/views/newCalc.dart';
 import 'dreams/views/info_page.dart';
 import 'dreams/views/sounds_page.dart';
+import 'diary.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,8 +14,10 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  String file = "data.csv";
-  SleepData database = new SleepData(filename: "data.csv");
+  String logFile = "sleepLogData.csv";
+  String diaryFile = "diaryData.csv";
+  Diary diary = new Diary(filename: "diaryData.csv");
+  SleepData database = new SleepData(filename: "sleepLogData.csv");
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +61,7 @@ class MyApp extends StatelessWidget {
                         child: Text('Sleep Log'),
                         onPressed: () {
 
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SleepLogPage(database: database, fileLocation: file)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SleepLogPage(database: database)));
 
                         },
                       ),

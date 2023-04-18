@@ -16,6 +16,8 @@ class SoundsPage extends StatefulWidget {
 class _SoundsPageState extends State<SoundsPage> {
   List<WidgetAudioPlayer> players = [];
   List<Widget> displayables = [];
+  Timer refreshTimer = Timer.periodic(Duration(hours: 2), (timer) { });
+
 
 
   void update()
@@ -39,16 +41,23 @@ class _SoundsPageState extends State<SoundsPage> {
 
   @override
   void initState() {
-    players.add(WidgetAudioPlayer("Summer Night", "Summer_Night.mp3", Icon(Icons.wb_twighlight, color: Colors.white)));
-    players.add(WidgetAudioPlayer("Rain", "Rain.mp3", Icon(Icons.wb_cloudy, color: Colors.white)));
-    players.add(WidgetAudioPlayer("Wind", "Wind.mp3", Icon(Icons.wind_power, color: Colors.white)));
-    players.add(WidgetAudioPlayer("Womb", "Womb.mp3", Icon(Icons.favorite, color: Colors.white)));
-    players.add(WidgetAudioPlayer("Brook", "Brook.mp3", Icon(Icons.water, color: Colors.white)));
-    players.add(WidgetAudioPlayer("Ocean", "Ocean.mp3", Icon(Icons.tsunami, color: Colors.white)));
-    players.add(WidgetAudioPlayer("Bird", "Bird.mp3", Icon(Icons.notification_important, color: Colors.grey)));
-    players.add(WidgetAudioPlayer("Seagull", "Seagull.mp3", Icon(Icons.beach_access, color: Colors.grey)));
-    players.add(WidgetAudioPlayer("Bouy", "Bouy.mp3", Icon(Icons.directions_boat, color: Colors.grey)));
-    players.add(WidgetAudioPlayer("Thunder", "Thunder.mp3", Icon(Icons.bolt, color: Colors.grey)));
+    refreshTimer = Timer.periodic(
+      const Duration(milliseconds: 200), (timer)
+      {
+        update();
+      },
+    );
+
+    players.add(WidgetAudioPlayer("Summer Night", "Summer_Night.mp3", Icon(Icons.wb_twighlight)));
+    players.add(WidgetAudioPlayer("Rain", "Rain.mp3", Icon(Icons.wb_cloudy)));
+    players.add(WidgetAudioPlayer("Wind", "Wind.mp3", Icon(Icons.wind_power)));
+    players.add(WidgetAudioPlayer("Womb", "Womb.mp3", Icon(Icons.favorite)));
+    players.add(WidgetAudioPlayer("Brook", "Brook.mp3", Icon(Icons.water)));
+    players.add(WidgetAudioPlayer("Ocean", "Ocean.mp3", Icon(Icons.tsunami)));
+    players.add(WidgetAudioPlayer("Bird", "Bird.mp3", Icon(Icons.notification_important)));
+    players.add(WidgetAudioPlayer("Seagull", "Seagull.mp3", Icon(Icons.beach_access)));
+    players.add(WidgetAudioPlayer("Bouy", "Bouy.mp3", Icon(Icons.directions_boat)));
+    players.add(WidgetAudioPlayer("Thunder", "Thunder.mp3", Icon(Icons.bolt)));
 
     update();
     super.initState();
@@ -59,19 +68,14 @@ class _SoundsPageState extends State<SoundsPage> {
     for(int i = 0; i < players.length; i++)
       {
         players[i].player.stop();
+        //players[i].player.dispose();
       }
     players = [];
+    refreshTimer.cancel();
   }
 
   @override
   Widget build(BuildContext context) {
-
-    final periodicTimer = Timer.periodic(
-      const Duration(milliseconds: 200),
-          (timer) {
-        update();
-      },
-    );
 
     return WillPopScope(
       onWillPop: () async {

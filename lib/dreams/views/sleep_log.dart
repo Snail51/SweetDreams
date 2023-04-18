@@ -4,14 +4,14 @@ import 'package:intl/intl.dart';
 import '../views/create_log.dart';
 import 'package:units/database.dart';
 import '../views/edit_log.dart';
+import '../views/sleep_history.dart';
 
 class SleepLogPage extends StatefulWidget {
 
 
-  SleepLogPage({Key? key, required this.database, required this.fileLocation}) : super (key: key){}
+  SleepLogPage({Key? key, required this.database}) : super (key: key){}
 
   SleepData database = SleepData();
-  String fileLocation = "";
 
   @override
   _SleepLogPageState createState() => _SleepLogPageState();
@@ -22,6 +22,14 @@ class _SleepLogPageState extends State<SleepLogPage> {
   @override
   void initState() {
     super.initState();
+  }
+
+  List<SleepEntry> generateSleepEntries() {
+    return widget.database.getData().map((sleepEvent) {
+      Duration duration = sleepEvent.wake.difference(sleepEvent.sleep);
+      double durationInHours = duration.inMinutes / 60.0; // Calculate duration in hours
+      return SleepEntry(sleepEvent.sleep, durationInHours);
+    }).toList();
   }
 
   DateTime selectedDate = DateTime.fromMicrosecondsSinceEpoch(0);
@@ -63,7 +71,7 @@ class _SleepLogPageState extends State<SleepLogPage> {
               IconButton(
                   onPressed: () async{
                     await Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0], fileLocation: widget.fileLocation)));
+                        builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0])));
                     nullDateSelection();
                   },
                   //=> editEvent(i),
@@ -81,7 +89,7 @@ class _SleepLogPageState extends State<SleepLogPage> {
             IconButton(
                 onPressed: () async{
                   await Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0], fileLocation: widget.fileLocation)));
+                      builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0])));
                   nullDateSelection();
                 },
                 color: Colors.white,
@@ -176,27 +184,43 @@ class _SleepLogPageState extends State<SleepLogPage> {
               style: ElevatedButton.styleFrom(
                   primary: Colors.deepPurple
               ),
-              child: Text('Create New Log'),
-              onPressed: () async{
-                await Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLogPage(database: widget.database, fileLocation: widget.fileLocation,)));
+              child: Text('Sleep History'),
+              onPressed: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SleepHistory(sleepEntries: generateSleepEntries()),
+                  ),
+                );
                 nullDateSelection();
               },
             ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.deepPurple
+              ),
+              child: Text('Create New Log'),
+              onPressed: () async{
+                await Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLogPage(database: widget.database)));
+                nullDateSelection();
+              },
+            ),
+
             Padding(
               padding: EdgeInsets.only(left: 47),
               child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.deepPurple
-                    ),
-                    child: Text(labelSelectButton),
-                    onPressed: () => _selectDate(context)
-                ),
-                IconButton(onPressed: () => nullDateSelection(), icon: const Icon(Icons.delete_forever), color: Colors.deepPurple,)
-              ],
-            ),
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.deepPurple
+                      ),
+                      child: Text(labelSelectButton),
+                      onPressed: () => _selectDate(context)
+                  ),
+                  IconButton(onPressed: () => nullDateSelection(), icon: const Icon(Icons.delete_forever), color: Colors.deepPurple,)
+                ],
+              ),
             ),
             sleepLogToWidget()
           ],

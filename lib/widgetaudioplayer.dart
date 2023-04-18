@@ -9,32 +9,35 @@ class WidgetAudioPlayer
   bool isPlaying = false;
   String source = "";
   String name = "";
-  Icon icon = Icon(Icons.question_mark);
-  Color buttonColor = Colors.white70;
-  double volume = 1.0;
-  final AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
+  Icon icon = Icon(Icons.question_mark, color: Colors.red); //obvious init to find erros
+  Color buttonColor = Colors.grey;
+  double volume = 0.5;
+  final AudioPlayer player = AudioPlayer();
   bool needsUpdating = true;
 
   WidgetAudioPlayer(String Name, String srcdir, Icon display)
   {
     icon = display;
+    buttonColor = Colors.grey;
+    icon = Icon(icon.icon, color: buttonColor);
     source = srcdir;
     name = Name;
     isPlaying = false;
-    buttonColor = Colors.white70;
-    volume = 1.0;
+    volume = 0.5;
 
 
-    player.setReleaseMode(ReleaseMode.LOOP);
+    player.setReleaseMode(ReleaseMode.loop);
     player.setVolume(volume);
     setAudio();
+    player.setPlayerMode(PlayerMode.lowLatency);
+
+    //print("Source for player " + name + ": " + player.source.toString());
+
   }
 
   Future setAudio() async
   {
-    final localAudioCache = AudioCache(prefix: "assets/audiosrc/");
-    final url = await localAudioCache.load(source);
-    player.setUrl(url.path, isLocal: true);
+    player.setSourceAsset("audiosrc/" + source);
     player.stop();
   }
 
@@ -45,11 +48,14 @@ class WidgetAudioPlayer
     if(isPlaying)
     {
       player.resume();
+      buttonColor = Colors.white;
     }
     else
     {
       player.stop();
+      buttonColor = Colors.grey;
     }
+    icon = Icon(icon.icon, color: buttonColor);
   }
 
   void updateVolume(double newVol)
@@ -71,7 +77,9 @@ class WidgetAudioPlayer
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(name),
+              Text(name,
+              style: TextStyle(color: Colors.white),
+              ),
               IconButton(onPressed: toggle, icon: icon),
               SliderTheme(data: SliderThemeData(
                   thumbColor: Colors.white,

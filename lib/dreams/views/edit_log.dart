@@ -6,10 +6,9 @@ import 'package:time_range_picker/time_range_picker.dart';
 
 class EditLogPage extends StatefulWidget {
 
-  EditLogPage({Key? key, required this.database, required this.log, required this.fileLocation}) : super (key: key);
+  EditLogPage({Key? key, required this.database, required this.log}) : super (key: key);
   SleepData database;
   SleepEvent log;
-  String fileLocation;
 
   @override
   _EditLogPageState createState() => _EditLogPageState();
@@ -116,7 +115,7 @@ class _EditLogPageState extends State<EditLogPage>  {
             End: wake,
             Quality: rating.toInt(),
             Dream: myController.text);
-        widget.database.save(widget.fileLocation);
+        widget.database.save();
         Navigator.pop(context);
       }
       else {
