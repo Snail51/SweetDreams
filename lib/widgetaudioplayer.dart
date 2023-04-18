@@ -29,9 +29,6 @@ class WidgetAudioPlayer
     player.setReleaseMode(ReleaseMode.loop);
     player.setVolume(volume);
     setAudio();
-    player.setPlayerMode(PlayerMode.lowLatency);
-
-    //print("Source for player " + name + ": " + player.source.toString());
 
   }
 

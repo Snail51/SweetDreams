@@ -13,25 +13,12 @@ class SomePage extends StatefulWidget {
 class _SomePageState extends State<SomePage> { // PAGE CLASS THAT WANTS TO DYNAMICALLY COELLATE WIDGETS THAT WERE GENERATED EXTERNALLY
   List<dynamic> content = [];
   List<Widget> displayables = [];
-  Timer refreshTimer = Timer.periodic(Duration.zero, (timer) { });
 
   @override
   void initState() {
-    refreshTimer = Timer.periodic(
-      const Duration(milliseconds: 200), //adjust this number for how often you want the screen refreshed
-          (timer) {
-        update();
-      },
-    );
-
     initContent();
     update();
     super.initState();
-  }
-
-  void pageDeconstructor()
-  {
-    refreshTimer.cancel();
   }
 
   void update()
@@ -61,23 +48,25 @@ class _SomePageState extends State<SomePage> { // PAGE CLASS THAT WANTS TO DYNAM
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async {
-          pageDeconstructor(); // function that is called as the user hits the back arrow
-          return true;
+
+    final periodicTimer = Timer.periodic(
+      const Duration(milliseconds: 200), //adjust this number for how often you want the screen refreshed
+          (timer) {
+        update();
       },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Example of updating widgets that were dynamically created outside of a build function, because when they are outside of a build function they don't have access to setState()"),
-          centerTitle: true,
-          backgroundColor: Colors.blueAccent.shade700,
-        ),
-        backgroundColor: Colors.white,
-        body: Center(
-            child: Column(
-              children: displayables,
-            )
-        ),
+    );
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Example of updating widgets that were dynamically created outside of a build function, because when they are outside of a build function they don't have access to setState()"),
+        centerTitle: true,
+        backgroundColor: Colors.blueAccent.shade700,
+      ),
+      backgroundColor: Colors.white,
+      body: Center(
+          child: Column(
+            children: displayables,
+          )
       ),
     );
   }
