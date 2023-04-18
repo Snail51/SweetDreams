@@ -15,8 +15,22 @@ class CalcWakeWidget {
   TimeOfDay pickerStart = TimeOfDay.now();
   TimeOfDay pickerEnd = TimeOfDay.now();
   CycleWidget? cycleWidget;
+  int selectedCycles;
 
-  CalcWakeWidget(BuildContext ctx) {
+  Tuple2<DateTime, DateTime> getNearestWakeTime(int numCycles) {
+    int minutes = numCycles * 90;
+    DateTime targetTime = fixedWake.subtract(Duration(minutes: minutes));
+    int diff = targetTime.difference(DateTime.now()).inMinutes;
+    if (diff >= 0) {
+      return Tuple2(targetTime, fixedWake);
+    } else {
+      // Round up to the next sleep cycle
+      DateTime roundedTargetTime = targetTime.add(Duration(minutes: 90 - (diff % 90)));
+      return Tuple2(roundedTargetTime, fixedWake);
+    }
+  }
+
+  CalcWakeWidget(BuildContext ctx, {required this.selectedCycles}) {
     context = ctx;
   }
 
@@ -31,104 +45,106 @@ class CalcWakeWidget {
     labelRangePickerButton = input.toString();
   }
 
-  DateTime getNearestWakeTime(int numCycles) {
-    int minutes = numCycles * 90;
-    DateTime targetTime = fixedWake.subtract(Duration(minutes: minutes));
-    int diff = targetTime.difference(DateTime.now()).inMinutes;
-    if (diff >= 0) {
-      return targetTime;
-    } else {
-      // Round up to the next sleep cycle
-      return targetTime.add(Duration(minutes: 90 - (diff % 90)));
-    }
-  }
-
   Widget toWidget() {
-    return Padding(padding: EdgeInsets.all(5),
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
       child: Container(
         height: 200,
         width: 400,
         color: Colors.amber,
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text("Select Fixed Wake Time:"),
-              ElevatedButton.icon(
-                onPressed: () async {
-                  final picked = await showTimePicker(
-                    context: context!,
-                    initialTime: TimeOfDay.now(),
-                  );
-                  print("PICK" + picked.toString());
-                  if (picked != null) {
-                    updateWakeTime(picked);
-                  }
-                },
-                icon: Icon(Icons.alarm),
-                label: Text('Select Time'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.purple,
-                  onPrimary: Colors.white,
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text("Select Fixed Wake Time:"),
+            ElevatedButton.icon(
+              onPressed: () async {
+                final picked = await showTimePicker(
+                  context: context!,
+                  initialTime: TimeOfDay.now(),
+                );
+                if (picked != null) {
+                  updateWakeTime(picked);
+                }
+              },
+              icon: Icon(Icons.alarm),
+              label: Text('Select Time'),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.purple,
+                onPrimary: Colors.white,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
                 ),
               ),
-              Text(
-                "Selected Wake Time: " + (fixedWake?.toString() ?? ""),
-              ),
-              Text(
-                "Select Wakeup time range: ",
-              ),
-              ElevatedButton.icon(
-                icon: Icon(Icons.access_time),
-                label: Text(labelRangePickerButton),
-                onPressed: () async {
-                  if (fixedWake == null) {
-                    // Show an error message if fixedWake is not set
-                    showDialog(
-                      context: context!,
-                      builder: (context) =>
-                          AlertDialog(
-                            title: Text("Error"),
-                            content: Text(
-                                "Please select a fixed wake time first."),
-                          ),
-                    );
-                    return;
-                  }
-                  final picked = await showTimeRangePicker(
+            ),
+            Text(
+              "Selected Wake Time: " + (fixedWake?.toString() ?? ""),
+            ),
+            Text(
+              "Select Wakeup time range: ",
+            ),
+            ElevatedButton.icon(
+              icon: Icon(Icons.access_time),
+              label: Text(labelRangePickerButton),
+              onPressed: () async {
+                if (fixedWake == null) {
+                  // Show an error message if fixedWake is not set
+                  showDialog(
                     context: context!,
-                    start: TimeOfDay(hour: fixedWake?.hour ?? TimeOfDay
-                        .now()
-                        .hour, minute: fixedWake?.minute ?? TimeOfDay
-                        .now()
-                        .minute),
-                    minDuration: Duration(minutes: 90),
-                    interval: Duration(minutes: 90),
-                    onStartChange: (time) {
-                      updateRangePickerButtonLabel(time);
-                      pickerStart = pickerStart;
-                      needsUpdating = true;
-                    },
-                    onEndChange: (time) {
-                      updateRangePickerButtonLabel(time);
-                      pickerEnd = time;
-                      needsUpdating = true;
-                    },
+                    builder: (context) =>
+                        AlertDialog(
+                          title: Text("Error"),
+                          content: Text(
+                              "Please select a fixed wake time first."),
+                        ),
                   );
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
-                  onPrimary: Colors.white,
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+                  return;
+                }
+
+                CycleWidget cycleWidget = CycleWidget(context!,
+                    updateRange: Tuple2(0, (90 * 6 * cycleWidget.maxCycles) as double));
+                Tuple2<DateTime, DateTime> wakeTimeRange =
+                cycleWidget.getNearestWakeTime(selectedCycles);
+                TimeOfDay pickerStart =
+                TimeOfDay.fromDateTime(wakeTimeRange.item1);
+                TimeOfDay pickerEnd =
+                TimeOfDay.fromDateTime(wakeTimeRange.item2);
+
+                final picked = await showTimeRangePicker(
+                  context: context!,
+                  start: pickerStart,
+                  end: pickerEnd,
+                  minDuration: Duration(minutes: 90),
+                  interval: Duration(minutes: 90),
+                  onStartChange: (time) {
+                    updateRangePickerButtonLabel(time);
+                    pickerStart = pickerStart;
+                    needsUpdating = true;
+                  },
+                  onEndChange: (time) {
+                    updateRangePickerButtonLabel(time);
+                    pickerEnd = time;
+                    needsUpdating = true;
+                  },
+                );
+
+                if (picked != null) {
+                  pickerStart = picked.start;
+                  pickerEnd = picked.end;
+                  updateRangePickerButtonLabel(picked.start);
+                  needsUpdating = true;
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+                onPrimary: Colors.white,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
                 ),
               ),
-            ]
+            ),
+          ],
         ),
       ),
     );
@@ -268,12 +284,15 @@ class CycleWidget {
     maxRange = max;
     selectedCycles = ((maxRange - minRange) / (sleepCycle * 6)).round();
     needsUpdating = true;
-    CalcWakeWidget c = CalcWakeWidget(context!);
-    c.fixedWake = c.getNearestWakeTime(selectedCycles);
+
+    // create a new instance of CalcWakeWidget and call getNearestWakeTime
+    CalcWakeWidget calcWakeWidget = CalcWakeWidget(context!, selectedCycles: selectedCycles);
+    Tuple2<DateTime, DateTime> wakeTimeRange = calcWakeWidget.getNearestWakeTime(selectedCycles);
+    calcWakeWidget.pickerStart = TimeOfDay.fromDateTime(wakeTimeRange.item1);
+    calcWakeWidget.pickerEnd = TimeOfDay.fromDateTime(wakeTimeRange.item2);
   }
 
-  CycleWidget(BuildContext context,
-      {required Tuple2<double, double> updateRange}) {
+  CycleWidget(BuildContext context, {required Tuple2<double, double> updateRange}) {
     this.minRange = updateRange.item1;
     this.maxRange = updateRange.item2;
   }
@@ -308,6 +327,7 @@ class CycleWidget {
     );
   }
 }
+
 
 
 

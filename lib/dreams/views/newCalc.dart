@@ -5,7 +5,6 @@ import 'package:flutter/rendering.dart';
 import 'package:tuple/tuple.dart';
 import 'package:units/database.dart';
 import 'package:units/widgetCalcModes.dart';
-import 'package:units/widgetcalc.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 import 'dart:async';
 
