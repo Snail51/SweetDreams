@@ -12,7 +12,7 @@ class WidgetAudioPlayer
   Icon icon = Icon(Icons.question_mark, color: Colors.red); //obvious init to find erros
   Color buttonColor = Colors.grey;
   double volume = 0.5;
-  final AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
+  final AudioPlayer player = AudioPlayer();
   bool needsUpdating = true;
 
   WidgetAudioPlayer(String Name, String srcdir, Icon display)
@@ -26,16 +26,18 @@ class WidgetAudioPlayer
     volume = 0.5;
 
 
-    player.setReleaseMode(ReleaseMode.LOOP);
+    player.setReleaseMode(ReleaseMode.loop);
     player.setVolume(volume);
     setAudio();
+    player.setPlayerMode(PlayerMode.lowLatency);
+
+    //print("Source for player " + name + ": " + player.source.toString());
+
   }
 
   Future setAudio() async
   {
-    final localAudioCache = AudioCache(prefix: "assets/audiosrc/");
-    final url = await localAudioCache.load(source);
-    player.setUrl(url.path, isLocal: true);
+    player.setSourceAsset("audiosrc/" + source);
     player.stop();
   }
 
