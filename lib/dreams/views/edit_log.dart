@@ -18,6 +18,26 @@ class _EditLogPageState extends State<EditLogPage>  {
   @override
   void initState() {
     super.initState();
+    myController.text = widget.log.dream;
+    labelSelectDate =
+        widget.log.sleep.month.toString() + "/" + widget.log.sleep.day.toString() +
+            "/" + widget.log.sleep.year.toString();
+    String temp1 = "";
+    String temp2 = "";
+    String temp3 = "";
+    String temp4 = "";
+    TimeOfDay sleepTemp = new TimeOfDay(hour: widget.log.sleep.hour, minute: widget.log.sleep.minute);
+    TimeOfDay wakeTemp = new TimeOfDay(hour: widget.log.wake.hour, minute: widget.log.wake.minute);
+    if (sleepTemp.period == DayPeriod.am) temp1 = " am";
+    if (sleepTemp.period == DayPeriod.pm) temp1 = " pm";
+    temp2 = sleepTemp.hourOfPeriod.toString();
+    if (wakeTemp.period == DayPeriod.am) temp3 = " am";
+    if (wakeTemp.period == DayPeriod.pm) temp3 = " pm";
+    temp4 = wakeTemp.hourOfPeriod.toString();
+    labelSelectTimeRange =
+        temp2 + ":" + sleepTemp.minute.toString() + temp1 +
+            " - " + temp4 + ":" + wakeTemp.minute.toString() +
+            temp3;
   }
 
   double rating = 0;
@@ -34,29 +54,6 @@ class _EditLogPageState extends State<EditLogPage>  {
 
   @override
   Widget build(BuildContext context) {
-
-     _initialSetup() {
-      myController.text = widget.log.dream;
-      labelSelectDate =
-          widget.log.sleep.month.toString() + "/" + widget.log.sleep.day.toString() +
-              "/" + widget.log.sleep.year.toString();
-      String temp1 = "";
-      String temp2 = "";
-      String temp3 = "";
-      String temp4 = "";
-      TimeOfDay sleepTemp = new TimeOfDay(hour: widget.log.sleep.hour, minute: widget.log.sleep.minute);
-      TimeOfDay wakeTemp = new TimeOfDay(hour: widget.log.wake.hour, minute: widget.log.wake.minute);
-      if (sleepTemp.period == DayPeriod.am) temp1 = " am";
-      if (sleepTemp.period == DayPeriod.pm) temp1 = " pm";
-      temp2 = sleepTemp.hourOfPeriod.toString();
-      if (wakeTemp.period == DayPeriod.am) temp3 = " am";
-      if (wakeTemp.period == DayPeriod.pm) temp3 = " pm";
-      temp4 = wakeTemp.hourOfPeriod.toString();
-      labelSelectTimeRange =
-          temp2 + ":" + sleepTemp.minute.toString() + temp1 +
-              " - " + temp4 + ":" + wakeTemp.minute.toString() +
-              temp3;
-    }
 
     _selectDate(BuildContext context) async{
       final DateTime? picked = await showDatePicker(
@@ -182,7 +179,6 @@ class _EditLogPageState extends State<EditLogPage>  {
         Navigator.pop(context);
     }
 
-    _initialSetup();
     return Scaffold(
       appBar: AppBar(
         title: Text("Edit Log"),
