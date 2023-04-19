@@ -10,6 +10,7 @@ class DiaryEntry {
   DateTime timeRef = DateTime.now();
   String title = ""; // "" if none given
   String content = "";
+  bool expanding = false;
 
   DiaryEntry(int num, DateTime ref, {String? Title, String? Content})
   {
@@ -59,14 +60,48 @@ class DiaryEntry {
     return composite;
   }
 
+  void expand()  {
+    expanding = !expanding;
+  }
+
   Widget toWidget()
   {
+    String temp3 = "";
+    String temp4 = "";
+    String labelSelectTime = "";
+    TimeOfDay tempTime = new TimeOfDay(hour: timeRef.hour, minute: timeRef.minute);
+    if (tempTime.period == DayPeriod.am) temp3 = " am";
+    if (tempTime.period == DayPeriod.pm) temp3 = " pm";
+    temp4 = tempTime.hourOfPeriod.toString();
+    labelSelectTime = temp4 + ":" + tempTime.minute.toString() + temp3;
+
+    String content32 = "";
+
+    if (expanding == false)  {
+      for (int i = 0; i < content.length; i++) {
+        if (i < 32) content32 += content[i];
+      }
+    }
+
+    if (expanding == true)  {
+      int j = 0;
+      for (int i = 0; i < content.length; i++) {
+        content32 += content[i];
+        if (j == 31)  {
+          content32 += "\n";
+          j = 0;
+        }
+        j++;
+      }
+    }
+
     return Container(child: Center(child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(title, style: TextStyle(color: Colors.white)),
+          Text(title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
           Text(DateFormat.MMMd().format(timeRef) + ", " + DateFormat.y().format(timeRef),overflow: TextOverflow.visible, style: TextStyle(color: Colors.white)),
-          Text("content", style: TextStyle(color: Colors.white)),
+          Text(labelSelectTime + "\n", overflow: TextOverflow.visible, style: TextStyle(color: Colors.white)),
+          Text(content32, overflow: TextOverflow.visible, style: TextStyle(color: Colors.white) ),
         ],
     )));
   }

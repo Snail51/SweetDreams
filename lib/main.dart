@@ -61,7 +61,6 @@ class MyApp extends StatelessWidget {
                         onPressed: () {
 
                           Navigator.push(context, MaterialPageRoute(builder: (context) => SleepLogPage(database: database)));
-
                         },
                       ),
                       ElevatedButton(
