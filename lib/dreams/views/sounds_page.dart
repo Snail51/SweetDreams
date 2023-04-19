@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:units/database.dart';
@@ -15,30 +16,81 @@ class SoundsPage extends StatefulWidget {
 
 class _SoundsPageState extends State<SoundsPage> {
   List<WidgetAudioPlayer> players = [];
-  List<Widget> displayables = [];
+  List<Widget> displayables = [Text("NULL")];
+
+  DateTime loadEnd = DateTime.now().add(Duration(seconds: 10));
+  Timer refreshTimer = Timer.periodic(Duration(hours: 2), (timer) { });
+  Timer loadingTimer = Timer(Duration(hours: 2), () { });
+  Widget loadHolder = Text("NULL");
+  bool loading = true;
+  double loadingProgress = 0;
 
 
   void update()
   {
-    setState(() {
-      List<Widget> holder = [];
-      for (int i = 0; i < players.length; i++) {
-        if(players[i].needsUpdating)
-        {
-          holder.add(players[i].toWidget());
-          players[i].needsUpdating = false;
+    if(refreshTimer.isActive && !loading) {
+      setState(() {
+        List<Widget> holder = [];
+        for (int i = 0; i < players.length; i++) {
+          if (players[i].needsUpdating) {
+            holder.add(players[i].toWidget());
+            players[i].needsUpdating = false;
+          }
+          else {
+            holder.add(displayables[i]);
+          }
         }
-        else
-        {
-          holder.add(displayables[i]);
-        }
+        displayables = holder;
+      });
+    }
+    if(loading)
+      {
+        setState(() {
+          loadingProgress = 1.0 - (DateTimeRange(start: DateTime.now(), end: loadEnd).duration.inSeconds.toDouble() / 10.0);
+          loadHolder = loader();
+        });
       }
-      displayables = holder;
-    });
+  }
+
+  Widget loader() {
+    print("producing new loader with value " + loadingProgress.toString());
+    return Container(
+      height: 250,
+      width: 250,
+      child: Column(
+        children: <Widget>[
+          Text("Loading Sounds...", style: TextStyle(color: Colors.white),),
+          CircularProgressIndicator(value: loadingProgress, ),
+          Text("Fun Fact...", style: TextStyle(color: Colors.white),),
+        ],
+      ),
+    );
   }
 
   @override
   void initState() {
+
+
+    loading = true;
+    loadingProgress = 0.0;
+    final loadingTimer = Timer(
+        DateTimeRange(start: DateTime.now(), end: loadEnd).duration,
+        () {
+          loading = false;
+          loadHolder = Container(
+            width: 10,
+            height: 10,
+          );
+        }
+    );
+
+    final refreshTimer = Timer.periodic(
+      const Duration(milliseconds: 100),
+          (timer) {
+        update();
+      },
+    );
+
     players.add(WidgetAudioPlayer("Summer Night", "Summer_Night.mp3", Icon(Icons.wb_twighlight, color: Colors.white)));
     players.add(WidgetAudioPlayer("Rain", "Rain.mp3", Icon(Icons.wb_cloudy, color: Colors.white)));
     players.add(WidgetAudioPlayer("Wind", "Wind.mp3", Icon(Icons.wind_power, color: Colors.white)));
@@ -56,22 +108,18 @@ class _SoundsPageState extends State<SoundsPage> {
 
   void killAll()
   {
+    refreshTimer.cancel();
+    print("consuming timer " + refreshTimer.toString());
     for(int i = 0; i < players.length; i++)
       {
         players[i].player.stop();
+        players[i].needsUpdating = false;
       }
     players = [];
   }
 
   @override
   Widget build(BuildContext context) {
-
-    final periodicTimer = Timer.periodic(
-      const Duration(milliseconds: 200),
-          (timer) {
-        update();
-      },
-    );
 
     return WillPopScope(
       onWillPop: () async {
@@ -86,11 +134,19 @@ class _SoundsPageState extends State<SoundsPage> {
         ),
         backgroundColor: Colors.grey.shade900,
         body: Center(
-            child: GridView.count(
-              crossAxisCount: 3,
-              children: displayables,
-            )
-        ),
-      ),);
+          child: Column(
+            children: <Widget>[
+              loadHolder,
+              Container(
+                height: 500,
+                child: GridView.count(
+                  crossAxisCount: 3,
+                  children: displayables,
+                ),
+              ),
+            ],
+          ),
+        )
+      ));
   }
 }

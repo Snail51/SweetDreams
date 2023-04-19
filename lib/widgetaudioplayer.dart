@@ -35,32 +35,33 @@ class WidgetAudioPlayer
   {
     final localAudioCache = AudioCache(prefix: "assets/audiosrc/");
     final url = await localAudioCache.load(source);
-    player.setUrl(url.path, isLocal: true);
-    player.stop();
+    await player.setUrl(url.path, isLocal: true);
+    await player.stop();
   }
 
-  void toggle()
+  void toggle() async
   {
-    needsUpdating = true;
+
     isPlaying = !isPlaying;
     if(isPlaying)
     {
-      player.resume();
+      await player.resume();
       buttonColor = Colors.white;
     }
     else
     {
-      player.stop();
+      await player.stop();
       buttonColor = Colors.grey;
     }
     icon = Icon(icon.icon, color: buttonColor);
+    needsUpdating = true;
   }
 
-  void updateVolume(double newVol)
+  void updateVolume(double newVol) async
   {
-    needsUpdating = true;
     volume = newVol;
-    player.setVolume(volume);
+    await player.setVolume(volume);
+    needsUpdating = true;
   }
 
 
