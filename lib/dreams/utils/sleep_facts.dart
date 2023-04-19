@@ -55,46 +55,6 @@ class FactContainer{
     );
   }
 
-/**
-  getFactContainer() {
-    return Container(
-        height: 125,
-        color: Colors.deepPurple,
-
-
-        child: Column( mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            /**
-                Flex(direction: Axis.horizontal,
-                children: [
-                Text("Fun Fact"),
-                Text(getRandomFact())
-                ]),
-             **/
-            Expanded(
-              child: Padding(padding: EdgeInsets.all(5), child: Column(
-                children: <Widget>[
-                  Text("Fun Fact: ", style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white
-                  ),),
-                ],
-              ),
-              ),
-            ),
-            Expanded(
-              child: Padding(padding: EdgeInsets.all(5), child: Column(
-                children: <Widget>[
-                  Text(getRandomFact(), style: TextStyle(color: Colors.white), softWrap: true),
-                ],
-              )),
-            ),
-          ],
-
-        )
-    );
-  }
-  **/
   getRandomFact() { // https://stackoverflow.com/questions/11674820/how-do-i-generate-random-numbers-in-dart
     var rng = Random();
     int index = rng.nextInt(facts.length);
