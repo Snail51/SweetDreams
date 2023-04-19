@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'dreams/views/notis.dart';
 import 'dreams/views/sleep_log.dart';
 import 'database.dart';
 import 'dreams/views/newCalc.dart';
@@ -7,8 +8,12 @@ import 'dreams/views/info_page.dart';
 import 'dreams/views/sounds_page.dart';
 import 'dreams/views/sleep_diary.dart';
 import 'diary.dart';
+import 'package:flutter/material.dart';
+//import 'notification_service.dart';
 
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // NotificationService().initNotifications();
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
