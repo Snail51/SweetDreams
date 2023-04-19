@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:units/database.dart';
 import 'package:units/widgetaudioplayer.dart';
 import 'dart:async';
+import '../utils/sleep_facts.dart';
 
 class SoundsPage extends StatefulWidget {
 
@@ -24,6 +25,9 @@ class _SoundsPageState extends State<SoundsPage> {
   Widget loadHolder = Text("NULL");
   bool loading = true;
   double loadingProgress = 0;
+
+  Widget funHolder = Text("NULL");
+  FactContainer fun = FactContainer();
 
 
   void update()
@@ -62,14 +66,14 @@ class _SoundsPageState extends State<SoundsPage> {
   Widget loader() {
     //print("producing new loader with value " + loadingProgress.toString());
     return Padding(padding: EdgeInsets.all(25.0), child: Container(
-      height: 250,
+      height: 400,
       width: 250,
       color: Colors.deepPurple,
       child: Column(
         children: <Widget>[
           Padding(padding: EdgeInsets.all(10.0), child: Text("Loading Sounds...", style: TextStyle(color: Colors.white, fontSize: 24))),
           Padding(padding: EdgeInsets.all(10.0), child: SizedBox(height: 125, width: 125, child: CircularProgressIndicator(value: loadingProgress, color: Colors.white, strokeWidth: 10.0,))),
-          Padding(padding: EdgeInsets.all(10.0), child: Text("Fun Fact...", style: TextStyle(color: Colors.white, fontSize: 24))),
+          Center(child: Padding(padding: EdgeInsets.all(10.0), child: funHolder)),
         ],
       ),
     ));
@@ -77,6 +81,8 @@ class _SoundsPageState extends State<SoundsPage> {
 
   @override
   void initState() {
+
+    funHolder = fun.getFactContainer();
 
     loading = true;
     loadingProgress = 0.0;
@@ -99,6 +105,7 @@ class _SoundsPageState extends State<SoundsPage> {
         update();
       },
     );
+
 
     players.add(WidgetAudioPlayer("Summer Night", "Summer_Night.mp3", Icon(Icons.wb_twighlight, color: Colors.white)));
     players.add(WidgetAudioPlayer("Rain", "Rain.mp3", Icon(Icons.wb_cloudy, color: Colors.white)));
