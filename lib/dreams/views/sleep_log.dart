@@ -95,10 +95,13 @@ class _SleepLogPageState extends State<SleepLogPage> {
       itemCount: content.length,
       itemBuilder: (BuildContext context, int index)
       {
-        return Container(
-          height: 100,
-          color: Colors.deepPurple,
-          child: content[index],
+        return Padding(
+            padding: EdgeInsets.all(20),
+            child: Container(
+              padding: EdgeInsets.all(10.0),
+              color: Colors.deepPurple,
+              child: content[index],
+            )
         );
       },
       separatorBuilder: (BuildContext context, int index) => const Divider(),

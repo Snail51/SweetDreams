@@ -64,9 +64,9 @@ class DiaryEntry {
     return Container(child: Center(child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(title),
+          Text(title, style: TextStyle(color: Colors.white)),
           Text(DateFormat.MMMd().format(timeRef) + ", " + DateFormat.y().format(timeRef),overflow: TextOverflow.visible, style: TextStyle(color: Colors.white)),
-          Text("content"),
+          Text("content", style: TextStyle(color: Colors.white)),
         ],
     )));
   }

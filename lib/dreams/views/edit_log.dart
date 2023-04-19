@@ -20,11 +20,6 @@ class _EditLogPageState extends State<EditLogPage>  {
     super.initState();
   }
 
-  bool check1 = false;
-  bool check2 = false;
-  bool check3 = false;
-  bool check4 = false;
-
   double rating = 0;
   var myController = TextEditingController();
   DateTime selectedDate = DateTime.now();
@@ -32,10 +27,36 @@ class _EditLogPageState extends State<EditLogPage>  {
 
   String labelSelectDate = "Select a Date";
   String labelSelectTimeRange = "Enter Your Sleep Time";
-  String labelError = "";
+
+  bool check1 = false;
+  bool check2 = false;
+  bool check3 = false;
 
   @override
   Widget build(BuildContext context) {
+
+     _initialSetup() {
+      myController.text = widget.log.dream;
+      labelSelectDate =
+          widget.log.sleep.month.toString() + "/" + widget.log.sleep.day.toString() +
+              "/" + widget.log.sleep.year.toString();
+      String temp1 = "";
+      String temp2 = "";
+      String temp3 = "";
+      String temp4 = "";
+      TimeOfDay sleepTemp = new TimeOfDay(hour: widget.log.sleep.hour, minute: widget.log.sleep.minute);
+      TimeOfDay wakeTemp = new TimeOfDay(hour: widget.log.wake.hour, minute: widget.log.wake.minute);
+      if (sleepTemp.period == DayPeriod.am) temp1 = " am";
+      if (sleepTemp.period == DayPeriod.pm) temp1 = " pm";
+      temp2 = sleepTemp.hourOfPeriod.toString();
+      if (wakeTemp.period == DayPeriod.am) temp3 = " am";
+      if (wakeTemp.period == DayPeriod.pm) temp3 = " pm";
+      temp4 = wakeTemp.hourOfPeriod.toString();
+      labelSelectTimeRange =
+          temp2 + ":" + sleepTemp.minute.toString() + temp1 +
+              " - " + temp4 + ":" + wakeTemp.minute.toString() +
+              temp3;
+    }
 
     _selectDate(BuildContext context) async{
       final DateTime? picked = await showDatePicker(
@@ -62,11 +83,15 @@ class _EditLogPageState extends State<EditLogPage>  {
           );
         },
       );
+
       if (picked != null && picked != selectedDate)
         setState(() {
           selectedDate = picked;
         });
+
       labelSelectDate = selectedDate.month.toString() + "/" + selectedDate.day.toString() + "/" + selectedDate.year.toString();
+
+
     }
 
     _selectTimeRange(BuildContext context) async{
@@ -97,34 +122,67 @@ class _EditLogPageState extends State<EditLogPage>  {
       {
         setState(() {
           selectedTime = picked;
+          String temp1 = "";
+          String temp2 = "";
+          String temp3 = "";
+          String temp4 = "";
+          if(selectedTime.startTime.period == DayPeriod.am) temp1 = " am";
+          if(selectedTime.startTime.period == DayPeriod.pm) temp1 = " pm";
+          temp2 = selectedTime.startTime.hourOfPeriod.toString();
+          if(selectedTime.endTime.period == DayPeriod.am) temp3 = " am";
+          if(selectedTime.endTime.period == DayPeriod.pm) temp3 = " pm";
+          temp4 = selectedTime.endTime.hourOfPeriod.toString();
+          labelSelectTimeRange = temp2 + ":" + selectedTime.startTime.minute.toString() + temp1 + " - " + temp2 + ":" + selectedTime.startTime.minute.toString() + temp1;
         });
       }
-      labelSelectTimeRange = selectedTime.startTime.hour.toString() + ":" + selectedTime.startTime.minute.toString() + " - "
-          + selectedTime.endTime.hour.toString() + ":" + selectedTime.endTime.minute.toString();
     }
 
     _editLog(DateTime selectedDate, TimeRange selectedTime, double rating, var myController) async  {
-      if ((check1 != false) && (check2 != false) && (check3 != false) && (check4 != false)) {
-        DateTime sleep = DateTime(
-            selectedDate.year, selectedDate.month, selectedDate.day,
-            selectedTime.startTime.hour, selectedTime.startTime.minute);
-        DateTime wake = DateTime(
-            selectedDate.year, selectedDate.month, selectedDate.day,
-            selectedTime.endTime.hour, selectedTime.endTime.minute);
+
+       DateTime sleep = DateTime.now();
+       DateTime wake = DateTime.now();
+       double tempRate = 0.0;
+
+       if (check1 == true && check2 == true) {
+         sleep = DateTime(
+             selectedDate.year, selectedDate.month, selectedDate.day,
+             selectedTime.startTime.hour, selectedTime.startTime.minute);
+         wake = DateTime(
+             selectedDate.year, selectedDate.month, selectedDate.day,
+             selectedTime.endTime.hour, selectedTime.endTime.minute);
+       }
+       else if (check1 == false && check2 == false)  {
+         sleep = widget.log.sleep;
+         wake = widget.log.wake;
+       }
+       else if (check1 == true && check2 == false)  {
+         sleep = DateTime(
+             selectedDate.year, selectedDate.month, selectedDate.day,
+             widget.log.sleep.hour, widget.log.sleep.minute);
+         wake = DateTime(
+             selectedDate.year, selectedDate.month, selectedDate.day,
+             widget.log.wake.hour, widget.log.wake.minute);
+       }
+       else if (check1 == false && check2 == true)  {
+         sleep = DateTime(
+             widget.log.sleep.year, widget.log.sleep.month, widget.log.sleep.day,
+             selectedTime.startTime.hour, selectedTime.startTime.minute);
+         wake = DateTime(
+             widget.log.wake.year, widget.log.wake.month, widget.log.wake.day,
+             selectedTime.endTime.hour, selectedTime.endTime.minute);
+       }
+
+       if (check3 == false) tempRate = widget.log.quality.toDouble();
+       else if (check3 == true) tempRate = rating;
         widget.database.editEvent(widget.log.eventNumber, Start: sleep,
             End: wake,
-            Quality: rating.toInt(),
+            Quality: tempRate.toInt(),
             Dream: myController.text);
         widget.database.save();
         Navigator.pop(context);
-      }
-      else {
-        setState(() {
-          labelError = "Error: Not all Entries are Filled";
-        });
-      }
     }
 
+    _initialSetup();
     return Scaffold(
       appBar: AppBar(
         title: Text("Edit Log"),
@@ -139,6 +197,7 @@ class _EditLogPageState extends State<EditLogPage>  {
                   padding: EdgeInsets.only(top: 20.0,),
                   child: Text("Edit Log", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.deepPurple), textScaleFactor: 3,)
               ),
+
               Padding(
                 padding:EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
                 child: ElevatedButton(
@@ -152,6 +211,7 @@ class _EditLogPageState extends State<EditLogPage>  {
                     }
                 ),
               ),
+
               Padding(
                 padding:EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
                 child: ElevatedButton(
@@ -165,6 +225,7 @@ class _EditLogPageState extends State<EditLogPage>  {
                     }
                 ),
               ),
+
               Padding(
                 padding:EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
                 child: RatingBar(
@@ -191,6 +252,7 @@ class _EditLogPageState extends State<EditLogPage>  {
                   ),
                 ),
               ),
+
               Padding(
                   padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
                   child: TextField(
@@ -203,9 +265,9 @@ class _EditLogPageState extends State<EditLogPage>  {
                     style: TextStyle(color: Colors.white),
                     cursorColor: Colors.white,
                     controller: myController,
-                    onTap: () {check4 = true;},
                   )
               ),
+
               Padding(
                 padding:EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
                 child: ElevatedButton(
@@ -216,6 +278,7 @@ class _EditLogPageState extends State<EditLogPage>  {
                     onPressed: () => _editLog(selectedDate, selectedTime, rating, myController)
                 ),
               ),
+
               Padding(
                 padding:EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0,),
                 child: ElevatedButton(
@@ -229,14 +292,7 @@ class _EditLogPageState extends State<EditLogPage>  {
                     }
                 ),
               ),
-              Padding(
-                  padding: EdgeInsets.only(top: 20.0,),
-                  child: Text(labelError, style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.redAccent),
-                    textScaleFactor: 2,
-                    textAlign: TextAlign.center,)
-              ),
+
             ],
           )
       ),

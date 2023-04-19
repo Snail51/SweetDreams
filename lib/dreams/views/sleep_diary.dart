@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:units/diary.dart';
 import 'create_diary.dart';
+import 'edit_diary.dart';
 
 class DiaryPage extends StatefulWidget {
 
@@ -57,8 +58,8 @@ class _DiaryPageState extends State<DiaryPage>  {
                   children: [widget.diary.getData(index: i)[0].toWidget()]),
               IconButton(
                   onPressed: () async{
-                    //await Navigator.push(context, MaterialPageRoute(
-                    //    builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0])));
+                    await Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => EditDiaryPage(diary: widget.diary, entry: widget.diary.getData(index: i)[0])));
                     nullDateSelection();
                   },
                   //=> editEvent(i),
@@ -75,8 +76,8 @@ class _DiaryPageState extends State<DiaryPage>  {
                 children: [widget.diary.getData(index: i)[0].toWidget()]),
             IconButton(
                 onPressed: () async{
-                  //await Navigator.push(context, MaterialPageRoute(
-                  //    builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0])));
+                  await Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => EditDiaryPage(diary: widget.diary, entry: widget.diary.getData(index: i)[0])));
                   nullDateSelection();
                 },
                 color: Colors.white,
@@ -90,10 +91,13 @@ class _DiaryPageState extends State<DiaryPage>  {
       itemCount: content.length,
       itemBuilder: (BuildContext context, int index)
       {
-        return Container(
-          height: 100,
-          color: Colors.deepPurple,
-          child: content[index],
+        return Padding(
+        padding: EdgeInsets.all(20),
+            child: Container(
+              padding: EdgeInsets.all(10.0),
+              color: Colors.deepPurple,
+              child: content[index],
+            )
         );
       },
       separatorBuilder: (BuildContext context, int index) => const Divider(),
