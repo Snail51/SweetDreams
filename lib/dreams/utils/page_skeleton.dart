@@ -32,9 +32,9 @@ File Skeleton [
           appBar: AppBar(
             title: Text("Title"),
             centerTitle: true,
-            backgroundColor: Colors.blueAccent.shade700,
+            backgroundColor: Colors.deepPurple,
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.grey.shade900,
           body: Center(
               child: Column(
                 children: <Widget>[

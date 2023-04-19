@@ -1,31 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../views/create_log.dart';
-import 'package:units/database.dart';
-import '../views/edit_log.dart';
-import '../views/sleep_history.dart';
+import 'package:units/diary.dart';
+import 'create_diary.dart';
+import 'edit_diary.dart';
 
-class SleepLogPage extends StatefulWidget {
+class DiaryPage extends StatefulWidget {
 
-
-  SleepLogPage({Key? key, required this.database}) : super (key: key);
-
-  SleepData database = SleepData();
+  DiaryPage({Key? key, required this.diary}) : super (key: key);
+  Diary diary;
 
   @override
-  _SleepLogPageState createState() => _SleepLogPageState();
-
+  _DiaryPageState createState() => _DiaryPageState();
 }
 
-class _SleepLogPageState extends State<SleepLogPage> {
+class _DiaryPageState extends State<DiaryPage>  {
   @override
   void initState() {
     super.initState();
   }
 
   DateTime selectedDate = DateTime.fromMicrosecondsSinceEpoch(0);
-  String labelSelectButton = "Find Log by Date";
+  String labelSelectButton = "Find Diary by Date";
 
   bool isOnSameDay(DateTime first, DateTime second)
   {
@@ -47,23 +43,23 @@ class _SleepLogPageState extends State<SleepLogPage> {
     return DateTime.fromMicrosecondsSinceEpoch(0);
   }
 
-  Widget sleepLogToWidget() {
+  Widget diaryToWidget() {
     List<Widget> content = [];
-    for (int i = 0; i < widget.database.getData().length; i++)
+    for (int i = 0; i < widget.diary.getData().length; i++)
     {
       if(selectedDate != returnEpoch())
       {
-        if(isOnSameDay(widget.database.getData()[i].sleep, selectedDate))
+        if(isOnSameDay(widget.diary.getData()[i].timeRef, selectedDate))
         {
           content.add(Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Flex(direction: Axis.horizontal,
-                  children: [widget.database.getData(index: i)[0].toWidget()]),
+                  children: [widget.diary.getData(index: i)[0].toWidget()]),
               IconButton(
                   onPressed: () async{
                     await Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0])));
+                        builder: (context) => EditDiaryPage(diary: widget.diary, entry: widget.diary.getData(index: i)[0])));
                     nullDateSelection();
                   },
                   //=> editEvent(i),
@@ -77,11 +73,11 @@ class _SleepLogPageState extends State<SleepLogPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Flex(direction: Axis.horizontal,
-                children: [widget.database.getData(index: i)[0].toWidget()]),
+                children: [widget.diary.getData(index: i)[0].toWidget()]),
             IconButton(
                 onPressed: () async{
                   await Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => EditLogPage(database: widget.database, log: widget.database.getData(index: i)[0])));
+                      builder: (context) => EditDiaryPage(diary: widget.diary, entry: widget.diary.getData(index: i)[0])));
                   nullDateSelection();
                 },
                 color: Colors.white,
@@ -96,7 +92,7 @@ class _SleepLogPageState extends State<SleepLogPage> {
       itemBuilder: (BuildContext context, int index)
       {
         return Padding(
-            padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(20),
             child: Container(
               padding: EdgeInsets.all(10.0),
               color: Colors.deepPurple,
@@ -121,7 +117,7 @@ class _SleepLogPageState extends State<SleepLogPage> {
   {
     setState(() {
       selectedDate = returnEpoch();
-      labelSelectButton = "Find Log by Date";
+      labelSelectButton = "Find Diary by Date";
     });
   }
 
@@ -162,59 +158,52 @@ class _SleepLogPageState extends State<SleepLogPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sleep Log'),
+        title: Text("Sleep Diary"),
         centerTitle: true,
         backgroundColor: Colors.deepPurple,
       ),
       backgroundColor: Colors.grey.shade900,
-      body: Container(
-        alignment: Alignment.center,
-        child: Column(
-          children: <Widget>[
-            Padding(
-                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                child: Text("Sleep Log", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.deepPurple), textScaleFactor: 3,)
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.deepPurple
-              ),
-              child: Text('Sleep History'),
-              onPressed: () async{
-                await Navigator.push(context, MaterialPageRoute(builder: (context) => SleepHistory(database: widget.database)));
-                nullDateSelection();
-              },
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.deepPurple
-              ),
-              child: Text('Create New Log'),
-              onPressed: () async{
-                await Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLogPage(database: widget.database)));
-                nullDateSelection();
-              },
-            ),
+      body: Center(
+          child: Column(
+            children: <Widget>[
 
-            Padding(
-              padding: EdgeInsets.only(left: 47),
-              child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.deepPurple
-                    ),
-                    child: Text(labelSelectButton),
-                    onPressed: () => _selectDate(context)
+              Padding(
+                  padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                  child: Text("Sleep Diary", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.deepPurple), textScaleFactor: 3,)
+              ),
+
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.deepPurple
                 ),
-                IconButton(onPressed: () => nullDateSelection(), icon: const Icon(Icons.delete_forever), color: Colors.deepPurple,)
-              ],
-            ),
-            ),
-            sleepLogToWidget()
-          ],
-        ),
+                child: Text('Create New Diary'),
+                onPressed: () async{
+                  await Navigator.push(context, MaterialPageRoute(builder: (context) => CreateDiaryPage(diary: widget.diary)));
+                  nullDateSelection();
+                },
+              ),
+
+              Padding(
+                padding: EdgeInsets.only(left: 47),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.deepPurple
+                        ),
+                        child: Text(labelSelectButton),
+                        onPressed: () => _selectDate(context)
+                    ),
+                    IconButton(onPressed: () => nullDateSelection(), icon: const Icon(Icons.delete_forever), color: Colors.deepPurple,)
+                  ],
+                ),
+              ),
+
+              diaryToWidget()
+
+            ],
+          )
       ),
     );
   }

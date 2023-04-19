@@ -97,8 +97,17 @@ class _CreateLogPageState extends State<CreateLogPage>  {
           selectedTime = picked;
         });
       }
-      labelSelectTimeRange = selectedTime.startTime.hour.toString() + ":" + selectedTime.startTime.minute.toString() + " - "
-          + selectedTime.endTime.hour.toString() + ":" + selectedTime.endTime.minute.toString();
+      String temp1 = "";
+      String temp2 = "";
+      String temp3 = "";
+      String temp4 = "";
+      if(selectedTime.startTime.period == DayPeriod.am) temp1 = " am";
+      if(selectedTime.startTime.period == DayPeriod.pm) temp1 = " pm";
+      temp2 = selectedTime.startTime.hourOfPeriod.toString();
+      if(selectedTime.endTime.period == DayPeriod.am) temp3 = " am";
+      if(selectedTime.endTime.period == DayPeriod.pm) temp3 = " pm";
+      temp4 = selectedTime.endTime.hourOfPeriod.toString();
+      labelSelectTimeRange = temp2 + ":" + selectedTime.startTime.minute.toString() + temp1 + " - " + temp4 + ":" + selectedTime.endTime.minute.toString() + temp3;
     }
 
     _createLog(DateTime selectedDate, TimeRange selectedTime, double rating, var myController) async  {
