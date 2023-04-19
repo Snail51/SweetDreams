@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
               body: Center(
                   child: Column(
                     children: <Widget>[
+
                       Padding(
                         padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                         child: Text("Sweet Dreams!",style: const TextStyle(
@@ -42,58 +43,78 @@ class MyApp extends StatelessWidget {
                             color: Colors.deepPurple),
                           textScaleFactor: 3,)
                         ,),
-
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.deepPurple
-                        ),
-                        child: Text('Sleep Calculator'),
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => CalcPage(database: database)));
-                        },
+                      SizedBox(
+                          width: 150, // <-- match_parent
+                          height: 150, // <-- match-parent
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.deepPurple
+                            ),
+                            child: Text('Sleep Calculator'),
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => CalcPage(database: database)));
+                            },
+                          ),
                       ),
 
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.deepPurple
-                        ),
-                        child: Text('Sleep Log'),
-                        onPressed: () {
+                      SizedBox(
+                          width: 150,
+                          height: 150,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.deepPurple
+                            ),
+                            child: Text('Sleep Log'),
+                            onPressed: () {
 
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SleepLogPage(database: database)));
-                        },
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.deepPurple
-                        ),
-                        child: Text('Sleep Diary'),
-                        onPressed: () {
-
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => DiaryPage(diary: diary)));
-
-                        },
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.deepPurple
-                        ),
-                        child: Text('More Info'),
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => InfoPage(database: database)));
-                        },
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.deepPurple
-                        ),
-                        child: Text('Sleep Sounds'),
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SoundsPage(database: database)));
-                        },
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => SleepLogPage(database: database)));
+                            },
+                          ),
                       ),
 
+                      SizedBox(
+                          width: 150,
+                          height: 150,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.deepPurple
+                            ),
+                            child: Text('Sleep Diary'),
+                            onPressed: () {
 
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => DiaryPage(diary: diary)));
+
+                            },
+                          ),
+                      ),
+
+                      SizedBox(
+                          width: 150,
+                          height: 150,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.deepPurple
+                            ),
+                            child: Text('More Info'),
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => InfoPage(database: database)));
+                            },
+                          ),
+                      ),
+
+                      SizedBox(
+                          width: 150,
+                          height: 150,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.deepPurple
+                            ),
+                            child: Text('Sleep Sounds'),
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => SoundsPage(database: database)));
+                            },
+                          ),
+                      ),
                     ],
                   )
               ),
