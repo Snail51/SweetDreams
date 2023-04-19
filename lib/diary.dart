@@ -62,12 +62,12 @@ class DiaryEntry {
   Widget toWidget()
   {
     return Container(child: Center(child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(title),
-        Text(DateFormat.MMMd().format(timeRef) + ", " + DateFormat.y().format(timeRef),overflow: TextOverflow.visible, style: TextStyle(color: Colors.white)),
-        Text(content.replaceRange(32, content.length, content)),
-      ],
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(title, style: TextStyle(color: Colors.white)),
+          Text(DateFormat.MMMd().format(timeRef) + ", " + DateFormat.y().format(timeRef),overflow: TextOverflow.visible, style: TextStyle(color: Colors.white)),
+          Text("content", style: TextStyle(color: Colors.white)),
+        ],
     )));
   }
 } //END OF CLASS SleepEvent

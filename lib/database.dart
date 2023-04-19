@@ -141,6 +141,12 @@ class SleepData {
     }
   }
 
+  void removeLastEvent() {
+    if (database.isNotEmpty) {
+      database.removeLast();
+    }
+  }
+
   Future<String> _read(dir) async {
     String text = "";
     //print("READING");
@@ -187,11 +193,6 @@ class SleepData {
         database.length, sleep, end: wake, Quality: quality, Dream: dream));
   }
 
-  void removeLastEvent() {
-    if (database.isNotEmpty) {
-      database.removeLast();
-    }
-  }
 
   SleepEvent? delEvent(int index) //Deletes the event at the specified index, returning it. Returns null if no such event exists
   {
