@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'dreams/views/sleep_log.dart';
@@ -6,6 +5,7 @@ import 'database.dart';
 import 'dreams/views/newCalc.dart';
 import 'dreams/views/info_page.dart';
 import 'dreams/views/sounds_page.dart';
+import 'dreams/views/sleep_diary.dart';
 import 'diary.dart';
 
 void main() {
@@ -14,10 +14,9 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  String logFile = "sleepLogData.csv";
-  String diaryFile = "diaryData.csv";
-  Diary diary = new Diary(filename: "diaryData.csv");
-  SleepData database = new SleepData(filename: "sleepLogData.csv");
+  String file = "data.csv";
+  SleepData database = new SleepData(filename: "data.csv");
+  Diary diary = new Diary();
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +68,17 @@ class MyApp extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                             primary: Colors.deepPurple
                         ),
+                        child: Text('Sleep Diary'),
+                        onPressed: () {
+
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => DiaryPage(diary: diary)));
+
+                        },
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.deepPurple
+                        ),
                         child: Text('More Info'),
                         onPressed: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => InfoPage(database: database)));
@@ -93,3 +103,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
