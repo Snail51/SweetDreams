@@ -7,8 +7,8 @@ import 'dart:async';
 
 class SoundsPage extends StatefulWidget {
 
-  SoundsPage({Key? key, required this.database}) : super (key: key);
-  SleepData database;
+  SoundsPage({Key? key, required this.soundsLoaded}) : super (key: key);
+  bool soundsLoaded;
 
   @override
   _SoundsPageState createState() => _SoundsPageState();
@@ -16,7 +16,7 @@ class SoundsPage extends StatefulWidget {
 
 class _SoundsPageState extends State<SoundsPage> {
   List<WidgetAudioPlayer> players = [];
-  List<Widget> displayables = [Text("NULL")];
+  List<Widget> displayables = [];
 
   DateTime loadEnd = DateTime.now().add(Duration(seconds: 10));
   Timer refreshTimer = Timer.periodic(Duration(hours: 2), (timer) { });
@@ -28,7 +28,14 @@ class _SoundsPageState extends State<SoundsPage> {
 
   void update()
   {
-    if(refreshTimer.isActive && !loading) {
+    //print(widget.soundsLoaded);
+    if(!refreshTimer.isActive)
+      {
+        refreshTimer.cancel();
+        loadingTimer.cancel();
+        return;
+      }
+    if((refreshTimer.isActive && !loading) || (refreshTimer.isActive && widget.soundsLoaded)) {
       setState(() {
         List<Widget> holder = [];
         for (int i = 0; i < players.length; i++) {
@@ -43,7 +50,7 @@ class _SoundsPageState extends State<SoundsPage> {
         displayables = holder;
       });
     }
-    if(loading)
+    if(loading && !widget.soundsLoaded)
       {
         setState(() {
           loadingProgress = 1.0 - (DateTimeRange(start: DateTime.now(), end: loadEnd).duration.inSeconds.toDouble() / 10.0);
@@ -53,23 +60,23 @@ class _SoundsPageState extends State<SoundsPage> {
   }
 
   Widget loader() {
-    print("producing new loader with value " + loadingProgress.toString());
-    return Container(
+    //print("producing new loader with value " + loadingProgress.toString());
+    return Padding(padding: EdgeInsets.all(25.0), child: Container(
       height: 250,
       width: 250,
+      color: Colors.deepPurple,
       child: Column(
         children: <Widget>[
-          Text("Loading Sounds...", style: TextStyle(color: Colors.white),),
-          CircularProgressIndicator(value: loadingProgress, ),
-          Text("Fun Fact...", style: TextStyle(color: Colors.white),),
+          Padding(padding: EdgeInsets.all(10.0), child: Text("Loading Sounds...", style: TextStyle(color: Colors.white, fontSize: 24))),
+          Padding(padding: EdgeInsets.all(10.0), child: SizedBox(height: 125, width: 125, child: CircularProgressIndicator(value: loadingProgress, color: Colors.white, strokeWidth: 10.0,))),
+          Padding(padding: EdgeInsets.all(10.0), child: Text("Fun Fact...", style: TextStyle(color: Colors.white, fontSize: 24))),
         ],
       ),
-    );
+    ));
   }
 
   @override
   void initState() {
-
 
     loading = true;
     loadingProgress = 0.0;
@@ -81,6 +88,8 @@ class _SoundsPageState extends State<SoundsPage> {
             width: 10,
             height: 10,
           );
+          widget.soundsLoaded = true;
+
         }
     );
 
@@ -109,6 +118,7 @@ class _SoundsPageState extends State<SoundsPage> {
   void killAll()
   {
     refreshTimer.cancel();
+    loadingTimer.cancel();
     print("consuming timer " + refreshTimer.toString());
     for(int i = 0; i < players.length; i++)
       {
@@ -137,8 +147,7 @@ class _SoundsPageState extends State<SoundsPage> {
           child: Column(
             children: <Widget>[
               loadHolder,
-              Container(
-                height: 500,
+              Expanded(
                 child: GridView.count(
                   crossAxisCount: 3,
                   children: displayables,

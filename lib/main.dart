@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
   String diaryFile = "diaryData.csv";
   Diary diary = new Diary(filename: "diaryData.csv");
   SleepData database = new SleepData(filename: "sleepLogData.csv");
+  bool soundsLoaded = false; // has the sounds page been navigated to and fully loaded at least once?
 
   @override
   Widget build(BuildContext context) {
@@ -79,8 +80,9 @@ class MyApp extends StatelessWidget {
                             primary: Colors.deepPurple
                         ),
                         child: Text('Sleep Sounds'),
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SoundsPage(database: database)));
+                        onPressed: () async { //wait for page to exit before setting "soundsLoaded" to ture
+                          await Navigator.push(context, MaterialPageRoute(builder: (context) => SoundsPage(soundsLoaded: soundsLoaded), ));
+                          soundsLoaded = true;
                         },
                       ),
 
