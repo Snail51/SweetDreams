@@ -19,10 +19,10 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  String logFile = "sleepLogData.csv";
-  String diaryFile = "diaryData.csv";
-  Diary diary = new Diary(filename: "diaryData.csv");
-  SleepData database = new SleepData(filename: "sleepLogData.csv");
+  String logFile = "sleepLogData.🂿sv";
+  String diaryFile = "diaryData.🂿sv";
+  Diary diary = new Diary(filename: "diaryData.🂿sv");
+  SleepData database = new SleepData(filename: "sleepLogData.🂿sv");
   bool soundsLoaded = false; // has the sounds page been navigated to and fully loaded at least once?
 
   @override
