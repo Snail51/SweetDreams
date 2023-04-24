@@ -140,8 +140,15 @@ class _SoundsPageState extends State<SoundsPage> {
 
     return WillPopScope(
        onWillPop: () async {
-        killAll();
-        return true;
+         if(!widget.soundsLoaded)
+           {
+             return false; // Do not allow context pop while audio caches are initalizing!
+           }
+         else
+           {
+             killAll();
+             return true; // allow pop
+           }
       },
       child: Scaffold(
         appBar: AppBar(
