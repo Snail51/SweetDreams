@@ -16,6 +16,7 @@ class CalcPage extends StatefulWidget {
 class _CalcPageState extends State<CalcPage> {
   List<dynamic> content = [];
   List<Widget> displayables = [];
+  Timer factTimer = Timer.periodic(Duration.zero, (timer) { });
   List<String> sleepFacts = [
     "The longest recorded period without sleep is 11 days.",
     "Sleeping on your back can help prevent wrinkles.",
@@ -46,7 +47,7 @@ class _CalcPageState extends State<CalcPage> {
     super.initState();
     initContent();
     update();
-    Timer.periodic(Duration(seconds: 10), (timer) {
+    factTimer = Timer.periodic(Duration(seconds: 10), (timer) {
       setState(() {
         currentFact = "Did you know? " + sleepFacts[DateTime.now().second % sleepFacts.length];
       });
@@ -75,34 +76,42 @@ class _CalcPageState extends State<CalcPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Sleep Calculator"),
-        centerTitle: true,
-        backgroundColor: Colors.blueAccent.shade700,
-      ),
-      backgroundColor: Colors.grey.shade900,
-      body: Center(
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView(
-                children: displayables,
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.all(16),
-              color: Colors.purple,
-              child: Text(
-                currentFact,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+
+    return WillPopScope(
+      onWillPop: () async {
+        factTimer.cancel();
+        print("Consuming Timer " + factTimer.toString());
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Sleep Calculator"),
+          centerTitle: true,
+          backgroundColor: Colors.blueAccent.shade700,
+        ),
+        backgroundColor: Colors.grey.shade900,
+        body: Center(
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView(
+                  children: displayables,
                 ),
               ),
-            ),
-          ],
+              Container(
+                padding: EdgeInsets.all(16),
+                color: Colors.purple,
+                child: Text(
+                  currentFact,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
