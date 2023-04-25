@@ -57,7 +57,13 @@ class MyApp extends StatelessWidget {
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   primary: Colors.deepPurple),
-                              child: Text('Sleep Calculator'),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text('Sleep', style: TextStyle(fontSize: 24)),
+                                  Text('Calculator', style: TextStyle(fontSize: 24)),
+                                ],
+                              ),
                               onPressed: () {
                                 Navigator.push(
                                     context,
@@ -76,7 +82,13 @@ class MyApp extends StatelessWidget {
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   primary: Colors.deepPurple),
-                              child: Text('Sleep Log'),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text('Sleep', style: TextStyle(fontSize: 24)),
+                                  Text('Log', style: TextStyle(fontSize: 24)),
+                                ],
+                              ),
                               onPressed: () {
                                 Navigator.push(
                                     context,
@@ -98,7 +110,13 @@ class MyApp extends StatelessWidget {
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   primary: Colors.deepPurple),
-                              child: Text('Sleep Diary'),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text('Sleep', style: TextStyle(fontSize: 24)),
+                                  Text('Diary', style: TextStyle(fontSize: 24)),
+                                ],
+                              ),
                               onPressed: () {
                                 Navigator.push(
                                     context,
@@ -117,7 +135,13 @@ class MyApp extends StatelessWidget {
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   primary: Colors.deepPurple),
-                              child: Text('More Info'),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text('Sleep', style: TextStyle(fontSize: 24)),
+                                  Text('Info', style: TextStyle(fontSize: 24)),
+                                ],
+                              ),
                               onPressed: () {
                                 Navigator.push(
                                     context,
@@ -129,28 +153,52 @@ class MyApp extends StatelessWidget {
                           ),
                         )
                       ]),
-                      Padding(
-                        padding: EdgeInsets.all(20),
-                        child: SizedBox(
-                          width: 150,
-                          height: 150,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                primary: Colors.deepPurple),
-                            child: Text('Sleep Sounds'),
-                            onPressed: () async {
-                              //wait for page to exit before setting "soundsLoaded" to ture
-                              await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        SoundsPage(soundsLoaded: soundsLoaded),
-                                  ));
-                              soundsLoaded = true;
-                            },
+                      Row(children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 35, right: 20, top: 20, bottom: 20),
+                          child: SizedBox(
+                            width: 150, // <-- match_parent
+                            height: 150, // <-- match-parent
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.deepPurple),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text('Sleep', style: TextStyle(fontSize: 24)),
+                                  Text('Sounds', style: TextStyle(fontSize: 24)),
+                                ],
+                              ),
+                              onPressed: () async {
+                                //wait for page to exit before setting "soundsLoaded" to ture
+                                await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          SoundsPage(soundsLoaded: soundsLoaded),
+                                    ));
+                                soundsLoaded = true;
+                              },
+                            ),
                           ),
                         ),
-                      ),
+                        Padding(
+                          padding: EdgeInsets.all(20),
+                          child: Container(
+                            width: 150,
+                            height: 150,
+                            color: Colors.deepPurple,
+                            child: IconButton(
+                              icon: Icon(Icons.nightlight, color: Colors.white, size: 64,),
+                              onPressed: () {
+                                //nothing
+                              },
+                            ),
+                          ),
+                        )
+                      ]),
+
                         Padding(
                           padding: EdgeInsets.only(top: 40),
                         child: Container(
