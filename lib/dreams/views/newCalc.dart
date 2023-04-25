@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,49 +8,36 @@ import 'package:units/database.dart';
 import 'package:units/widgetCalcModes.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 import 'dart:async';
-
+//hi
 class CalcPage extends StatefulWidget {
+
   CalcPage({Key? key, required this.database}) : super (key: key);
   SleepData database;
+
 
   @override
   _CalcPageState createState() => _CalcPageState();
 }
 
-class _CalcPageState extends State<CalcPage> with SingleTickerProviderStateMixin {
+class _CalcPageState extends State<CalcPage> {
   // PAGE CLASS THAT WANTS TO DYNAMICALLY COELLATE WIDGETS THAT WERE GENERATED EXTERNALLY
   List<dynamic> content = [];
   List<Widget> displayables = [];
 
-  late AnimationController _controller;
-  final int refreshRate = 200; // in milliseconds
-
   @override
   void initState() {
-    super.initState();
-
-    _controller = AnimationController(
-      duration: Duration(milliseconds: refreshRate),
-      vsync: this,
-    );
-
-    _controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        update();
-        _controller.reset();
-      }
-    });
-
     initContent();
     update();
-    _controller.forward();
+    super.initState();
   }
 
   void update() {
     setState(() {
       List<Widget> holder = [];
       for (int i = 0; i < content.length; i++) {
-        if (content[i].needsUpdating) {
+        if (content[i]
+            .needsUpdating) //ONLY REDRAW WIDGETS THAT ACTUALLY NEED REDRAWING
+            {
           holder.add(content[i].toWidget());
           content[i].needsUpdating = false;
         }
@@ -66,8 +54,17 @@ class _CalcPageState extends State<CalcPage> with SingleTickerProviderStateMixin
     content.add(CalcSleepWidget(context, updateCallback: update));
   }
 
+
   @override
   Widget build(BuildContext context) {
+    final periodicTimer = Timer.periodic(
+      const Duration(milliseconds: 200),
+      //adjust this number for how often you want the screen refreshed
+          (timer) {
+        update();
+      },
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Sleep Calculator"),
@@ -82,14 +79,7 @@ class _CalcPageState extends State<CalcPage> with SingleTickerProviderStateMixin
       ),
     );
   }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 }
-
 
 
 
