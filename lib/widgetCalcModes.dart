@@ -93,6 +93,13 @@ class CalcWakeWidget {
               ),
             ),
             Text(
+              !isTimeAndCyclesSelected
+                  ? ""
+                  : "Selected Sleep Time: " +
+                  DateFormat('h:mm a').format(DateTime(now.year, now.month, now.day, pickerStart.hour, pickerStart.minute)),
+              style: TextStyle(fontSize: 20.0),
+            ),
+            Text(
               "Nearest estimated wake up time:",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
             ),
@@ -103,6 +110,7 @@ class CalcWakeWidget {
                   getNearestWakeTime(selectedCycles, pickerStart)),
               style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
             ),
+
           ],
         ),
       ),
@@ -197,6 +205,13 @@ class CalcSleepWidget {
             ),
             SizedBox(height: 10),
             Text(
+              !isTimeAndCyclesSelected
+                  ? ""
+                  : "Selected Wake Time: " +
+                  DateFormat('h:mm a').format(DateTime(now.year, now.month, now.day, pickerStart.hour, pickerStart.minute)),
+              style: TextStyle(fontSize: 20.0),
+            ),
+            Text(
               "Nearest estimated sleep time:",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
             ),
@@ -213,7 +228,3 @@ class CalcSleepWidget {
     );
   }
 }
-
-
-
-
