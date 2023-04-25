@@ -9,6 +9,7 @@ class DiaryPage extends StatefulWidget {
 
   DiaryPage({Key? key, required this.diary}) : super (key: key);
   Diary diary;
+  bool toggle = false;
 
   @override
   _DiaryPageState createState() => _DiaryPageState();
@@ -74,7 +75,9 @@ class _DiaryPageState extends State<DiaryPage>  {
           children: <Widget>[
             Flex(direction: Axis.horizontal,
                 children: [widget.diary.getData(index: i)[0].toWidget()]),
-            IconButton(
+            Column(
+            children: <Widget> [
+              IconButton(
                 onPressed: () async{
                   await Navigator.push(context, MaterialPageRoute(
                       builder: (context) => EditDiaryPage(diary: widget.diary, entry: widget.diary.getData(index: i)[0])));
@@ -82,6 +85,20 @@ class _DiaryPageState extends State<DiaryPage>  {
                 },
                 color: Colors.white,
                 icon: const Icon(Icons.edit)),
+              IconButton(
+                  onPressed: () async{
+                    widget.diary.getData(index: i)[0].expand();
+                    nullDateSelection();
+                    setState(() {
+                      widget.toggle = !widget.toggle;
+                    });
+                  },
+                  color: Colors.white,
+                  icon: widget.toggle
+                      ? Icon(Icons.expand_more)
+                      : Icon(Icons.expand_less)
+              ),
+            ]),
           ],
         ),);
       }

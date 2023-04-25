@@ -17,6 +17,18 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
   @override
   void initState() {
     super.initState();
+    title.text = widget.entry.title;
+    textField.text = widget.entry.content;
+    labelSelectDate =
+        widget.entry.timeRef.month.toString() + "/" + widget.entry.timeRef.day.toString() +
+            "/" + widget.entry.timeRef.year.toString();
+    String temp3 = "";
+    String temp4 = "";
+    TimeOfDay tempTime = new TimeOfDay(hour: widget.entry.timeRef.hour, minute: widget.entry.timeRef.minute);
+    if (tempTime.period == DayPeriod.am) temp3 = " am";
+    if (tempTime.period == DayPeriod.pm) temp3 = " pm";
+    temp4 = tempTime.hourOfPeriod.toString();
+    labelSelectTime = temp4 + ":" + tempTime.minute.toString() + temp3;
   }
 
   var title = TextEditingController();
@@ -32,22 +44,6 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    _initialSetup() {
-      title.text = widget.entry.title;
-      textField.text = widget.entry.content;
-      labelSelectDate =
-          widget.entry.timeRef.month.toString() + "/" + widget.entry.timeRef.day.toString() +
-              "/" + widget.entry.timeRef.year.toString();
-      String temp3 = "";
-      String temp4 = "";
-      TimeOfDay tempTime = new TimeOfDay(hour: widget.entry.timeRef.hour, minute: widget.entry.timeRef.minute);
-      if (tempTime.period == DayPeriod.am) temp3 = " am";
-      if (tempTime.period == DayPeriod.pm) temp3 = " pm";
-      temp4 = tempTime.hourOfPeriod.toString();
-      labelSelectTime = temp4 + ":" + tempTime.minute.toString() + temp3;
-    }
-
 
     _selectDate(BuildContext context) async {
       final DateTime? picked = await showDatePicker(
@@ -117,10 +113,9 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
       Navigator.pop(context);
     }
 
-    _initialSetup();
     return Scaffold(
       appBar: AppBar(
-        title: Text("New Diary"),
+        title: Text("Edit Diary"),
         centerTitle: true,
         backgroundColor: Colors.deepPurple,
       ),
@@ -131,7 +126,7 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
 
               Padding(
                   padding: EdgeInsets.only(top: 20.0,),
-                  child: Text("New Diary", style: const TextStyle(
+                  child: Text("Edit Diary", style: const TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.deepPurple),
                     textScaleFactor: 3,)
               ),
