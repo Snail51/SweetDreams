@@ -37,7 +37,7 @@ class _SleepHistoryState extends State<SleepHistory> {
     }
     return totalDuration / entries.length;
   }
-
+  //custom comparator from: https://stackoverflow.com/questions/53547997/sort-a-list-of-objects-in-flutter-dart-by-property-value
   int sortDates(SleepEntry a, SleepEntry b) {
     final timeA = a.date;
     final timeB = b.date;
