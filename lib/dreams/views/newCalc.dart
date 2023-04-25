@@ -71,7 +71,7 @@ class _CalcPageState extends State<CalcPage> {
         centerTitle: true,
         backgroundColor: Colors.blueAccent.shade700,
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey.shade900,
       body: Center(
           child: ListView(
             children: displayables,
