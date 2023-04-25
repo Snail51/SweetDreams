@@ -151,7 +151,7 @@ class _CreateDiaryPageState extends State<CreateDiaryPage> {
                   child: TextField(
                     maxLength: 20,
                     decoration: InputDecoration(
-                      counterStyle: new TextStyle(color: Colors.white),
+                        counterStyle: new TextStyle(color: Colors.white),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.deepPurple)),
                         border: OutlineInputBorder(),

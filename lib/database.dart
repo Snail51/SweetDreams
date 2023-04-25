@@ -141,6 +141,12 @@ class SleepData {
     }
   }
 
+  void removeLastEvent() {
+    if (database.isNotEmpty) {
+      database.removeLast();
+    }
+  }
+
   Future<String> _read(dir) async {
     String text = "";
     //print("READING");
@@ -183,9 +189,10 @@ class SleepData {
 
   void addEvent(DateTime sleep, {DateTime? wake, int? quality, String? dream}) //adds a sleep event at the last index of the database. A DateTime for the start of the sleep is required but other parameters are optional and will default.
   {
-    database.add(SleepEvent(database.length, sleep, end: wake, Quality: quality, Dream: dream));
-
+    database.add(SleepEvent(
+        database.length, sleep, end: wake, Quality: quality, Dream: dream));
   }
+
 
   SleepEvent? delEvent(int index) //Deletes the event at the specified index, returning it. Returns null if no such event exists
   {

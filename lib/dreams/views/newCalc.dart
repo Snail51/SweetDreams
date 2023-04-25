@@ -1,32 +1,143 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:units/database.dart';
+import 'package:units/widgetCalcModes.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 
+class CalcPage extends StatefulWidget {
+  CalcPage({Key? key, required this.database}) : super(key: key);
 
+  SleepData database;
+
+  @override
+  _CalcPageState createState() => _CalcPageState();
+}
+
+class _CalcPageState extends State<CalcPage> {
+  List<dynamic> content = [];
+  List<Widget> displayables = [];
+  Timer factTimer = Timer.periodic(Duration.zero, (timer) { });
+  List<String> sleepFacts = [
+    "The longest recorded period without sleep is 11 days.",
+    "Sleeping on your back can help prevent wrinkles.",
+    "There are a total of 16 sleep cycles, each having a total time of 90 minutes.",
+    "Newborns sleep up to 17 hours a day.",
+    "This calculator went through 5 different variations! *I want to not alive*.",
+    "Dreams are the result of your brain processing emotions and memories.",
+    "Turn around.",
+    "REM sleep is when most of our dreaming occurs.",
+    "The average person falls asleep in about 7 minutes.",
+    "Humans are the only mammals that willingly delay sleep.",
+    "The ideal room temperature for sleeping is around 65 degrees Fahrenheit.",
+    "Sleep deprivation can lead to weight gain.",
+    "A good night's sleep can improve your memory and creativity.",
+    "Sleep is essential for regulating hormones and maintaining a healthy immune system.",
+    "Lack of sleep can impair judgement and decision-making.",
+    "REM sleep helps to improve learning and memory.",
+    "Snoring can be a sign of sleep apnea.",
+    "Making this calculator took way to long and I was dying the entire time please help me.",
+    "Sleepwalking is most common in children and tends to decrease with age.",
+    "Chronic sleep deprivation has been linked to an increased risk of heart disease and stroke."
+  ];
+  String currentFact = "Did you know? " + "That this page took way too long and I lost a lot of sleep because of that! WOW!!!.";
+
+
+  @override
+  void initState() {
+    super.initState();
+    initContent();
+    update();
+    factTimer = Timer.periodic(Duration(seconds: 10), (timer) {
+      setState(() {
+        currentFact = "Did you know? " + sleepFacts[DateTime.now().second % sleepFacts.length];
+      });
+    });
+  }
+
+  void update() {
+    setState(() {
+      List<Widget> holder = [];
+      for (int i = 0; i < content.length; i++) {
+        if (content[i].needsUpdating) {
+          holder.add(content[i].toWidget());
+          content[i].needsUpdating = false;
+        } else {
+          holder.add(displayables[i]);
+        }
+      }
+      displayables = holder;
+    });
+  }
+
+  void initContent() {
+    content.add(CalcWakeWidget(context, updateCallback: update));
+    content.add(CalcSleepWidget(context, updateCallback: update));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return WillPopScope(
+      onWillPop: () async {
+        factTimer.cancel();
+        print("Consuming Timer " + factTimer.toString());
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Sleep Calculator"),
+          centerTitle: true,
+          backgroundColor: Colors.blueAccent.shade700,
+        ),
+        backgroundColor: Colors.grey.shade900,
+        body: Center(
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView(
+                  children: displayables,
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(16),
+                color: Colors.purple,
+                child: Text(
+                  currentFact,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+/**
     class CalcPage extends StatefulWidget {
     CalcPage({Key? key, required this.database}) : super (key: key);
-
-
     // This widget is the home page of your application. It is stateful, meaning
     // that it has a State object (defined below) that contains fields that affect
     // how it looks.
-
     // This class is the configuration for the state. It holds the values (in this
     // case the title) provided by the parent (in this case the App widget) and
     // used by the build method of the State. Fields in a Widget subclass are
     // always marked "final".
     SleepData database = new SleepData(filename: "data.csv");
-
     @override
     _CalcPageState createState() => _CalcPageState();
     }
-
-
     class _CalcPageState extends State<CalcPage> {
-
     TimeOfDay _startTime = TimeOfDay.now();
     TimeOfDay _endTime = TimeOfDay.fromDateTime(DateTime.now().add(const Duration(hours: 3)));
     double cycleLength = 90.00;
@@ -36,14 +147,59 @@ import 'package:time_range_picker/time_range_picker.dart';
     DateTime? fixedSleep;
     DateTime? bestSleepTime;
     DateTime? bestWakeTime;
-
-
-
+    List<dynamic> modes = [];
+    List<Widget> displayables = [];
+    void update()
+    {
+    setState(() {
+    List<Widget> holder = [];
+    for (int i = 0; i < modes.length; i++) {
+    if(modes[i].needsUpdating)
+    {
+    holder.add(modes[i].toWidget());
+    modes[i].needsUpdating = false;
+    }
+    else
+    {
+    holder.add(displayables[i]);
+    }
+    }
+    displayables = holder;
+    });
+    }
     @override
     void initState() {
+    initContent();
+    update();
     super.initState();
     }
-
+    void initContent()
+    {
+    modes.add(widgetModeWake("wake", context));
+    }
+    @override
+    Widget build(BuildContext context) {
+    final periodicTimer = Timer.periodic(
+    const Duration(milliseconds: 200), //adjust this number for how often you want the screen refreshed
+    (timer) {
+    update();
+    },
+    );
+    return Scaffold(
+    appBar: AppBar(
+    title: Text("Example of updating widgets that were dynamically created outside of a build function, because when they are outside of a build function they don't have access to setState()"),
+    centerTitle: true,
+    backgroundColor: Colors.blueAccent.shade700,
+    ),
+    backgroundColor: Colors.white,
+    body: Center(
+    child: Column(
+    children: displayables,
+    )
+    ),
+    );
+    }
+    }
     Widget modeWake() {
     final now = DateTime.now();
     final sleepCycle = 90;
@@ -51,18 +207,14 @@ import 'package:time_range_picker/time_range_picker.dart';
     final cycleLength = Duration(minutes: sleepCycle);
     DateTime? fixedWake;
     List<Widget> content = [];
-
     String labelRangePickerButton = "Select Time Range";
-
     void updateWakeTime(TimeOfDay time) {
     fixedWake = DateTime(now.year, now.month, now.day, time.hour, time.minute);
     print(fixedWake.toString());
     }
-
     void updateRangePickerButtonLabel(TimeOfDay input) {
     labelRangePickerButton = input.toString();
     }
-
     content.add(Text("Select Fixed Wake Time:"));
     content.add(
     ElevatedButton.icon(
@@ -327,50 +479,10 @@ import 'package:time_range_picker/time_range_picker.dart';
     ),
     ),
     );
-
     return Column(
     children: content,
     );
     }
-  /**
-
-
-      Widget modeCycles() {
-      return Container(
-      /**
-   * cycles is set to slider value
-   * time range picker is created with fixed duration = cycles * 90
-   * output of time range picker is pushed to text
-      */
-      child: Column(
-      children: [
-      Text('Select Number of Sleep Cycles: ${cycles?.toInt() ?? 0}'),
-      Slider(
-      value: cycles ?? 0,
-      min: 0,
-      max: maxSleepCycle,
-      divisions: maxSleepCycle.toInt(),
-      onChanged: (value) {
-      setState(() {
-      cycles = value;
-      fixedWake = null;
-      fixedSleep = null;
-      _startTime = TimeOfDay.fromDateTime(DateTime.now());
-      _endTime = _startTime.replacing(
-      hour: _startTime.hour + (cycles! * cycleLength ~/ 60));
-      });
-      },
-      ),
-      if (cycles != null)
-      Text(
-      'Selected Sleep Time: ${_startTime.format(context)} - ${_endTime
-      .format(context)}')
-      ],
-      ),
-      );
-      }
-   */
-
     @override
     Widget build(BuildContext context) {
     return Scaffold(
@@ -437,7 +549,7 @@ import 'package:time_range_picker/time_range_picker.dart';
     );
     }
     }
-
+ **/
 
 
 

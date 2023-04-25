@@ -12,7 +12,7 @@ class WidgetAudioPlayer
   Icon icon = Icon(Icons.question_mark, color: Colors.red); //obvious init to find erros
   Color buttonColor = Colors.grey;
   double volume = 0.5;
-  final AudioPlayer player = AudioPlayer();
+  final AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
   bool needsUpdating = true;
 
   WidgetAudioPlayer(String Name, String srcdir, Icon display)
@@ -26,43 +26,42 @@ class WidgetAudioPlayer
     volume = 0.5;
 
 
-    player.setReleaseMode(ReleaseMode.loop);
+    player.setReleaseMode(ReleaseMode.LOOP);
     player.setVolume(volume);
     setAudio();
-    player.setPlayerMode(PlayerMode.lowLatency);
-
-    //print("Source for player " + name + ": " + player.source.toString());
-
   }
 
   Future setAudio() async
   {
-    player.setSourceAsset("audiosrc/" + source);
-    player.stop();
+    final localAudioCache = AudioCache(prefix: "assets/audiosrc/");
+    final url = await localAudioCache.load(source);
+    await player.setUrl(url.path, isLocal: true);
+    await player.stop();
   }
 
-  void toggle()
+  void toggle() async
   {
-    needsUpdating = true;
+
     isPlaying = !isPlaying;
     if(isPlaying)
     {
-      player.resume();
+      await player.resume();
       buttonColor = Colors.white;
     }
     else
     {
-      player.stop();
+      await player.stop();
       buttonColor = Colors.grey;
     }
     icon = Icon(icon.icon, color: buttonColor);
+    needsUpdating = true;
   }
 
-  void updateVolume(double newVol)
+  void updateVolume(double newVol) async
   {
-    needsUpdating = true;
     volume = newVol;
-    player.setVolume(volume);
+    await player.setVolume(volume);
+    needsUpdating = true;
   }
 
 

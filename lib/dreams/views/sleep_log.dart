@@ -24,6 +24,23 @@ class _SleepLogPageState extends State<SleepLogPage> {
     super.initState();
   }
 
+  void deleteLastLog() {
+    if (widget.database.getData().isNotEmpty) {
+      setState(() {
+        widget.database.removeLastEvent();
+        nullDateSelection();
+      });
+    }
+  }
+
+  List<SleepEntry> generateSleepEntries() {
+    return widget.database.getData().map((sleepEvent) {
+      Duration duration = sleepEvent.wake.difference(sleepEvent.sleep);
+      double durationInHours = duration.inMinutes / 60.0; // Calculate duration in hours
+      return SleepEntry(sleepEvent.sleep, durationInHours.abs());
+    }).toList();
+  }
+
   DateTime selectedDate = DateTime.fromMicrosecondsSinceEpoch(0);
   String labelSelectButton = "Find Log by Date";
 
@@ -180,8 +197,13 @@ class _SleepLogPageState extends State<SleepLogPage> {
                   primary: Colors.deepPurple
               ),
               child: Text('Sleep History'),
-              onPressed: () async{
-                await Navigator.push(context, MaterialPageRoute(builder: (context) => SleepHistory(database: widget.database)));
+              onPressed: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SleepHistory(sleepEntries: generateSleepEntries()),
+                  ),
+                );
                 nullDateSelection();
               },
             ),
@@ -195,22 +217,21 @@ class _SleepLogPageState extends State<SleepLogPage> {
                 nullDateSelection();
               },
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 47),
               child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.deepPurple
-                    ),
-                    child: Text(labelSelectButton),
-                    onPressed: () => _selectDate(context)
-                ),
-                IconButton(onPressed: () => nullDateSelection(), icon: const Icon(Icons.delete_forever), color: Colors.deepPurple,)
-              ],
-            ),
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.deepPurple
+                      ),
+                      child: Text(labelSelectButton),
+                      onPressed: () => _selectDate(context)
+                  ),
+                  IconButton(onPressed: () => deleteLastLog(), icon: const Icon(Icons.delete_forever), color: Colors.deepPurple,) // Update this line
+                ],
+              ),
             ),
             sleepLogToWidget()
           ],
