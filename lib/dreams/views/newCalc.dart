@@ -87,7 +87,7 @@ class _CalcPageState extends State<CalcPage> {
         appBar: AppBar(
           title: Text("Sleep Calculator"),
           centerTitle: true,
-          backgroundColor: Colors.blueAccent.shade700,
+          backgroundColor: Colors.deepPurple,
         ),
         backgroundColor: Colors.grey.shade900,
         body: Center(
@@ -100,7 +100,7 @@ class _CalcPageState extends State<CalcPage> {
               ),
               Container(
                 padding: EdgeInsets.all(16),
-                color: Colors.purple,
+                color: Colors.deepPurple,
                 child: Text(
                   currentFact,
                   style: TextStyle(

@@ -54,14 +54,14 @@ class CalcWakeWidget {
             ),
             SliderTheme(
               data: SliderThemeData(
-                activeTrackColor: Colors.purple,
+                activeTrackColor: Colors.deepPurple,
                 inactiveTrackColor: Colors.grey,
-                thumbColor: Colors.purple,
-                overlayColor: Colors.purple.withOpacity(0.2),
+                thumbColor: Colors.deepPurple,
+                overlayColor: Colors.deepPurple.withOpacity(0.2),
                 thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12),
                 overlayShape: RoundSliderOverlayShape(overlayRadius: 20),
                 trackHeight: 4.0,
-                valueIndicatorColor: Colors.purple,
+                valueIndicatorColor: Colors.deepPurple,
                 valueIndicatorTextStyle: TextStyle(color: Colors.white),
               ),
               child: Column(
@@ -109,7 +109,7 @@ class CalcWakeWidget {
                   ? labelRangePickerButton
                   : 'Select Time'),
               style: ElevatedButton.styleFrom(
-                primary: Colors.purple,
+                primary: Colors.deepPurple,
                 onPrimary: Colors.white,
                 elevation: 5,
                 shape: RoundedRectangleBorder(
@@ -185,14 +185,14 @@ class CalcSleepWidget {
                 ),
                 SliderTheme(
                   data: SliderThemeData(
-                    activeTrackColor: Colors.purple,
+                    activeTrackColor: Colors.deepPurple,
                     inactiveTrackColor: Colors.grey,
-                    thumbColor: Colors.purple,
-                    overlayColor: Colors.purple.withOpacity(0.2),
+                    thumbColor: Colors.deepPurple,
+                    overlayColor: Colors.deepPurple.withOpacity(0.2),
                     thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12),
                     overlayShape: RoundSliderOverlayShape(overlayRadius: 20),
                     trackHeight: 4.0,
-                    valueIndicatorColor: Colors.purple,
+                    valueIndicatorColor: Colors.deepPurple,
                     valueIndicatorTextStyle: TextStyle(color: Colors.white),
                   ),
                   child: Column(
@@ -238,7 +238,7 @@ class CalcSleepWidget {
               icon: Icon(Icons.alarm),
               label: Text(isTimeAndCyclesSelected ? pickerStart.format(context) : 'Select Time'),
               style: ElevatedButton.styleFrom(
-                primary: Colors.purple,
+                primary: Colors.deepPurple,
                 onPrimary: Colors.white,
                 elevation: 5,
                 shape: RoundedRectangleBorder(

@@ -38,7 +38,6 @@ class _SleepHistoryState extends State<SleepHistory> {
     return totalDuration / entries.length;
   }
 
-
   int sortDates(SleepEntry a, SleepEntry b) {
     final timeA = a.date;
     final timeB = b.date;
@@ -50,7 +49,6 @@ class _SleepHistoryState extends State<SleepHistory> {
     } else {
       return 0;
     }
-
   }
 
   BarChart getChart(List<SleepEntry> entries) {
@@ -66,8 +64,7 @@ class _SleepHistoryState extends State<SleepHistory> {
             getTooltipItem: (group, groupIndex, rod, rodIndex) {
               return BarTooltipItem(
                 rod.y.round().toString(),
-                TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.bold),
+                TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               );
             },
           ),
@@ -79,8 +76,7 @@ class _SleepHistoryState extends State<SleepHistory> {
             getTextStyles: (context, value) =>
                 TextStyle(color: Colors.white, fontSize: 14),
             getTitles: (double value) {
-              return entries[value.toInt()].date.toString()
-                  .split(' ')[0];
+              return entries[value.toInt()].date.toString().split(' ')[0];
             },
           ),
           leftTitles: SideTitles(
@@ -95,29 +91,25 @@ class _SleepHistoryState extends State<SleepHistory> {
         borderData: FlBorderData(show: false),
         barGroups: entries
             .asMap()
-            .map((index, entry) =>
-            MapEntry(
-              index,
-              BarChartGroupData(
-                x: index,
-                barRods: [
-                  BarChartRodData(
-                    y: entry.duration,
-                    borderRadius: BorderRadius.circular(10),
-                    colors: [
-                      Colors.lightBlueAccent,
-                      Colors.blueAccent
+            .map((index, entry) => MapEntry(
+                  index,
+                  BarChartGroupData(
+                    x: index,
+                    barRods: [
+                      BarChartRodData(
+                        y: entry.duration,
+                        borderRadius: BorderRadius.circular(10),
+                        colors: [Colors.deepPurpleAccent, Colors.deepPurple],
+                        width: 16,
+                        backDrawRodData: BackgroundBarChartRodData(
+                          show: true,
+                          y: maxDuration,
+                          colors: [Colors.grey.shade600],
+                        ),
+                      ),
                     ],
-                    width: 16,
-                    backDrawRodData: BackgroundBarChartRodData(
-                      show: true,
-                      y: maxDuration,
-                      colors: [Colors.grey.shade600],
-                    ),
                   ),
-                ],
-              ),
-            ))
+                ))
             .values
             .toList(),
       ),
@@ -126,14 +118,14 @@ class _SleepHistoryState extends State<SleepHistory> {
     );
   }
 
-
-
-  updateChart() async{
+  updateChart() async {
     print("UPDATING CHART");
     List<SleepEntry> filteredList = [];
-    for(int i = 0; i < sleepHistory.length; i++) {
-      if((sleepHistory[i].date.isBefore(selectedDate2) || sleepHistory[i].date.isAtSameMomentAs(selectedDate2) ) &&
-          ( sleepHistory[i].date.isAfter(selectedDate) || sleepHistory[i].date.isAtSameMomentAs(selectedDate))) {
+    for (int i = 0; i < sleepHistory.length; i++) {
+      if ((sleepHistory[i].date.isBefore(selectedDate2) ||
+              sleepHistory[i].date.isAtSameMomentAs(selectedDate2)) &&
+          (sleepHistory[i].date.isAfter(selectedDate) ||
+              sleepHistory[i].date.isAtSameMomentAs(selectedDate))) {
         filteredList.add(sleepHistory[i]);
       }
     }
@@ -141,23 +133,22 @@ class _SleepHistoryState extends State<SleepHistory> {
     setState(() {
       chart = getChart(filteredList);
       averageSleep = calculateAverageSleep(filteredList);
-
     });
   }
 
   @override
   Widget build(BuildContext context) {
-
-
-    if(startUp){
+    if (startUp) {
       chart = getChart(sleepHistory);
       averageSleep = calculateAverageSleep(sleepHistory);
       startUp = false;
     }
-    _selectDate1(BuildContext context) async{ //Date Picker Popup
+    _selectDate1(BuildContext context) async {
+      //Date Picker Popup
       final DateTime? picked = await showDatePicker(
         context: context,
-        initialDate: DateTime.now(), // Refer step 1
+        initialDate: DateTime.now(),
+        // Refer step 1
         firstDate: DateTime(2000),
         lastDate: DateTime(2025),
         builder: (context, child) {
@@ -179,10 +170,13 @@ class _SleepHistoryState extends State<SleepHistory> {
           );
         },
       );
-      if (picked != null && picked != selectedDate && picked.isBefore(selectedDate2)) {
+      if (picked != null &&
+          picked != selectedDate &&
+          picked.isBefore(selectedDate2)) {
         setState(() {
           selectedDate = picked.add(Duration(hours: 12));
-          startSelectButton = DateFormat.MMMd().format(selectedDate) + ", " +
+          startSelectButton = DateFormat.MMMd().format(selectedDate) +
+              ", " +
               DateFormat.y().format(selectedDate);
           startSelected = true;
         });
@@ -192,10 +186,12 @@ class _SleepHistoryState extends State<SleepHistory> {
       }
     }
 
-    _selectDate2(BuildContext context) async{ //Date Picker Popup
+    _selectDate2(BuildContext context) async {
+      //Date Picker Popup
       final DateTime? picked = await showDatePicker(
         context: context,
-        initialDate: DateTime.now(), // Refer step 1
+        initialDate: DateTime.now(),
+        // Refer step 1
         firstDate: DateTime(2000),
         lastDate: DateTime(2025),
         builder: (context, child) {
@@ -217,10 +213,13 @@ class _SleepHistoryState extends State<SleepHistory> {
           );
         },
       );
-      if (picked != null && picked != selectedDate2 && picked.isAfter(selectedDate)) {
+      if (picked != null &&
+          picked != selectedDate2 &&
+          picked.isAfter(selectedDate)) {
         setState(() {
           selectedDate2 = picked.add(Duration(hours: 12));
-          endSelectButton = DateFormat.MMMd().format(selectedDate2) + ", " +
+          endSelectButton = DateFormat.MMMd().format(selectedDate2) +
+              ", " +
               DateFormat.y().format(selectedDate2);
           endSelected = true;
         });
@@ -244,36 +243,38 @@ class _SleepHistoryState extends State<SleepHistory> {
               padding: EdgeInsets.all(16),
               child: Text(
                 'Average Sleep Duration: ${averageSleep.toStringAsFixed(1)} hours',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
             ),
             Container(
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.7, // Adjust height to fill the available space
+                height: MediaQuery.of(context).size.height *
+                    0.7, // Adjust height to fill the available space
                 padding: EdgeInsets.all(16),
-                child: chart
-            ),
+                child: chart),
             Padding(
               padding: EdgeInsets.only(left: 47),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.deepPurple
-                      ),
-                      child: Text(startSelectButton),
-                      onPressed: () => _selectDate1(context)
+                  Padding(
+                    padding: EdgeInsets.only(right: 20),
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.deepPurple),
+                        child: Text(startSelectButton),
+                        onPressed: () => _selectDate1(context)),
                   ),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.deepPurple
-                      ),
-                      child: Text(endSelectButton),
-                      onPressed: () => _selectDate2(context)
-                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10, right: 20),
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.deepPurple),
+                        child: Text(endSelectButton),
+                        onPressed: () => _selectDate2(context)),
+                  )
                   //IconButton(onPressed: () => deleteLastLog(), icon: const Icon(Icons.delete_forever), color: Colors.deepPurple,) // Update this line
                 ],
               ),
@@ -284,6 +285,7 @@ class _SleepHistoryState extends State<SleepHistory> {
     );
   }
 }
+
 class SleepEntry {
   final DateTime date;
   final double duration;
