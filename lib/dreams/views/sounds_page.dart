@@ -134,6 +134,7 @@ class _SoundsPageState extends State<SoundsPage> {
     return WillPopScope(
        onWillPop: () async {
         killAll();
+        // timer.cancel
         return true;
       },
       child: Scaffold(
