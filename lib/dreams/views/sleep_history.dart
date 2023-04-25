@@ -23,12 +23,18 @@ class _SleepHistoryState extends State<SleepHistory> {
   String endSelectButton = "Graph End Date";
   bool startSelected = false;
   bool endSelected = false;
+  bool startUp = true;
+  double averageSleep = 0.0;
 
   BarChart chart = BarChart(BarChartData());
 
-  double calculateAverageSleep() {
-    double totalDuration = widget.sleepEntries.fold(0, (sum, entry) => sum + entry.duration.abs());
-    return totalDuration / widget.sleepEntries.length;
+  double calculateAverageSleep(List<SleepEntry> entries) {
+    //double totalDuration = entries.fold(0, (sum, entry) => sum + entry.duration.abs());
+    double totalDuration = 0.0;
+    for (int i = 0; i < entries.length; i++) {
+      totalDuration += entries[i].duration.abs();
+    }
+    return totalDuration / entries.length;
   }
 
   BarChart getChart(List<SleepEntry> entries) {
@@ -83,13 +89,20 @@ class _SleepHistoryState extends State<SleepHistory> {
     }
     setState(() {
       chart = getChart(filteredList);
+      averageSleep = calculateAverageSleep(filteredList);
+
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    double averageSleep = calculateAverageSleep();
 
+
+    if(startUp){
+      chart = getChart(sleepHistory);
+      averageSleep = calculateAverageSleep(sleepHistory);
+      startUp = false;
+    }
     _selectDate1(BuildContext context) async{ //Date Picker Popup
       final DateTime? picked = await showDatePicker(
         context: context,
