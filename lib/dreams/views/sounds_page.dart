@@ -34,11 +34,11 @@ class _SoundsPageState extends State<SoundsPage> {
   {
     //print(widget.soundsLoaded);
     if(!refreshTimer.isActive)
-      {
-        refreshTimer.cancel();
-        loadingTimer.cancel();
-        return;
-      }
+    {
+      refreshTimer.cancel();
+      loadingTimer.cancel();
+      return;
+    }
     if((refreshTimer.isActive && !loading) || (refreshTimer.isActive && widget.soundsLoaded)) {
       setState(() {
         List<Widget> holder = [];
@@ -55,12 +55,12 @@ class _SoundsPageState extends State<SoundsPage> {
       });
     }
     if(loading && !widget.soundsLoaded)
-      {
-        setState(() {
-          loadingProgress = 1.0 - (DateTimeRange(start: DateTime.now(), end: loadEnd).duration.inSeconds.toDouble() / 10.0);
-          loadHolder = loader();
-        });
-      }
+    {
+      setState(() {
+        loadingProgress = 1.0 - (DateTimeRange(start: DateTime.now(), end: loadEnd).duration.inSeconds.toDouble() / 10.0);
+        loadHolder = loader();
+      });
+    }
   }
 
   Widget loader() {
@@ -88,7 +88,7 @@ class _SoundsPageState extends State<SoundsPage> {
     loadingProgress = 0.0;
     final loadingTimer = Timer(
         DateTimeRange(start: DateTime.now(), end: loadEnd).duration,
-        () {
+            () {
           loading = false;
           loadHolder = Container(
             width: 10,
@@ -128,10 +128,10 @@ class _SoundsPageState extends State<SoundsPage> {
     loadingTimer.cancel();
     print("consuming timer " + refreshTimer.toString());
     for(int i = 0; i < players.length; i++)
-      {
-        players[i].player.stop();
-        players[i].needsUpdating = false;
-      }
+    {
+      players[i].player.stop();
+      players[i].needsUpdating = false;
+    }
     players = [];
   }
 
@@ -139,37 +139,37 @@ class _SoundsPageState extends State<SoundsPage> {
   Widget build(BuildContext context) {
 
     return WillPopScope(
-       onWillPop: () async {
-         if(!widget.soundsLoaded)
-           {
-             return false; // Do not allow context pop while audio caches are initalizing!
-           }
-         else
-           {
-             killAll();
-             return true; // allow pop
-           }
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Sleep Sounds"),
-          centerTitle: true,
-          backgroundColor: Colors.deepPurple,
-        ),
-        backgroundColor: Colors.grey.shade900,
-        body: Center(
-          child: Column(
-            children: <Widget>[
-              loadHolder,
-              Expanded(
-                child: GridView.count(
-                  crossAxisCount: 3,
-                  children: displayables,
-                ),
+        onWillPop: () async {
+          if(!widget.soundsLoaded)
+          {
+            return false; // Do not allow context pop while audio caches are initalizing!
+          }
+          else
+          {
+            killAll();
+            return true; // allow pop
+          }
+        },
+        child: Scaffold(
+            appBar: AppBar(
+              title: Text("Sleep Sounds"),
+              centerTitle: true,
+              backgroundColor: Colors.deepPurple,
+            ),
+            backgroundColor: Colors.grey.shade900,
+            body: Center(
+              child: Column(
+                children: <Widget>[
+                  loadHolder,
+                  Expanded(
+                    child: GridView.count(
+                      crossAxisCount: 3,
+                      children: displayables,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        )
-      ));
+            )
+        ));
   }
 }

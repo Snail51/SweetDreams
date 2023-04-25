@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,8 @@ class CalcPage extends StatefulWidget {
   _CalcPageState createState() => _CalcPageState();
 }
 
-class _CalcPageState extends State<CalcPage> { // PAGE CLASS THAT WANTS TO DYNAMICALLY COELLATE WIDGETS THAT WERE GENERATED EXTERNALLY
+class _CalcPageState extends State<CalcPage> {
+  // PAGE CLASS THAT WANTS TO DYNAMICALLY COELLATE WIDGETS THAT WERE GENERATED EXTERNALLY
   List<dynamic> content = [];
   List<Widget> displayables = [];
 
@@ -29,18 +31,17 @@ class _CalcPageState extends State<CalcPage> { // PAGE CLASS THAT WANTS TO DYNAM
     super.initState();
   }
 
-  void update()
-  {
+  void update() {
     setState(() {
       List<Widget> holder = [];
       for (int i = 0; i < content.length; i++) {
-        if(content[i].needsUpdating) //ONLY REDRAW WIDGETS THAT ACTUALLY NEED REDRAWING
+        if (content[i]
+            .needsUpdating) //ONLY REDRAW WIDGETS THAT ACTUALLY NEED REDRAWING
             {
           holder.add(content[i].toWidget());
           content[i].needsUpdating = false;
         }
-        else
-        {
+        else {
           holder.add(displayables[i]);
         }
       }
@@ -48,18 +49,17 @@ class _CalcPageState extends State<CalcPage> { // PAGE CLASS THAT WANTS TO DYNAM
     });
   }
 
-  void initContent()
-  {
-    content.add(CalcWakeWidget(context));
-    content.add(CalcSleepWidget(context));
-    content.add(CycleWidget(context, updateRange: Tuple2<double, double>(0.0, 0.0)));
+  void initContent() {
+    content.add(CalcWakeWidget(context, updateCallback: update));
+    content.add(CalcSleepWidget(context, updateCallback: update));
   }
+
 
   @override
   Widget build(BuildContext context) {
-
     final periodicTimer = Timer.periodic(
-      const Duration(milliseconds: 200), //adjust this number for how often you want the screen refreshed
+      const Duration(milliseconds: 200),
+      //adjust this number for how often you want the screen refreshed
           (timer) {
         update();
       },
@@ -71,7 +71,7 @@ class _CalcPageState extends State<CalcPage> { // PAGE CLASS THAT WANTS TO DYNAM
         centerTitle: true,
         backgroundColor: Colors.blueAccent.shade700,
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey.shade900,
       body: Center(
           child: ListView(
             children: displayables,
@@ -80,7 +80,6 @@ class _CalcPageState extends State<CalcPage> { // PAGE CLASS THAT WANTS TO DYNAM
     );
   }
 }
-
 
 
 

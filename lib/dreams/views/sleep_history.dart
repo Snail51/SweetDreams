@@ -1,4 +1,4 @@
-
+import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -25,6 +25,7 @@ class _SleepHistoryState extends State<SleepHistory> {
   bool endSelected = false;
   bool startUp = true;
   double averageSleep = 0.0;
+  double maxDuration = 24.0;
 
   BarChart chart = BarChart(BarChartData());
 
@@ -36,26 +37,98 @@ class _SleepHistoryState extends State<SleepHistory> {
     }
     return totalDuration / entries.length;
   }
-
+/**
   BarChart getChart(List<SleepEntry> entries) {
     print("GETTING CHART");
     return BarChart(
-      BarChartData(
-        alignment: BarChartAlignment.spaceAround,
+                BarChartData(
+                  alignment: BarChartAlignment.spaceAround,
         maxY: 24,
         barTouchData: BarTouchData(enabled: false),
+                  titlesData: FlTitlesData(
+                    show: true,
+                    bottomTitles: SideTitles(
+                      showTitles: true,
+            getTextStyles: (context, value) => TextStyle(color: Colors.blueGrey, fontSize: 14),
+                      getTitles: (double value) {
+              return entries[value.toInt()].date.toString().split(' ')[0];
+                      },
+                    ),
+                    leftTitles: SideTitles(
+                      showTitles: true,
+            getTextStyles: (context, value) => TextStyle(color: Colors.blueGrey, fontSize: 7),
+                      getTitles: (double value) {
+                        return value.toInt().toString();
+                      },
+                    ),
+                  ),
+                  borderData: FlBorderData(show: false),
+        barGroups: entries
+                      .asMap()
+            .map((index, entry) => MapEntry(
+                        index,
+                        BarChartGroupData(
+                          x: index,
+                          barRods: [
+              BarChartRodData(y: entry.duration, colors: [Colors.lightBlueAccent, Colors.blueAccent]),
+                          ],
+                        ),
+                      ))
+                      .values
+                      .toList(),
+                ),
+    );
+  }
+**/
+
+  int sortDates(SleepEntry a, SleepEntry b) {
+    final timeA = a.date;
+    final timeB = b.date;
+
+    if (timeA.isBefore(timeB)) {
+      return -1;
+    } else if (timeB.isBefore(timeA)) {
+      return 1;
+    } else {
+      return 0;
+    }
+
+  }
+
+  BarChart getChart(List<SleepEntry> entries) {
+    return BarChart(
+      BarChartData(
+        alignment: BarChartAlignment.spaceAround,
+        minY: 0,
+        maxY: maxDuration,
+        barTouchData: BarTouchData(
+          enabled: true,
+          touchTooltipData: BarTouchTooltipData(
+            tooltipBgColor: Colors.grey.shade700,
+            getTooltipItem: (group, groupIndex, rod, rodIndex) {
+              return BarTooltipItem(
+                rod.y.round().toString(),
+                TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold),
+              );
+            },
+          ),
+        ),
         titlesData: FlTitlesData(
           show: true,
           bottomTitles: SideTitles(
             showTitles: true,
-            getTextStyles: (context, value) => TextStyle(color: Colors.blueGrey, fontSize: 14),
+            getTextStyles: (context, value) =>
+                TextStyle(color: Colors.white, fontSize: 14),
             getTitles: (double value) {
-              return entries[value.toInt()].date.toString().split(' ')[0];
+              return entries[value.toInt()].date.toString()
+                  .split(' ')[0];
             },
           ),
           leftTitles: SideTitles(
             showTitles: true,
-            getTextStyles: (context, value) => TextStyle(color: Colors.blueGrey, fontSize: 7),
+            getTextStyles: (context, value) =>
+                TextStyle(color: Colors.white, fontSize: 14),
             getTitles: (double value) {
               return value.toInt().toString();
             },
@@ -64,29 +137,49 @@ class _SleepHistoryState extends State<SleepHistory> {
         borderData: FlBorderData(show: false),
         barGroups: entries
             .asMap()
-            .map((index, entry) => MapEntry(
-          index,
-          BarChartGroupData(
-            x: index,
-            barRods: [
-              BarChartRodData(y: entry.duration, colors: [Colors.lightBlueAccent, Colors.blueAccent]),
-            ],
-          ),
-        ))
+            .map((index, entry) =>
+            MapEntry(
+              index,
+              BarChartGroupData(
+                x: index,
+                barRods: [
+                  BarChartRodData(
+                    y: entry.duration,
+                    borderRadius: BorderRadius.circular(10),
+                    colors: [
+                      Colors.lightBlueAccent,
+                      Colors.blueAccent
+                    ],
+                    width: 16,
+                    backDrawRodData: BackgroundBarChartRodData(
+                      show: true,
+                      y: maxDuration,
+                      colors: [Colors.grey.shade600],
+                    ),
+                  ),
+                ],
+              ),
+            ))
             .values
             .toList(),
       ),
+      swapAnimationDuration: Duration(milliseconds: 500),
+      swapAnimationCurve: Curves.easeInOut,
     );
   }
+
+
 
   updateChart() async{
     print("UPDATING CHART");
     List<SleepEntry> filteredList = [];
     for(int i = 0; i < sleepHistory.length; i++) {
-      if(sleepHistory[i].date.isBefore(selectedDate2) && sleepHistory[i].date.isAfter(selectedDate)) {
+      if((sleepHistory[i].date.isBefore(selectedDate2) || sleepHistory[i].date.isAtSameMomentAs(selectedDate2) ) &&
+          ( sleepHistory[i].date.isAfter(selectedDate) || sleepHistory[i].date.isAtSameMomentAs(selectedDate))) {
         filteredList.add(sleepHistory[i]);
       }
     }
+    filteredList.sort(sortDates);
     setState(() {
       chart = getChart(filteredList);
       averageSleep = calculateAverageSleep(filteredList);
@@ -180,8 +273,11 @@ class _SleepHistoryState extends State<SleepHistory> {
     }
 
     return Scaffold(
+      backgroundColor: Colors.grey.shade900,
       appBar: AppBar(
         title: Text('Sleep Analytics'),
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -194,7 +290,10 @@ class _SleepHistoryState extends State<SleepHistory> {
               ),
             ),
             Container(
-              height: 200,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.7, // Adjust height to fill the available space
               padding: EdgeInsets.all(16),
               child: chart
             ),
@@ -227,7 +326,6 @@ class _SleepHistoryState extends State<SleepHistory> {
     );
   }
 }
-
 class SleepEntry {
   final DateTime date;
   final double duration;
