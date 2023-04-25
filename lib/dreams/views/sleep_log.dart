@@ -37,7 +37,7 @@ class _SleepLogPageState extends State<SleepLogPage> {
     return widget.database.getData().map((sleepEvent) {
       Duration duration = sleepEvent.wake.difference(sleepEvent.sleep);
       double durationInHours = duration.inMinutes / 60.0; // Calculate duration in hours
-      return SleepEntry(sleepEvent.sleep, durationInHours);
+      return SleepEntry(sleepEvent.sleep, durationInHours.abs());
     }).toList();
   }
 

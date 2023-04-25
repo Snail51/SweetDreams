@@ -15,7 +15,7 @@ class _SleepHistoryState extends State<SleepHistory> {
   List<SleepEntry> get sleepHistory => widget.sleepEntries;
 
   double calculateAverageSleep() {
-    double totalDuration = widget.sleepEntries.fold(0, (sum, entry) => sum + entry.duration);
+    double totalDuration = widget.sleepEntries.fold(0, (sum, entry) => sum + entry.duration.abs());
     return totalDuration / widget.sleepEntries.length;
   }
 

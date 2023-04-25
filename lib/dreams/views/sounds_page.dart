@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:units/database.dart';
 import 'package:units/widgetaudioplayer.dart';
 import 'dart:async';
+import '../utils/sleep_facts.dart';
 
 class SoundsPage extends StatefulWidget {
 
@@ -25,16 +26,19 @@ class _SoundsPageState extends State<SoundsPage> {
   bool loading = true;
   double loadingProgress = 0;
 
+  Widget funHolder = Text("NULL");
+  FactContainer fun = FactContainer();
+
 
   void update()
   {
     //print(widget.soundsLoaded);
     if(!refreshTimer.isActive)
-      {
-        refreshTimer.cancel();
-        loadingTimer.cancel();
-        return;
-      }
+    {
+      refreshTimer.cancel();
+      loadingTimer.cancel();
+      return;
+    }
     if((refreshTimer.isActive && !loading) || (refreshTimer.isActive && widget.soundsLoaded)) {
       setState(() {
         List<Widget> holder = [];
@@ -51,25 +55,25 @@ class _SoundsPageState extends State<SoundsPage> {
       });
     }
     if(loading && !widget.soundsLoaded)
-      {
-        setState(() {
-          loadingProgress = 1.0 - (DateTimeRange(start: DateTime.now(), end: loadEnd).duration.inSeconds.toDouble() / 10.0);
-          loadHolder = loader();
-        });
-      }
+    {
+      setState(() {
+        loadingProgress = 1.0 - (DateTimeRange(start: DateTime.now(), end: loadEnd).duration.inSeconds.toDouble() / 10.0);
+        loadHolder = loader();
+      });
+    }
   }
 
   Widget loader() {
     //print("producing new loader with value " + loadingProgress.toString());
     return Padding(padding: EdgeInsets.all(25.0), child: Container(
-      height: 250,
+      height: 400,
       width: 250,
       color: Colors.deepPurple,
       child: Column(
         children: <Widget>[
           Padding(padding: EdgeInsets.all(10.0), child: Text("Loading Sounds...", style: TextStyle(color: Colors.white, fontSize: 24))),
           Padding(padding: EdgeInsets.all(10.0), child: SizedBox(height: 125, width: 125, child: CircularProgressIndicator(value: loadingProgress, color: Colors.white, strokeWidth: 10.0,))),
-          Padding(padding: EdgeInsets.all(10.0), child: Text("Fun Fact...", style: TextStyle(color: Colors.white, fontSize: 24))),
+          Center(child: Padding(padding: EdgeInsets.all(10.0), child: funHolder)),
         ],
       ),
     ));
@@ -78,11 +82,13 @@ class _SoundsPageState extends State<SoundsPage> {
   @override
   void initState() {
 
+    funHolder = fun.getFactContainer();
+
     loading = true;
     loadingProgress = 0.0;
     final loadingTimer = Timer(
         DateTimeRange(start: DateTime.now(), end: loadEnd).duration,
-        () {
+            () {
           loading = false;
           loadHolder = Container(
             width: 10,
@@ -99,6 +105,7 @@ class _SoundsPageState extends State<SoundsPage> {
         update();
       },
     );
+
 
     players.add(WidgetAudioPlayer("Summer Night", "Summer_Night.mp3", Icon(Icons.wb_twighlight, color: Colors.white)));
     players.add(WidgetAudioPlayer("Rain", "Rain.mp3", Icon(Icons.wb_cloudy, color: Colors.white)));
@@ -121,10 +128,10 @@ class _SoundsPageState extends State<SoundsPage> {
     loadingTimer.cancel();
     print("consuming timer " + refreshTimer.toString());
     for(int i = 0; i < players.length; i++)
-      {
-        players[i].player.stop();
-        players[i].needsUpdating = false;
-      }
+    {
+      players[i].player.stop();
+      players[i].needsUpdating = false;
+    }
     players = [];
   }
 
@@ -132,31 +139,37 @@ class _SoundsPageState extends State<SoundsPage> {
   Widget build(BuildContext context) {
 
     return WillPopScope(
-       onWillPop: () async {
-        killAll();
-        // timer.cancel
-        return true;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Sleep Sounds"),
-          centerTitle: true,
-          backgroundColor: Colors.deepPurple,
-        ),
-        backgroundColor: Colors.grey.shade900,
-        body: Center(
-          child: Column(
-            children: <Widget>[
-              loadHolder,
-              Expanded(
-                child: GridView.count(
-                  crossAxisCount: 3,
-                  children: displayables,
-                ),
+        onWillPop: () async {
+          if(!widget.soundsLoaded)
+          {
+            return false; // Do not allow context pop while audio caches are initalizing!
+          }
+          else
+          {
+            killAll();
+            return true; // allow pop
+          }
+        },
+        child: Scaffold(
+            appBar: AppBar(
+              title: Text("Sleep Sounds"),
+              centerTitle: true,
+              backgroundColor: Colors.deepPurple,
+            ),
+            backgroundColor: Colors.grey.shade900,
+            body: Center(
+              child: Column(
+                children: <Widget>[
+                  loadHolder,
+                  Expanded(
+                    child: GridView.count(
+                      crossAxisCount: 3,
+                      children: displayables,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        )
-      ));
+            )
+        ));
   }
 }
