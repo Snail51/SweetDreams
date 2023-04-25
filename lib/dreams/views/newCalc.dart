@@ -21,9 +21,9 @@ class _CalcPageState extends State<CalcPage> {
     "Sleeping on your back can help prevent wrinkles.",
     "There are a total of 16 sleep cycles, each having a total time of 90 minutes.",
     "Newborns sleep up to 17 hours a day.",
-    "Dolphins sleep with one eye open.",
+    "This calculator went through 5 different variations! *I want to not alive*.",
     "Dreams are the result of your brain processing emotions and memories.",
-    "The record for the most time spent without dreaming is 18 days, 21 hours, and 40 minutes.",
+    "Turn around.",
     "REM sleep is when most of our dreaming occurs.",
     "The average person falls asleep in about 7 minutes.",
     "Humans are the only mammals that willingly delay sleep.",
@@ -34,11 +34,11 @@ class _CalcPageState extends State<CalcPage> {
     "Lack of sleep can impair judgement and decision-making.",
     "REM sleep helps to improve learning and memory.",
     "Snoring can be a sign of sleep apnea.",
-    "Some animals, such as birds and some fish, sleep with only one half of their brain at a time.",
+    "Making this calculator took way to long and I was dying the entire time please help me.",
     "Sleepwalking is most common in children and tends to decrease with age.",
     "Chronic sleep deprivation has been linked to an increased risk of heart disease and stroke."
   ];
-  String currentFact = "Did you know? " + "Sleeping on your back can help prevent wrinkles.";
+  String currentFact = "Did you know? " + "That this page took way too long and I lost a lot of sleep because of that! WOW!!!.";
 
 
   @override
