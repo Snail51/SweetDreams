@@ -1,47 +1,66 @@
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:tuple/tuple.dart';
 import 'package:units/database.dart';
 import 'package:units/widgetCalcModes.dart';
 import 'package:time_range_picker/time_range_picker.dart';
-import 'dart:async';
-//hi
+
 class CalcPage extends StatefulWidget {
+  CalcPage({Key? key, required this.database}) : super(key: key);
 
-  CalcPage({Key? key, required this.database}) : super (key: key);
   SleepData database;
-
 
   @override
   _CalcPageState createState() => _CalcPageState();
 }
 
 class _CalcPageState extends State<CalcPage> {
-  // PAGE CLASS THAT WANTS TO DYNAMICALLY COELLATE WIDGETS THAT WERE GENERATED EXTERNALLY
   List<dynamic> content = [];
   List<Widget> displayables = [];
+  List<String> sleepFacts = [
+    "The longest recorded period without sleep is 11 days.",
+    "Sleeping on your back can help prevent wrinkles.",
+    "There are a total of 16 sleep cycles, each having a total time of 90 minutes.",
+    "Newborns sleep up to 17 hours a day.",
+    "Dolphins sleep with one eye open.",
+    "Dreams are the result of your brain processing emotions and memories.",
+    "The record for the most time spent without dreaming is 18 days, 21 hours, and 40 minutes.",
+    "REM sleep is when most of our dreaming occurs.",
+    "The average person falls asleep in about 7 minutes.",
+    "Humans are the only mammals that willingly delay sleep.",
+    "The ideal room temperature for sleeping is around 65 degrees Fahrenheit.",
+    "Sleep deprivation can lead to weight gain.",
+    "A good night's sleep can improve your memory and creativity.",
+    "Sleep is essential for regulating hormones and maintaining a healthy immune system.",
+    "Lack of sleep can impair judgement and decision-making.",
+    "REM sleep helps to improve learning and memory.",
+    "Snoring can be a sign of sleep apnea.",
+    "Some animals, such as birds and some fish, sleep with only one half of their brain at a time.",
+    "Sleepwalking is most common in children and tends to decrease with age.",
+    "Chronic sleep deprivation has been linked to an increased risk of heart disease and stroke."
+  ];
+  String currentFact = "Did you know? " + "Sleeping on your back can help prevent wrinkles.";
+
 
   @override
   void initState() {
+    super.initState();
     initContent();
     update();
-    super.initState();
+    Timer.periodic(Duration(seconds: 10), (timer) {
+      setState(() {
+        currentFact = "Did you know? " + sleepFacts[DateTime.now().second % sleepFacts.length];
+      });
+    });
   }
 
   void update() {
     setState(() {
       List<Widget> holder = [];
       for (int i = 0; i < content.length; i++) {
-        if (content[i]
-            .needsUpdating) //ONLY REDRAW WIDGETS THAT ACTUALLY NEED REDRAWING
-            {
+        if (content[i].needsUpdating) {
           holder.add(content[i].toWidget());
           content[i].needsUpdating = false;
-        }
-        else {
+        } else {
           holder.add(displayables[i]);
         }
       }
@@ -54,17 +73,8 @@ class _CalcPageState extends State<CalcPage> {
     content.add(CalcSleepWidget(context, updateCallback: update));
   }
 
-
   @override
   Widget build(BuildContext context) {
-    final periodicTimer = Timer.periodic(
-      const Duration(milliseconds: 200),
-      //adjust this number for how often you want the screen refreshed
-          (timer) {
-        update();
-      },
-    );
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Sleep Calculator"),
@@ -73,14 +83,31 @@ class _CalcPageState extends State<CalcPage> {
       ),
       backgroundColor: Colors.grey.shade900,
       body: Center(
-          child: ListView(
-            children: displayables,
-          )
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                children: displayables,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(16),
+              color: Colors.purple,
+              child: Text(
+                currentFact,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-
 
 
 

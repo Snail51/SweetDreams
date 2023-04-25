@@ -31,7 +31,7 @@ class CalcWakeWidget {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
-        height: 250,
+        height: 300,
         width: 400,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -49,7 +49,7 @@ class CalcWakeWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Text(
-              "Select number of sleep cycles:",
+              "Sleep Cycles:",
               style: TextStyle(fontSize: 20.0),
             ),
             SliderTheme(
@@ -57,22 +57,32 @@ class CalcWakeWidget {
                 activeTrackColor: Colors.purple,
                 inactiveTrackColor: Colors.grey,
                 thumbColor: Colors.purple,
-                overlayColor: Colors.purple.withAlpha(100),
+                overlayColor: Colors.purple.withOpacity(0.2),
+                thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12),
+                overlayShape: RoundSliderOverlayShape(overlayRadius: 20),
                 trackHeight: 4.0,
-                thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0),
-                overlayShape: RoundSliderOverlayShape(overlayRadius: 20.0),
+                valueIndicatorColor: Colors.purple,
+                valueIndicatorTextStyle: TextStyle(color: Colors.white),
               ),
-              child: Slider(
-                value: selectedCycles.toDouble(),
-                min: 1,
-                max: 16,
-                divisions: 15,
-                label: selectedCycles.toString(),
-                onChanged: (double value) {
-                  selectedCycles = value.round();
-                  needsUpdating = true;
-                  updateCallback();
-                },
+              child: Column(
+                children: <Widget>[
+                  Slider(
+                    value: selectedCycles.toDouble(),
+                    min: 1,
+                    max: 16,
+                    divisions: 15,
+                    label: selectedCycles.toString(),
+                    onChanged: (double value) {
+                      selectedCycles = value.round();
+                      needsUpdating = true;
+                      updateCallback();
+                    },
+                  ),
+                  Text(
+                    "Chosen Cycles: $selectedCycles",
+                    style: TextStyle(fontSize: 16.0),
+                  ),
+                ],
               ),
             ),
             Text(
@@ -87,13 +97,17 @@ class CalcWakeWidget {
                 );
                 if (picked != null) {
                   pickerStart = picked;
+                  labelRangePickerButton =
+                  "${pickerStart.format(context)}";
                   needsUpdating = true;
                   isTimeAndCyclesSelected = true;
                   updateCallback();
                 }
               },
               icon: Icon(Icons.alarm),
-              label: Text('Select Time'),
+              label: Text(labelRangePickerButton.isNotEmpty
+                  ? labelRangePickerButton
+                  : 'Select Time'),
               style: ElevatedButton.styleFrom(
                 primary: Colors.purple,
                 onPrimary: Colors.white,
@@ -104,13 +118,14 @@ class CalcWakeWidget {
               ),
             ),
             Text(
-              "Nearest estimated wake up time:",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+              "You should wake up at:",
+              style:
+              TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
             ),
             Text(
               !isTimeAndCyclesSelected
                   ? ""
-                  : DateFormat('h:mm a').format(
+                  : DateFormat.jm().format(
                   getNearestWakeTime(selectedCycles, pickerStart)),
               style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
             ),
@@ -145,7 +160,7 @@ class CalcSleepWidget {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
-        height: 250,
+        height: 300,
         width: 400,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -162,34 +177,46 @@ class CalcSleepWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Text(
-              "Select number of sleep cycles:",
-              style: TextStyle(fontSize: 20.0),
-            ),
-            SliderTheme(
-              data: SliderThemeData(
-                activeTrackColor: Colors.purple,
-                inactiveTrackColor: Colors.grey,
-                thumbColor: Colors.purple,
-                overlayColor: Colors.purple.withOpacity(0.2),
-                thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12),
-                overlayShape: RoundSliderOverlayShape(overlayRadius: 20),
-                trackHeight: 4.0,
-                valueIndicatorColor: Colors.purple,
-                valueIndicatorTextStyle: TextStyle(color: Colors.white),
-              ),
-              child: Slider(
-                value: selectedCycles.toDouble(),
-                min: 1,
-                max: 16,
-                divisions: 15,
-                label: selectedCycles.toString(),
-                onChanged: (double value) {
-                  selectedCycles = value.round();
-                  needsUpdating = true;
-                  updateCallback();
-                },
-              ),
+            Column(
+              children: [
+                Text(
+                  "Sleep Cycles:",
+                  style: TextStyle(fontSize: 20.0),
+                ),
+                SliderTheme(
+                  data: SliderThemeData(
+                    activeTrackColor: Colors.purple,
+                    inactiveTrackColor: Colors.grey,
+                    thumbColor: Colors.purple,
+                    overlayColor: Colors.purple.withOpacity(0.2),
+                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12),
+                    overlayShape: RoundSliderOverlayShape(overlayRadius: 20),
+                    trackHeight: 4.0,
+                    valueIndicatorColor: Colors.purple,
+                    valueIndicatorTextStyle: TextStyle(color: Colors.white),
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      Slider(
+                        value: selectedCycles.toDouble(),
+                        min: 1,
+                        max: 16,
+                        divisions: 15,
+                        label: selectedCycles.toString(),
+                        onChanged: (double value) {
+                          selectedCycles = value.round();
+                          needsUpdating = true;
+                          updateCallback();
+                        },
+                      ),
+                      Text(
+                        "Chosen Cycles: $selectedCycles",
+                        style: TextStyle(fontSize: 16.0),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
             Text(
               "Select Wake Time:",
@@ -209,7 +236,7 @@ class CalcSleepWidget {
                 }
               },
               icon: Icon(Icons.alarm),
-              label: Text('Select Time'),
+              label: Text(isTimeAndCyclesSelected ? pickerStart.format(context) : 'Select Time'),
               style: ElevatedButton.styleFrom(
                 primary: Colors.purple,
                 onPrimary: Colors.white,
@@ -221,7 +248,7 @@ class CalcSleepWidget {
             ),
             SizedBox(height: 10),
             Text(
-              "Nearest estimated sleep time:",
+              "You should go to sleep at:",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
             ),
             Text(
