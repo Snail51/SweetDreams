@@ -52,17 +52,28 @@ class CalcWakeWidget {
               "Select number of sleep cycles:",
               style: TextStyle(fontSize: 20.0),
             ),
-            Slider(
-              value: selectedCycles.toDouble(),
-              min: 1,
-              max: 16,
-              divisions: 15,
-              label: selectedCycles.toString(),
-              onChanged: (double value) {
-                selectedCycles = value.round();
-                needsUpdating = true;
-                updateCallback();
-              },
+            SliderTheme(
+              data: SliderThemeData(
+                activeTrackColor: Colors.purple,
+                inactiveTrackColor: Colors.grey,
+                thumbColor: Colors.purple,
+                overlayColor: Colors.purple.withAlpha(100),
+                trackHeight: 4.0,
+                thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0),
+                overlayShape: RoundSliderOverlayShape(overlayRadius: 20.0),
+              ),
+              child: Slider(
+                value: selectedCycles.toDouble(),
+                min: 1,
+                max: 16,
+                divisions: 15,
+                label: selectedCycles.toString(),
+                onChanged: (double value) {
+                  selectedCycles = value.round();
+                  needsUpdating = true;
+                  updateCallback();
+                },
+              ),
             ),
             Text(
               "Select Sleep Time:",
@@ -163,17 +174,30 @@ class CalcSleepWidget {
               "Select number of sleep cycles:",
               style: TextStyle(fontSize: 20.0),
             ),
-            Slider(
-              value: selectedCycles.toDouble(),
-              min: 1,
-              max: 16,
-              divisions: 15,
-              label: selectedCycles.toString(),
-              onChanged: (double value) {
-                selectedCycles = value.round();
-                needsUpdating = true;
-                updateCallback();
-              },
+            SliderTheme(
+              data: SliderThemeData(
+                activeTrackColor: Colors.purple,
+                inactiveTrackColor: Colors.grey,
+                thumbColor: Colors.purple,
+                overlayColor: Colors.purple.withOpacity(0.2),
+                thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12),
+                overlayShape: RoundSliderOverlayShape(overlayRadius: 20),
+                trackHeight: 4.0,
+                valueIndicatorColor: Colors.purple,
+                valueIndicatorTextStyle: TextStyle(color: Colors.white),
+              ),
+              child: Slider(
+                value: selectedCycles.toDouble(),
+                min: 1,
+                max: 16,
+                divisions: 15,
+                label: selectedCycles.toString(),
+                onChanged: (double value) {
+                  selectedCycles = value.round();
+                  needsUpdating = true;
+                  updateCallback();
+                },
+              ),
             ),
             Text(
               "Select Wake Time:",
