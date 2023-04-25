@@ -46,8 +46,12 @@ class _YoutubePageState extends State<YoutubePage> {
                       Row(
                         children: [
                           Text(
-                            "AASM video explaining the science behind healthy sleep ",
+                            "AASM video explaining the science ",
+
                           ),
+                          Text(
+                            "behind healthy sleep",
+                          )
                         ],
                       ),
                     ],
@@ -66,8 +70,10 @@ class _YoutubePageState extends State<YoutubePage> {
                     Row(
                       children: [
                         Text(
-                          "AASM video detailing methods for improving the quality of your sleep",
+                          "AASM video detailing methods for improving ",
                         ),
+                        Text(
+                            "the quality of your sleep",),
                       ],
                     ),
                   ],
@@ -86,8 +92,10 @@ class _YoutubePageState extends State<YoutubePage> {
                     Row(
                       children: [
                         Text(
-                          "AASM video describing the direct correlation between sleep and personal wellness",
+                          "AASM video describing the direct correlation",
                         ),
+                        Text(
+                          "between sleep and personal wellness",),
                       ],
                     ),
                   ],
