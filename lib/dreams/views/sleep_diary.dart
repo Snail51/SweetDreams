@@ -173,7 +173,13 @@ class _DiaryPageState extends State<DiaryPage>  {
         });
     }
 
-    return Scaffold(
+
+    return WillPopScope(
+        onWillPop: () async {
+          widget.diary.save();
+          return true;
+        },
+        child: Scaffold(
       appBar: AppBar(
         title: Text("Sleep Diary"),
         centerTitle: true,
@@ -222,6 +228,6 @@ class _DiaryPageState extends State<DiaryPage>  {
             ],
           )
       ),
-    );
+    ));
   }
 }

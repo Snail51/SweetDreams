@@ -177,7 +177,12 @@ class _SleepLogPageState extends State<SleepLogPage> {
         });
     }
 
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: () async {
+          widget.database.save();
+          return true;
+    },
+    child: Scaffold(
       appBar: AppBar(
         title: Text('Sleep Log'),
         centerTitle: true,
@@ -237,6 +242,6 @@ class _SleepLogPageState extends State<SleepLogPage> {
           ],
         ),
       ),
-    );
+    ));
   }
 }
