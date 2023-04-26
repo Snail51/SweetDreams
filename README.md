@@ -19,4 +19,4 @@ samples, guidance on mobile development, and a full API reference.
 
 Code adapted from [Liem Vo](https://medium.com/codechai/the-mvp-architecture-pattern-in-flutter-with-simple-demo-65ab3282c54b)
 
-Written by: Joseph Hnatek - hnate002@d.umn.edu :)# SweetDreams
+Based on code written by Joseph Hnatek - hnate002@d.umn.edu :)# SweetDreams
