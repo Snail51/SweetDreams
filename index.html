@@ -5,6 +5,48 @@
         <title>Sweet Dreams</title>
         <link rel="icon" href="./Resources/js_icon.jpg" type="jpg">
 
+        <!-- Consumes custom <AudioNode> elements and initializes all their logic and DOM elements -->
+        <script type="module">
+            import { AudioNode } from "./audionode.js";
+            window.audioCTX = new window.AudioContext();
+            window.audioNodes = new Array();
+
+            var audioNodeDOMs = document.querySelectorAll("AudioNode");
+            console.log(audioNodeDOMs);
+            for( var node of audioNodeDOMs )
+            {
+                // capture DOM element attributes
+                const name = node.getAttribute("name");
+                const src = node.getAttribute("src");
+
+                // create new AudioNode object
+                var newNode = new AudioNode(src, window.audioCTX);
+                window.audioNodes.push(newNode);
+                const nodeIndex = window.audioNodes.length-1;
+
+                // create new div object
+                var newDiv = document.createElement("div");
+                newDiv.className = "audioContainer";
+
+                // create new button object
+                var newButton = document.createElement("button");
+                newButton.innerHTML = name;
+                newButton.addEventListener("click", () => window.audioNodes[nodeIndex].toggle());
+
+                // create new <input> of type `range`
+                var newRange = document.createElement("input");
+                newRange.type = "range";
+                newRange.addEventListener("input", () => window.audioNodes[nodeIndex].adjustVolume(event.target.value/100));
+
+                // insert the elements into the div
+                newDiv.appendChild(newButton);
+                newDiv.appendChild(newRange);
+
+                // place the new div structure onto the DOM
+                node.insertAdjacentElement("afterend", newDiv);
+            }
+        </script>
+
         <style>
             .audioContainer {
                 width: 150px;
@@ -26,22 +68,9 @@
     <body style="background-color: rgb(44, 46, 54); color: whitesmoke; font-size: 24px;">
         <h1>Sweet Dreams</h1>
 
-        <div class="audioContainer" src="test">
-            <button onclick="window.audio_OVERLAP.toggle()"">
-                OVERLAP SOUND
-            </button>
-            <input type="range" oninput="window.audio_OVERLAP.adjustVolume(event.target.value/100)">
-        </div>
+        <AudioNode src="/audiosrc/OVERLAP.mp3" name="Overlap Sound"></AudioNode>
+        <AudioNode src="/audiosrc/Stream-B.wav" name="Stream (Brendan)"></AudioNode>
 
-        <button onclick="window.audio_OVERLAP.toggle()">Overlap Debug</button>
-        <button onclick="window.audio_STREAM.toggle()">Brendan Stream</button>
-
-        <script type="module">
-            window.audioCTX = new window.AudioContext();
-
-            import { AudioNode } from "./audionode.js";
-            window.audio_OVERLAP = new AudioNode("./audiosrc/OVERLAP.mp3", window.audioCTX);
-            window.audio_STREAM = new AudioNode("./audiosrc/Stream-B.wav", window.audioCTX);
-        </script>
+        
     </body>
 </html>

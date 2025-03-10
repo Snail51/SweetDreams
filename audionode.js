@@ -25,7 +25,6 @@ export class AudioNode {
     {
         const response = await fetch(this.src);
         const raw = await response.arrayBuffer();
-        console.log(raw);
         this.loaded = 1;
 
         this.data = await this.audioCtx.decodeAudioData(raw);
@@ -88,7 +87,6 @@ export class AudioNode {
 
     async adjustVolume(newVolume)
     {
-        console.log(newVolume);
         this.volume = newVolume;
         this.noise.gain.setValueAtTime(this.volume, this.audioCtx.currentTime);
     }
