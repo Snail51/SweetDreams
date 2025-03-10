@@ -18,14 +18,14 @@
                 const name = node.getAttribute("name");
                 const src = node.getAttribute("src");
 
-                // create new AudioNode object
-                var newNode = new AudioNode(src, window.audioCTX);
-                window.audioNodes.push(newNode);
-                const nodeIndex = window.audioNodes.length-1;
-
                 // create new div object
                 var newDiv = document.createElement("div");
                 newDiv.className = "audioContainer";
+
+                // create new AudioNode object
+                var newNode = new AudioNode(src, window.audioCTX, newDiv);
+                window.audioNodes.push(newNode);
+                const nodeIndex = window.audioNodes.length-1;
 
                 // create new button object
                 var newButton = document.createElement("button");
@@ -57,7 +57,7 @@
                 flex-direction: column;
                 padding: 1%;
 
-                background-color: red;
+                background-color: #555555;
             }
             .audioContainer > :nth-child(1) {
                 flex: 4;

@@ -1,7 +1,8 @@
 export class AudioNode {
-    constructor(srcURL, audioCtx)
+    constructor(srcURL, audioCtx, element)
     {
         this.audioCtx = audioCtx;
+        this.element = element;
 
         // Modifiable (public) vars
         this.playing = false;
@@ -77,10 +78,12 @@ export class AudioNode {
         
         if(this.playing == false)
         {
+            this.element.style.backgroundColor = "#999999";
             this.play();
         }
         else
         {
+            this.element.style.backgroundColor = "#555555";
             this.stop();
         }
     }
