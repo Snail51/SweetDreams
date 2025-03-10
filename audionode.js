@@ -88,6 +88,7 @@ export class AudioNode {
 
     async adjustVolume(newVolume)
     {
+        console.log(newVolume);
         this.volume = newVolume;
         this.noise.gain.setValueAtTime(this.volume, this.audioCtx.currentTime);
     }

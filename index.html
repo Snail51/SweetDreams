@@ -4,15 +4,33 @@
         <meta charset='utf-8'>
         <title>Sweet Dreams</title>
         <link rel="icon" href="./Resources/js_icon.jpg" type="jpg">
+
+        <style>
+            .audioContainer {
+                width: 150px;
+                height: 150px;
+                display: flex;
+                flex-direction: column;
+                padding: 1%;
+
+                background-color: red;
+            }
+            .audioContainer > :nth-child(1) {
+                flex: 4;
+            }
+            .audioContainer > :nth-child(2) {
+                flex: 1;
+            }
+        </style>
     </head>
     <body style="background-color: rgb(44, 46, 54); color: whitesmoke; font-size: 24px;">
         <h1>Sweet Dreams</h1>
 
-        <div class="audio-container">
-            <p id="streamTime"></p>
-            <audio id="stream" controls preload="auto">
-                <source src="./audiosrc/Stream-B.wav" type="audio/mpeg">
-            </audio>
+        <div class="audioContainer" src="test">
+            <button onclick="window.audio_OVERLAP.toggle()"">
+                OVERLAP SOUND
+            </button>
+            <input type="range" oninput="window.audio_OVERLAP.adjustVolume(event.target.value/100)">
         </div>
 
         <button onclick="window.audio_OVERLAP.toggle()">Overlap Debug</button>
