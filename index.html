@@ -12,7 +12,6 @@
             window.audioNodes = new Array();
 
             var audioNodeDOMs = document.querySelectorAll("AudioNode");
-            console.log(audioNodeDOMs);
             for( var node of audioNodeDOMs )
             {
                 // capture DOM element attributes
@@ -44,13 +43,16 @@
 
                 // place the new div structure onto the DOM
                 node.insertAdjacentElement("afterend", newDiv);
+
+                // remove placeholder node of type <AudioNode>
+                node.remove();
             }
         </script>
 
         <style>
             .audioContainer {
-                width: 150px;
-                height: 150px;
+                width: 20vmin;
+                height: 20vmin;
                 display: flex;
                 flex-direction: column;
                 padding: 1%;
@@ -68,8 +70,26 @@
     <body style="background-color: rgb(44, 46, 54); color: whitesmoke; font-size: 24px;">
         <h1>Sweet Dreams</h1>
 
-        <AudioNode src="/audiosrc/OVERLAP.mp3" name="Overlap Sound"></AudioNode>
-        <AudioNode src="/audiosrc/Stream-B.wav" name="Stream (Brendan)"></AudioNode>
+        <div style="width: 90vw; display: grid; grid-template-columns: repeat(auto-fit, 20vmin); row-gap: 1%; column-gap: 1%;">
+            <AudioNode src="/audiosrc/OVERLAP.mp3" name="DEBUG"></AudioNode>
+            <AudioNode src="/audiosrc/Stream-B.wav" name="Stream"></AudioNode>
+            <AudioNode src="/audiosrc/Bird-G.mp3" name="Bird"></AudioNode>
+            <AudioNode src="/audiosrc/Bouy-G.mp3" name="Bouy"></AudioNode>
+            <AudioNode src="/audiosrc/Brook-G.mp3" name="Brook"></AudioNode>
+            <AudioNode src="/audiosrc/Heartbeat-B.wav" name="Heartbeat"></AudioNode>
+            <AudioNode src="/audiosrc/Ocean_Waves-B.wav" name="Ocean Waves"></AudioNode>
+            <AudioNode src="/audiosrc/Ocean-G.mp3" name="Ocean"></AudioNode>
+            <AudioNode src="/audiosrc/Rain-G.mp3" name="Rain"></AudioNode>
+            <AudioNode src="/audiosrc/Seagull-G.mp3" name="Seagull"></AudioNode>
+            <AudioNode src="/audiosrc/Summer_Night-B.wav" name="Summer Night (Brendan)"></AudioNode>
+            <AudioNode src="/audiosrc/Summer_Night-G.mp3" name="Summer Night (Gloria)"></AudioNode>
+            <AudioNode src="/audiosrc/Thunder-G.mp3" name="Thunder"></AudioNode>
+            <AudioNode src="/audiosrc/Tropical_Forest-B.wav" name="Tropical Forest"></AudioNode>
+            <AudioNode src="/audiosrc/White_Noise-B.wav" name="White Noise"></AudioNode>
+            <AudioNode src="/audiosrc/Wind-G.mp3" name="Wind"></AudioNode>
+            <AudioNode src="/audiosrc/Womb-G.mp3" name="Womb"></AudioNode>
+        </div>
+        
 
         
     </body>
