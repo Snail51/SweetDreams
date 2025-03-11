@@ -24,6 +24,8 @@ export class AudioNode {
 
     async load()
     {
+        this.element.style.backgroundColor = "#8800cc";
+
         const response = await fetch(this.src);
         const raw = await response.arrayBuffer();
         this.loaded = 1;
@@ -82,13 +84,13 @@ export class AudioNode {
     {
         if(this.playing == false)
         {
+            await this.play();
             this.element.style.backgroundColor = "#999999";
-            this.play();
         }
         else
         {
+            await this.stop();
             this.element.style.backgroundColor = "#555555";
-            this.stop();
         }
     }
 
