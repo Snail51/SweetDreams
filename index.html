@@ -61,36 +61,76 @@
             }
             .audioContainer > :nth-child(1) {
                 flex: 4;
+                font-size: 1.5vmax;
             }
             .audioContainer > :nth-child(2) {
                 flex: 1;
             }
+
+            .mainGrid {
+                width: 90vw;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, 20vmin);
+                row-gap: 1%;
+                column-gap: 1%;
+            }
         </style>
     </head>
     <body style="background-color: rgb(44, 46, 54); color: whitesmoke; font-size: 24px;">
-        <h1>Sweet Dreams</h1>
 
-        <div style="width: 90vw; display: grid; grid-template-columns: repeat(auto-fit, 20vmin); row-gap: 1%; column-gap: 1%;">
-            <AudioNode src="./audiosrc/OVERLAP.mp3" name="DEBUG"></AudioNode>
+        <h2>Brendan</h2>
+        <div class="mainGrid">
             <AudioNode src="./audiosrc/Stream-B.wav" name="Stream"></AudioNode>
+            <AudioNode src="./audiosrc/Heartbeat-B.wav" name="Heartbeat"></AudioNode>
+            <AudioNode src="./audiosrc/Ocean_Waves-B.wav" name="Ocean Waves"></AudioNode>
+            <AudioNode src="./audiosrc/Summer_Night-B.wav" name="Summer Night"></AudioNode>
+            <AudioNode src="./audiosrc/Tropical_Forest-B.wav" name="Tropical Forest"></AudioNode>
+            <AudioNode src="./audiosrc/White_Noise-B.wav" name="White Noise"></AudioNode>
+        </div><br>
+
+        <hr>
+
+        <h2>Gloria</h2>
+        <div class="mainGrid">
             <AudioNode src="./audiosrc/Bird-G.mp3" name="Bird"></AudioNode>
             <AudioNode src="./audiosrc/Bouy-G.mp3" name="Bouy"></AudioNode>
             <AudioNode src="./audiosrc/Brook-G.mp3" name="Brook"></AudioNode>
-            <AudioNode src="./audiosrc/Heartbeat-B.wav" name="Heartbeat"></AudioNode>
-            <AudioNode src="./audiosrc/Ocean_Waves-B.wav" name="Ocean Waves"></AudioNode>
             <AudioNode src="./audiosrc/Ocean-G.mp3" name="Ocean"></AudioNode>
             <AudioNode src="./audiosrc/Rain-G.mp3" name="Rain"></AudioNode>
             <AudioNode src="./audiosrc/Seagull-G.mp3" name="Seagull"></AudioNode>
-            <AudioNode src="./audiosrc/Summer_Night-B.wav" name="Summer Night (Brendan)"></AudioNode>
-            <AudioNode src="./audiosrc/Summer_Night-G.mp3" name="Summer Night (Gloria)"></AudioNode>
+            <AudioNode src="./audiosrc/Summer_Night-G.mp3" name="Summer Night"></AudioNode>
             <AudioNode src="./audiosrc/Thunder-G.mp3" name="Thunder"></AudioNode>
-            <AudioNode src="./audiosrc/Tropical_Forest-B.wav" name="Tropical Forest"></AudioNode>
-            <AudioNode src="./audiosrc/White_Noise-B.wav" name="White Noise"></AudioNode>
             <AudioNode src="./audiosrc/Wind-G.mp3" name="Wind"></AudioNode>
             <AudioNode src="./audiosrc/Womb-G.mp3" name="Womb"></AudioNode>
-        </div>
-        
+            
+        </div><br>
 
+        <hr>
+
+        <h2>Forest</h2>
+        <div class="mainGrid">
+            <AudioNode src="./audiosrc/atmos/forest_birds.ogg" name="Birds"></AudioNode>
+            <AudioNode src="./audiosrc/atmos/forest_campfire.ogg" name="Campfire"></AudioNode>
+            <AudioNode src="./audiosrc/atmos/forest_crickets.ogg" name="Crickets"></AudioNode>
+            <AudioNode src="./audiosrc/atmos/forest_frogs.ogg" name="Frogs"></AudioNode>
+            <AudioNode src="./audiosrc/atmos/forest_owl.ogg" name="Owl"></AudioNode>
+            <AudioNode src="./audiosrc/atmos/forest_rain.ogg" name="Rain"></AudioNode>
+            <AudioNode src="./audiosrc/atmos/forest_rainontent.ogg" name="Rain on Tent"></AudioNode>
+            <AudioNode src="./audiosrc/atmos/forest_river.ogg" name="River"></AudioNode>
+            <AudioNode src="./audiosrc/atmos/forest_storm.ogg" name="Storm"></AudioNode>
+            <AudioNode src="./audiosrc/atmos/forest_tawnyowl.ogg" name="Tawny Owl"></AudioNode>
+            <AudioNode src="./audiosrc/atmos/forest_waterfall.ogg" name="Waterfall"></AudioNode>
+            <AudioNode src="./audiosrc/atmos/forest_wind.ogg" name="Wind"></AudioNode>
+            <AudioNode src="./audiosrc/atmos/forest_wolf.ogg" name="Wolf"></AudioNode>
+            <AudioNode src="./audiosrc/atmos/forest_woodpecker.ogg" name="Woodpecker"></AudioNode>
+        </div><br>
+
+        <hr>
+        
+        <h2>DEBUG</h2>
+        <div class="mainGrid">
+            <AudioNode src="./audiosrc/OVERLAP.mp3" name="DEBUG"></AudioNode>
+        </div><br>
         
     </body>
 </html>

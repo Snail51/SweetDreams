@@ -18,7 +18,7 @@ export class AudioNode {
         this.noise; // intermediate GainNode to control volume, connects to the destination node to actually produce the sound
 
         // Event Listeners for initialization and shutdown
-        document.addEventListener('DOMContentLoaded', () => this.load());
+        //document.addEventListener('DOMContentLoaded', () => this.load());
         window.addEventListener('beforeunload', () => this.shutdown());
     }
 
@@ -40,18 +40,20 @@ export class AudioNode {
         await this.noise.connect(this.audioCtx.destination);
         this.loaded = 3;
 
+        await this.source.start(); // playback cant start until user interaction
+        await this.noise.disconnect();
+        this.loaded = 4;
+
         console.debug(`${this.src} - Finished loading data for AudioNode`);
     }
 
     async play()
     {
-
-        if(this.loaded == 3)
+        if(this.loaded == 0)
         {
-            await this.source.start(); // playback cant start until user interaction
-            await this.noise.disconnect();
-            this.loaded = 4;
+            await this.load();
         }
+
         if(this.loaded == 4)
         {
             await this.noise.connect(this.audioCtx.destination);
@@ -62,20 +64,22 @@ export class AudioNode {
 
     async stop()
     {
-        this.noise.disconnect();
-        this.playing = false;
-        console.debug(`${this.src} - Halted Playback of AudioNode`);
+        if(this.loaded == 0)
+        {
+            await this.load();
+        }
+
+        if(this.loaded == 4)
+        {
+            this.noise.disconnect();
+            this.playing = false;
+            console.debug(`${this.src} - Halted Playback of AudioNode`);
+        }
     }
 
 
     async toggle()
     {
-        if(!this.loaded)
-        {
-            return;
-        }
-
-        
         if(this.playing == false)
         {
             this.element.style.backgroundColor = "#999999";
