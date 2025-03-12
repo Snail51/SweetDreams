@@ -27,6 +27,9 @@
         <meta name="twitter:description" content="Design a Sleepytime Soundscape">
         <meta name="twitter:image" content="./SweetDreams.icon.png">
 
+        <!-- FontAwesome Icons -->
+        <link rel="stylesheet" href="./icons/all.css">
+
         <!-- Consumes custom <AudioNode> elements and initializes all their logic and DOM elements -->
         <script type="module">
             import { AudioNode } from "./code/exe/audionode.js";
@@ -39,6 +42,9 @@
                 // capture DOM element attributes
                 const name = node.getAttribute("name");
                 const src = node.getAttribute("src");
+                const icon = node.getAttribute("icon");
+                const metaLeft = node.getAttribute("metaLeft");
+                const metaRight = node.getAttribute("metaRight");
 
                 // create new div object
                 var newDiv = document.createElement("div");
@@ -51,15 +57,44 @@
 
                 // create new button object
                 var newButton = document.createElement("button");
-                newButton.innerHTML = name;
+                newButton.className = "audioButton";
                 newButton.addEventListener("click", () => window.audioNodes[nodeIndex].toggle());
+
+                // create new <p> for LEFT metadata
+                var newMetaLeft = document.createElement("div");
+                newMetaLeft.className = "META-L";
+                newMetaLeft.innerHTML = metaLeft;
+
+
+                var newIcon = document.createElement("div");
+                newIcon.className = "ICON";
+                newIcon.innerHTML = `<i class="fa-solid ${icon}"></i>`
+                
+                
 
                 // create new <input> of type `range`
                 var newRange = document.createElement("input");
                 newRange.type = "range";
+                newRange.className = "SLIDER";
                 newRange.addEventListener("input", () => window.audioNodes[nodeIndex].adjustVolume(event.target.value/100));
 
+                
+                // create new <p> for RIGHT metadata
+                var newMetaRight = document.createElement("div");
+                newMetaRight.className = "META-R";
+                newMetaRight.innerHTML = metaRight;
+
+                // create new <p> for LABEL
+                var newLabel = document.createElement("div");
+                newLabel.className = "LABEL";
+                newLabel.innerHTML = name;
+
                 // insert the elements into the div
+                newButton.appendChild(newMetaLeft);
+                newButton.appendChild(newIcon);
+                newButton.appendChild(newMetaRight);
+                newButton.appendChild(newLabel);
+
                 newDiv.appendChild(newButton);
                 newDiv.appendChild(newRange);
 
@@ -74,21 +109,75 @@
         <style>
             .audioContainer {
                 width: 20vmin;
-                height: 20vmin;
-                display: flex;
-                flex-direction: column;
-                padding: 1%;
-
+                height: 25vmin;
+                max-width: 100%;
+                max-height: 100%;
                 background-color: #555555;
-            }
-            .audioContainer > :nth-child(1) {
-                flex: 4;
-                font-size: 1.5vmax;
-            }
-            .audioContainer > :nth-child(2) {
-                flex: 1;
+                border: solid #222222;
+                border-radius: 10px;
             }
 
+            .audioButton {
+                display: grid; 
+                grid-template-columns: 25% 50% 25%; 
+                grid-template-rows: 60% 40%; 
+                gap: 0px 0px; 
+                grid-template-areas: 
+                    "METAL ICON METAR"
+                    "LABEL LABEL LABEL"; 
+
+                border: none;
+                background-color: transparent;
+                width: 20vmin;
+                height: 20vmin;
+                max-width: 100%;
+                max-height: 100%;
+            }
+
+            .audioButton * {
+                color: whitesmoke;
+                width: 100%;
+                height: 100%;
+            }
+
+            .LABEL {
+                grid-area: 2 / 1 / 3 / 4;
+                text-align: center;
+                font-size: 3vmin;
+                justify-self: center;
+                align-self: center;
+            }
+
+            .ICON {
+                grid-area: 1 / 2 / 2 / 3;
+                padding-top: 25%;
+
+                border: none;
+                background-color: transparent;
+                color: whitesmoke;
+
+                font-size: 8vmin;
+            }
+
+            .META-L {
+                grid-area: 1 / 1 / 2 / 2;
+                font-size: 4vmin;
+            }
+
+            .META-R {
+                grid-area: 1 / 3 / 2 / 4;
+
+                
+                font-size: 4vmin;
+            }
+
+            .SLIDER { 
+                
+                width: 90%;
+            }
+        </style>
+
+        <style>
             .mainGrid {
                 width: 90vw;
                 display: grid;
@@ -100,14 +189,16 @@
     </head>
     <body style="background-color: rgb(44, 46, 54); color: whitesmoke; font-size: 24px;">
 
+        <i class="fa-solid fa-user"></i>
+
         <h2>Brendan</h2>
         <div class="mainGrid">
-            <AudioNode src="./audiosrc/brendan/Stream-B.mp3" name="Stream"></AudioNode>
-            <AudioNode src="./audiosrc/brendan/Heartbeat-B.mp3" name="Heartbeat"></AudioNode>
-            <AudioNode src="./audiosrc/brendan/Ocean_Waves-B.mp3" name="Ocean Waves"></AudioNode>
-            <AudioNode src="./audiosrc/brendan/Summer_Night-B.mp3" name="Summer Night"></AudioNode>
-            <AudioNode src="./audiosrc/brendan/Tropical_Forest-B.mp3" name="Tropical Forest"></AudioNode>
-            <AudioNode src="./audiosrc/brendan/White_Noise-B.mp3" name="White Noise"></AudioNode>
+            <AudioNode name="Stream" src="./audiosrc/brendan/Stream-B.mp3" icon="fa-arrow-progress" metaLeft="N" metaRight="B"></AudioNode>
+            <AudioNode name="Heartbeat" src="./audiosrc/brendan/Heartbeat-B.mp3" icon="fa-heart-pulse" metaLeft="B" metaRight="B"></AudioNode>
+            <AudioNode name="Ocean Waves" src="./audiosrc/brendan/Ocean_Waves-B.mp3" icon="fa-wave" metaLeft="N" metaRight="B"></AudioNode>
+            <AudioNode name="Summer Night" src="./audiosrc/brendan/Summer_Night-B.mp3" icon="fa-sun-haze" metaLeft="N" metaRight="B"></AudioNode>
+            <AudioNode name="Tropical Forest" src="./audiosrc/brendan/Tropical_Forest-B.mp3" icon="fa-tree-palm" metaLeft="N" metaRight="B"></AudioNode>
+            <AudioNode name="White Noise" src="./audiosrc/brendan/White_Noise-B.mp3" icon="fa-waveform" metaLeft="S" metaRight="B"></AudioNode>
         </div><br>
 
         <hr>
