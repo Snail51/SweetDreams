@@ -1,22 +1,12 @@
-# SweetDreams
+# Sweet Dreams
 
-A Flutter project.
+## Purpose
+ - This program provides a simple webapp to assemble a custom soundset of relaxing sounds for sleep.
+ - It is inspired by [Atmosphere](https://play.google.com/store/apps/details?id=com.peakpocketstudios.atmosphere), a mobile app that does much the same thing except this app regularly crashes after 3-5 hours of use.
+ - By being a webpage instead of an app, this program also requires zero installation for the end user; they simply visit a website and are good to go.
+ - The modern version of this tool began development on or about 2025-02-22, created by Brendan Rood.
+ - This app (and repo) is a successor to work on a mobile app of the same name for an assignment at the University of Minnesota Duluth. The modern version of this program is entirely different, with the only the audio files being brought with.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-# Acknowledgement
-
-Code adapted from [Liem Vo](https://medium.com/codechai/the-mvp-architecture-pattern-in-flutter-with-simple-demo-65ab3282c54b)
-
-Based on code written by Joseph Hnatek - hnate002@d.umn.edu :)# SweetDreams
+## Installation / Usage
+ - Can be run in any httpx environment with JavaScript execution.
+ - ***A version of the app is already located at https://tools.snailien.net/SweetDreams***
