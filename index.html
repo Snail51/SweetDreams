@@ -189,6 +189,44 @@
     </head>
     <body style="background-color: rgb(44, 46, 54); color: whitesmoke; font-size: 24px;">
 
+        <h1>Sweet Dreams</h1>
+        <i>A sleepytime soundscape editor</i><br>
+        <i>Written by Brendan Rood</i><br>
+        <hr>
+
+        <details>
+            <summary>How-To <i>(click to expand)</i></summary>
+            <i>Sweet Dreams</i> provides the user with the ability to design a custom soundscape though mixing and matching various <b>tiles</b>.<br>
+            Click anywhere on a tile to toggle playback. Click and drag on the slider to adjust volume.<br>
+            <br>
+            <div style="display: flex; flex-direction: row;">
+                <div style="flex:1">
+                    Each tile consists of 5 elements.
+                    <ul>
+                        <li>An <b>icon</b> representing the sound.</li>
+                        <li>The sound's <b>label</b>.</li>
+                        <li>A <b>volume slider</b> for adjusting that specific sound's volume.</li>
+                        <li>A <b>category</b> tag.</li>
+                        <li>A <b>source</b> tag.</li>
+                    </ul>
+                </div>
+                <img src="./img/HowTo_Tile.jpg" style="flex:1">
+            </div>
+            
+            <div style="display: flex; flex-direction: row;">
+                <div style="flex:1">
+                    Tiles initially appear in their OFF state (dark grey).<br>
+                    <br>
+                    Upon activation, tiles will enter their ON state (light grey).<br>
+                    <br>
+                    During activation, tiles may briefly enter a LOADING state (purple).<br>
+                </div>
+                <img src="./img/HowTo_State.jpg" style="flex:1">
+            </div>
+        </details>
+
+        <hr>
+
         <h2>Brendan</h2>
         <div class="mainGrid">
             <AudioNode name="Stream" src="./audiosrc/brendan/Stream-B.ogg" icon="fa-arrow-up-from-water-pump" metaLeft="N" metaRight="B"></AudioNode>
