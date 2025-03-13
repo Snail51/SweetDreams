@@ -79,7 +79,6 @@ export class AudioNode {
         }
     }
 
-
     async toggle()
     {
         if(this.playing == false)
