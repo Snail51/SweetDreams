@@ -102,24 +102,37 @@ export class AudioNode {
 
     async shutdown()
     {
-        try
+        if(this.loaded > 0)
         {
-            this.source.stop();
-        }
-        catch(e)
-        {
-            console.error(e);
-        }
+            try
+            {
+                this.source.stop();
+            }
+            catch(e)
+            {
+                console.error(e);
+            }
 
-        try
-        {
-            this.source.disconnect();
-        }
-        catch(e)
-        {
-            console.error(e);
-        }
+            try
+            {
+                this.noise.disconnect();
+            }
+            catch(e)
+            {
+                console.error(e);
+            }
+            try
+            {
+                this.source.disconnect();
+            }
+            catch(e)
+            {
+                console.error(e);
+            }
 
-        console.debug(`${this.src} - Shutdown AudioNode`);
+            
+
+            console.debug(`${this.src} - Shutdown AudioNode`);
+        }
     }
 }
