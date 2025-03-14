@@ -59,6 +59,7 @@ export class AudioNode {
 
         if(this.loaded == 5)
         {
+            this.element.style.backgroundColor = "#999999";
             await this.noise.connect(this.audioCtx.destination);
             this.playing = true;
             console.debug(`${this.src} - Started Playback of AudioNode`);
@@ -74,6 +75,7 @@ export class AudioNode {
 
         if(this.loaded == 5)
         {
+            this.element.style.backgroundColor = "#555555";
             this.noise.disconnect();
             this.playing = false;
             console.debug(`${this.src} - Halted Playback of AudioNode`);
@@ -85,12 +87,10 @@ export class AudioNode {
         if(this.playing == false)
         {
             await this.play();
-            this.element.style.backgroundColor = "#999999";
         }
         else
         {
             await this.stop();
-            this.element.style.backgroundColor = "#555555";
         }
     }
 
