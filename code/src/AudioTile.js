@@ -2,8 +2,8 @@ import { AudioNode } from "./AudioNode.js";
 window.audioCTX = new window.AudioContext();
 window.audioNodes = new Array();
 
-var audioNodeDOMs = document.querySelectorAll("AudioNode");
-for( var node of audioNodeDOMs )
+var AudioTileDOMs = document.querySelectorAll("AudioTile");
+for( var node of AudioTileDOMs )
 {
     // capture DOM element attributes
     const name = node.getAttribute("name");
@@ -64,6 +64,6 @@ for( var node of audioNodeDOMs )
     // place the new div structure onto the DOM
     node.insertAdjacentElement("afterend", newDiv);
 
-    // remove placeholder node of type <AudioNode>
+    // remove placeholder node of type <AudioTile>
     node.remove();
 }
