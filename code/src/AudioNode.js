@@ -6,7 +6,7 @@ export class AudioNode {
 
         // Modifiable (public) vars
         this.playing = false;
-        this.volume = 0.5;
+        this.volume = 0.25;
         this.loaded = 0; // 0 = initial, 1 = loading started, 2 = data fetch complete, 3 = audio source node created, 4 = amplified audio node created, 5 = audio playback ready
     
         // Audio Source Data
