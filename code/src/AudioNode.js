@@ -7,7 +7,7 @@ export class AudioNode {
         // Modifiable (public) vars
         this.playing = false;
         this.volume = 0.5;
-        this.loaded = 0; // 0 = initial, 1 = data fetch complete, 2 = audio source node created, 3 = amplified audio node created, 4 = audio playback ready
+        this.loaded = 0; // 0 = initial, 1 = loading started, 2 = data fetch complete, 3 = audio source node created, 4 = amplified audio node created, 5 = audio playback ready
     
         // Audio Source Data
         this.src = srcURL;
@@ -24,27 +24,28 @@ export class AudioNode {
 
     async load()
     {
+        this.loaded = 1;
         this.element.style.backgroundColor = "#8800cc";
 
         const response = await fetch(this.src);
         const raw = await response.arrayBuffer();
-        this.loaded = 1;
+        this.loaded = 2;
 
         this.data = await this.audioCtx.decodeAudioData(raw);
         this.source = await this.audioCtx.createBufferSource();
         this.source.buffer = this.data;
         this.source.loop = true;
-        this.loaded = 2;
+        this.loaded = 3;
 
         this.noise = await this.audioCtx.createGain();
         this.noise.gain.setValueAtTime(this.volume, this.audioCtx.currentTime);
         await this.source.connect(this.noise);
         await this.noise.connect(this.audioCtx.destination);
-        this.loaded = 3;
+        this.loaded = 4;
 
         await this.source.start(); // playback cant start until user interaction
         await this.noise.disconnect();
-        this.loaded = 4;
+        this.loaded = 5;
 
         console.debug(`${this.src} - Finished loading data for AudioNode`);
     }
@@ -56,7 +57,7 @@ export class AudioNode {
             await this.load();
         }
 
-        if(this.loaded == 4)
+        if(this.loaded == 5)
         {
             await this.noise.connect(this.audioCtx.destination);
             this.playing = true;
@@ -71,7 +72,7 @@ export class AudioNode {
             await this.load();
         }
 
-        if(this.loaded == 4)
+        if(this.loaded == 5)
         {
             this.noise.disconnect();
             this.playing = false;
