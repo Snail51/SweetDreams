@@ -41,6 +41,7 @@ for( var node of AudioTileDOMs )
     newRange.type = "range";
     newRange.className = "SLIDER";
     newRange.addEventListener("input", () => window.audioNodes[nodeIndex].adjustVolume(2*((event.target.value/100)**3)));
+    newRange.addEventListener("change", () => window.URIsaver.save());
 
     // create new <p> for RIGHT metadata
     var newMetaRight = document.createElement("div");

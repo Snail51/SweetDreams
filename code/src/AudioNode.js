@@ -92,12 +92,14 @@ export class AudioNode {
         {
             await this.stop();
         }
+        window.URIsaver.save();
     }
 
     async adjustVolume(newVolume)
     {
         this.volume = newVolume;
         this.noise.gain.setValueAtTime(this.volume, this.audioCtx.currentTime);
+        // execution of window.URIsaver.save(); done by a seperate "onchange" event listener
     }
 
     async shutdown()
