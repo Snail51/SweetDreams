@@ -9,15 +9,22 @@
 
 ## Installation / Usage
  - Can be run in any httpx environment with JavaScript execution.
- - ***A version of the app is already located at https://tools.snailien.net/SweetDreams***
+ - ***A version of the app is already located at https://sleep.snailien.net or https://tools.snailien.net/SweetDreams***
 
-## Contributors
- - **Programming:** Brendan Rood ([GitHub](https://github.com/Snail51)) ([Website](https://brendan.snailien.net/))
- - **Main Application Logo:** Sam Jorgenson ([Instagram](https://www.instagram.com/x.indomitus.x/)) ([Email](mailto:illuminated.kreation@gmail.com)), inspired by free SVG https://savanasdesign.com/sweet-dreams-svg/
- - **Title Icons:** Font Awesome ([Website](https://fontawesome.com/))
+<hr>
 
-## Audio Sources
- Each audio tile has a single letter in the top right, indicating the source of the sound.
- - **B** - `/brendan` - Sounds taken from Brendan's personal childhood white-noise machine. Make and model currently unknown. The company who made the product no longer exists.
- - **G** - `/gloria` - Sounds taken from DEX PRODUCTS SSWM-01"SOUND SLEEPER" ([Manual](https://www.dexbaby.com/s/SS-01_Instructions_0810.pdf)) ([Mirror](https://static1.squarespace.com/static/55f9d4c7e4b0b67647da04fc/t/561e8defe4b0eba9a9438b3c/1444842991008/SS-01_Instructions_0810.pdf))
- - **A** - `/atmos` - Sounds taken from Atmosphere Mobile Application ([Google Play](https://play.google.com/store/apps/details?id=com.peakpocketstudios.atmosphere)) ([Website](https://peakpocketstudios.com/))
+# Credits
+
+ ## Contributors
+  - **Programming:** Brendan Rood ([GitHub](https://github.com/Snail51)) ([Website](https://brendan.snailien.net/))
+  - **Main Application Logo:** Sam Jorgenson ([Instagram](https://www.instagram.com/x.indomitus.x/)) ([Email](mailto:illuminated.kreation@gmail.com)), inspired by free SVG https://savanasdesign.com/sweet-dreams-svg/
+
+ ## Audio Sources
+  Each audio tile has a single letter in the top right, indicating the source of the sound.
+  - **B** - `/brendan` - Sounds taken from Brendan's personal childhood white-noise machine. Make and model currently unknown. The company who made the product no longer exists.
+  - **G** - `/gloria` - Sounds taken from DEX PRODUCTS SSWM-01"SOUND SLEEPER" ([Manual](https://www.dexbaby.com/s/SS-01_Instructions_0810.pdf)) ([Mirror](https://static1.squarespace.com/static/55f9d4c7e4b0b67647da04fc/t/561e8defe4b0eba9a9438b3c/1444842991008/SS-01_Instructions_0810.pdf))
+  - **A** - `/atmos` - Sounds taken from Atmosphere Mobile Application ([Google Play](https://play.google.com/store/apps/details?id=com.peakpocketstudios.atmosphere)) ([Website](https://peakpocketstudios.com/))
+
+ ## Other Resources
+  - **Title Icons:** Font Awesome ([Website](https://fontawesome.com/))
+  - **Main Font:** Dawn Chorus ([Page](https://dawn-chorus.itch.io/dawn-chorus)). Will take down at request.
