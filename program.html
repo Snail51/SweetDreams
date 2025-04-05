@@ -31,8 +31,15 @@
         <link rel="stylesheet" href="./icons/all.css">
 
         <!-- AudioTiles -->
-        <link rel="stylesheet" href="./code/exe/AudioTile.css">
+        <link rel="stylesheet" href="./css/AudioTile.css">
 
+        <!-- Title Fading Logic -->
+        <link rel="stylesheet" href="./css/TitleFade.css">
+
+        <!-- <a> Styling -->
+        <link rel="stylesheet" href="./css/Links.css">
+
+        <!-- Main Application Styling -->
         <style>
             .mainGrid {
                 width: 90vw;
@@ -42,43 +49,8 @@
                 column-gap: 1%;
                 object-fit: contain;
             }
-            .title {
-                position: fixed;
-                display: flex;
-                flex-direction: column;
-                width: 100vw;
-                height: 200vh;
-                background-color: rgb(44, 46, 54);
-                margin-left: auto; 
-                margin-right: auto;
-                top: 0px;
-                left: 0px;
-                transition: opacity 1.0s ease-out;
-                opacity: 1;
-            }
-            .title * {
-                display: block;
-                margin-left: auto; 
-                margin-right: auto;
-                width: 50vw;
-                height: auto;
-                text-align: center;
-                font-size: 4vmin;
-            }
-            .title.fade {
-                opacity: 0;
-                pointer-events: none;
-            }
-            .title button {
-                background-color: #555555;
-                border: solid #222222;
-                border-radius: 10px;
-                color: whitesmoke;
-                height: 10vh;
-                
-            }
-            .title button:disabled {
-                filter: blur(2px);
+            details > :not(summary,hr) {
+                padding-left: 2em;
             }
         </style>
 
@@ -115,17 +87,17 @@
             window.addEventListener("DOMContentLoaded", () => window.disableLoad());
         </script>
 
+        <!-- Create global URI preset manager -->
         <script type="module">
             import { Loader } from "./code/exe/PresetManager.js";
             window.URIloader = new Loader();
 
             
             import { Saver } from "./code/exe/PresetManager.js";
-            window.URIsaver = new Saver();
-            
+            window.URIsaver = new Saver(); 
         </script>
-
     </head>
+
     <body style="background-color: rgb(44, 46, 54); color: whitesmoke; font-size: 4vmin;">
 
         <div id="title" class="title">
@@ -146,11 +118,9 @@
 
             <details>
                 <summary style="color: grey">How-To <i class="fa-solid fa-head-side-gear"></i> <i>(click to expand)</i></summary>
-                <hr><br>
-                <i>Sweet Dreams</i> provides the user with the ability to design a custom soundscape though mixing and matching various <b>tiles</b>.<br>
-                <br>
-                Click anywhere on a tile to toggle playback. Click and drag on the slider to adjust volume.<br>
-                <br>
+                <hr>
+                <p><i>Sweet Dreams</i> provides the user with the ability to design a custom soundscape though mixing and matching various <b>tiles</b>.</p><br>
+                <p>Click anywhere on a tile to toggle playback. Click and drag on the slider to adjust volume.</p><br>
                 <div style="display: flex; flex-direction: row;">
                     <div style="flex:1">
                         <br>
@@ -219,8 +189,6 @@
                 </div>
             </details>
             
-            
-
             <hr>
 
             <details>
@@ -344,9 +312,33 @@
             </details>
 
             <hr>
+
+            <details>
+                <summary style="color: grey">Credits <i class="fa-solid fa-address-card"></i></summary>
+                <hr>
+                <details>
+                    <summary>Contributors <i class="fa-solid fa-users"></i></summary>
+                    <ul>
+                        <li><b>Programming:</b> Brendan Rood (<a target="_blank" href="https://github.com/Snail51">GitHub</a>) (<a target="_blank" href="https://brendan.snailien.net/">Website</a>)<br></li>
+                        <li><b>Main Application Logo:</b> Sam Jorgenson (<a target="_blank" href="https://www.instagram.com/x.indomitus.x/">Instagram</a>) (<a target="_blank" href="mailto:illuminated.kreation@gmail.com">Email</a>)<br></li>
+                        <li><b>Tile Icons:</b> Font Awesome (<a target="_blank" href="https://fontawesome.com/">Website</a>)<br></li>
+                    </ul>
+                </details>
+                <details>
+                    <summary>Audio Sources <i class="fa-solid fa-folder-music"></i></summary>
+                    <b>Each audio tile has a single letter in the top right of each tile indicating the source of the sound. A legend is below.</b><br>
+                    <ul>
+                        <li><b>B</b> - Sounds taken from Brendan's personal childhood white-noise machine. Make and model currently unknown. The company who made the product no longer exists.<br></li>
+                        <li><b>G</b> - Sounds taken from <i>DEX PRODUCTS SSWM-01&quot;SOUND SLEEPER&quot;</i> (<a target="_blank" href="https://www.dexbaby.com/s/SS-01_Instructions_0810.pdf">Manual</a>) (<a target="_blank" href="https://static1.squarespace.com/static/55f9d4c7e4b0b67647da04fc/t/561e8defe4b0eba9a9438b3c/1444842991008/SS-01_Instructions_0810.pdf">Mirror</a>)<br></li>
+                        <li><b>A</b> - Sounds taken from <i>Atmosphere</i> Mobile Application (<a target="_blank" href="https://play.google.com/store/apps/details?id=com.peakpocketstudios.atmosphere">Google Play</a>) (<a target="_blank" href="https://peakpocketstudios.com/">Website</a>)<br></li>
+                    </ul>
+                </details>
+            </details>
+
+            <hr>
             
             <details>
-                <summary>DEBUG <i class="fa-solid fa-brain-circuit"></i></summary>
+                <summary style="color: grey">DEBUG <i class="fa-solid fa-brain-circuit"></i></summary>
                 <br>
                 <div class="mainGrid">
                     <AudioTile name="DEBUG" src="./audiosrc/debug/OVERLAP.ogg" icon="fa-text-size" metaLeft="X" metaRight="X"></AudioTile>
@@ -354,8 +346,5 @@
             </details>
         </div>
 
-
-        
-        
     </body>
 </html>

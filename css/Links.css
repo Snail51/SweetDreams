@@ -1,0 +1,6 @@
+a {
+    color: cyan;
+}
+a:visited {
+    color: plum;
+}
