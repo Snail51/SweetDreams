@@ -17,13 +17,14 @@
 
  ## Contributors
   - **Programming:** Brendan Rood ([GitHub](https://github.com/Snail51)) ([Website](https://brendan.snailien.net/))
-  - **Main Application Logo:** Sam Jorgenson ([Instagram](https://www.instagram.com/x.indomitus.x/)) ([Email](mailto:illuminated.kreation@gmail.com)), inspired by free SVG https://savanasdesign.com/sweet-dreams-svg/
+  - **Main Application Logo:** Sam Jorgenson ([Instagram](https://www.instagram.com/x.indomitus.x/)) ([Email](mailto:illuminated.kreation@gmail.com))
 
  ## Audio Sources
   Each audio tile has a single letter in the top right, indicating the source of the sound.
   - **B** - `/brendan` - Sounds taken from Brendan's personal childhood white-noise machine. Make and model currently unknown. The company who made the product no longer exists.
   - **G** - `/gloria` - Sounds taken from DEX PRODUCTS SSWM-01"SOUND SLEEPER" ([Manual](https://www.dexbaby.com/s/SS-01_Instructions_0810.pdf)) ([Mirror](https://static1.squarespace.com/static/55f9d4c7e4b0b67647da04fc/t/561e8defe4b0eba9a9438b3c/1444842991008/SS-01_Instructions_0810.pdf))
   - **A** - `/atmos` - Sounds taken from Atmosphere Mobile Application ([Google Play](https://play.google.com/store/apps/details?id=com.peakpocketstudios.atmosphere)) ([Website](https://peakpocketstudios.com/))
+  - **D** - `/dawnchorus` - Sounds taken from Dawn Chorus visual novel ([Game](https://dawn-chorus.itch.io/dawn-chorus)) ([Soundtrack Vol 1](https://buildingslikeradiators.bandcamp.com/album/dawn-chorus-soundtrack-vol-1)) ([Soundtrack Vol 2](https://buildingslikeradiators.bandcamp.com/album/dawn-chorus-soundtrack-vol-1)) <br> *Bandcamp Transaction ID: #150627858. Will take down at request.*
 
  ## Other Resources
   - **Title Icons:** Font Awesome ([Website](https://fontawesome.com/))
