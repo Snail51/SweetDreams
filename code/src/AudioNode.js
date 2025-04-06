@@ -2,7 +2,8 @@ export class AudioNode {
     constructor(srcURL, audioCtx, element)
     {
         this.audioCtx = audioCtx;
-        this.element = element;
+        this.elements = new Array();
+        this.elements.push(element); // the first element that creates this node get the first slot, additional pointers are added via `this.addPointer`
 
         // Modifiable (public) vars
         this.playing = false;
@@ -25,7 +26,10 @@ export class AudioNode {
     async load()
     {
         this.loaded = 1;
-        this.element.style.backgroundColor = "#8800cc";
+        for ( var element of this.elements )
+        {
+            element.style.backgroundColor = "#8800cc";
+        }
 
         const response = await fetch(this.src);
         const raw = await response.arrayBuffer();
@@ -59,7 +63,10 @@ export class AudioNode {
 
         if(this.loaded == 5)
         {
-            this.element.style.backgroundColor = "#999999";
+            for ( var element of this.elements )
+            {
+                element.style.backgroundColor = "#999999";
+            }
             await this.noise.connect(this.audioCtx.destination);
             this.playing = true;
             console.debug(`${this.src} - Started Playback of AudioNode`);
@@ -75,7 +82,10 @@ export class AudioNode {
 
         if(this.loaded == 5)
         {
-            this.element.style.backgroundColor = "#555555";
+            for ( var element of this.elements )
+            {
+                element.style.backgroundColor = "#555555";
+            }
             this.noise.disconnect();
             this.playing = false;
             console.debug(`${this.src} - Halted Playback of AudioNode`);
@@ -99,6 +109,10 @@ export class AudioNode {
     {
         this.volume = newVolume;
         this.noise.gain.setValueAtTime(this.volume, this.audioCtx.currentTime);
+        for(var element of this.elements)
+        {
+            element.querySelectorAll(".SLIDER")[0].value = ((Math.cbrt(newVolume)))*100;
+        }
         // execution of window.URIsaver.save(); done by a seperate "onchange" event listener
     }
 
@@ -136,5 +150,10 @@ export class AudioNode {
 
             console.debug(`${this.src} - Shutdown AudioNode`);
         }
+    }
+
+    async addPointer(element)
+    {
+        this.elements.push(element);
     }
 }

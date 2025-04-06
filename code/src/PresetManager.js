@@ -18,7 +18,10 @@ export class Loader
                 await node.play();
                 var relevant = this.activeList.find(item => item.startsWith(node.src));
                 await node.adjustVolume(relevant.split(";")[1]);
-                node.element.querySelectorAll("input")[0].value = (Math.cbrt(parseFloat(relevant.split(";")[1])/2))*100;
+                for(var element of node.elements)
+                {
+                    element.querySelectorAll(".SLIDER")[0].value = (Math.cbrt(parseFloat(relevant.split(";")[1])/2))*100;
+                }
             }
         }
     }

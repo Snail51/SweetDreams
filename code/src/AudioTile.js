@@ -17,14 +17,32 @@ for( var node of AudioTileDOMs )
     newDiv.className = "audioContainer";
 
     // create new AudioNode object
-    var newNode = new AudioNode(src, window.audioCTX, newDiv);
-    window.audioNodes.push(newNode);
-    const nodeIndex = window.audioNodes.length-1;
+    var alreadyExists = null;
+    for ( var i = 0; i < window.audioNodes.length; i++ )
+    {
+        if(window.audioNodes[i].src == src)
+        {
+            alreadyExists = i;
+        }
+    }
+    var nodeIndex = -1;
+    if(alreadyExists == null) //only create if does'nt already exist
+    {
+        var newNode = new AudioNode(src, window.audioCTX, newDiv);
+        window.audioNodes.push(newNode);
+        nodeIndex = window.audioNodes.length-1;
+    }
+    else // if it does exist, just use it's index
+    {
+        nodeIndex = alreadyExists;
+        window.audioNodes[nodeIndex].addPointer(newDiv);
+    }
+    const constIndex = nodeIndex;
 
     // create new button object
     var newButton = document.createElement("button");
     newButton.className = "audioButton";
-    newButton.addEventListener("click", () => window.audioNodes[nodeIndex].toggle());
+    newButton.addEventListener("click", () => { window.audioNodes[constIndex].toggle(); });
 
     // create new <p> for LEFT metadata
     var newMetaLeft = document.createElement("div");
@@ -40,7 +58,7 @@ for( var node of AudioTileDOMs )
     var newRange = document.createElement("input");
     newRange.type = "range";
     newRange.className = "SLIDER";
-    newRange.addEventListener("input", () => window.audioNodes[nodeIndex].adjustVolume(2*((event.target.value/100)**3)));
+    newRange.addEventListener("input", () => window.audioNodes[constIndex].adjustVolume(2*((event.target.value/100)**3)));
     newRange.addEventListener("change", () => window.URIsaver.save());
 
     // create new <p> for RIGHT metadata
