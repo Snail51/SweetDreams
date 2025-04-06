@@ -86,8 +86,18 @@
                     document.getElementById("loadbutton").disabled = false;
                 }
             }
-
             window.addEventListener("DOMContentLoaded", () => window.disableLoad());
+
+            window.stopAllSounds = function()
+            {
+                for( var node of window.audioNodes )
+                {
+                    if(node.playing)
+                    {
+                        node.stop();
+                    }
+                }
+            }
         </script>
 
         <!-- Create global URI preset manager -->
@@ -114,10 +124,14 @@
             <button id="loadbutton" onclick="window.fadeAndLoad()" disabled>Loaded Selected Soundscape</button>
         </div>
         <div id="content" class="content">
-            <div style="object-fit: contain; width:20vw; background-color: transparent;">
-                <img src="./img/SweetDreams.svg">
+            <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                <div style="object-fit: contain; width:20vw; background-color: transparent;">
+                    <img src="./img/SweetDreams.svg">
+                </div>
+                <button onclick="window.stopAllSounds()" style="font-size: 4vmin; background-color: #555555; border: solid #222222; border-radius: 10px; color: whitesmoke;">Stop All Sounds &nbsp; <i class="fa-solid fa-volume-xmark"></i></button>
             </div>
-            <br><br>
+            
+            <br>
 
             <details>
                 <summary style="color: grey">How-To <i class="fa-solid fa-head-side-gear"></i> <i>(click to expand)</i></summary>
