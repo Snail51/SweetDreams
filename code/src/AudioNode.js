@@ -117,6 +117,14 @@ export class AudioNode {
                 element.querySelectorAll(".SLIDER")[0].value = elementValue;
             }
         }
+        else //fallback if 2nd parameter is not provided
+        {
+            for(var element of this.elements)
+            {
+                element.querySelectorAll(".SLIDER")[0].value = ((Math.cbrt(newVolume)))*100;
+            }
+            
+        }
         
         // execution of window.URIsaver.save(); done by a seperate "onchange" event listener
     }
