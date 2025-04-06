@@ -105,14 +105,19 @@ export class AudioNode {
         window.URIsaver.save();
     }
 
-    async adjustVolume(newVolume)
+    async adjustVolume(newVolume, elementValue)
     {
         this.volume = newVolume;
         this.noise.gain.setValueAtTime(this.volume, this.audioCtx.currentTime);
-        for(var element of this.elements)
+
+        if(elementValue) //propagate to other pointers
         {
-            element.querySelectorAll(".SLIDER")[0].value = ((Math.cbrt(newVolume)))*100;
+            for(var element of this.elements)
+            {
+                element.querySelectorAll(".SLIDER")[0].value = elementValue;
+            }
         }
+        
         // execution of window.URIsaver.save(); done by a seperate "onchange" event listener
     }
 
