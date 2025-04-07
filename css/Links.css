@@ -1,6 +1,8 @@
 a {
     color: cyan;
+    text-decoration: none;
 }
 a:visited {
     color: plum;
+    text-decoration: none;
 }
