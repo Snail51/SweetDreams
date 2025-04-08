@@ -74,7 +74,7 @@ export class URIManager
     {
         if(new Date().getTime() - this.lastAlert >= 30000)
         {
-            alert("Maxium URL Length Reached!\n\nShorten your document or prepare to save the raw text contents instead of the URL!\n\nYou can click the header of the page (\"Rapid Tree Notetaker\" to save the document as a `.rtn` file.");
+            alert("Maxium URL Length Reached!\n\nShorten your document or prepare to save the raw text content!");
         }
         this.lastAlert = new Date().getTime();
     }
@@ -111,7 +111,7 @@ export class URIManager
 
         if(data == "" || data == null)
         {
-            data = "Couldn't decode the provided link.\nAre you sure it was made by the RTN?";
+            data = "Couldn't decode the provided link.\nCould not parse Data Parameter.";
         }
 
         data = data.replace(/\s+$/gm, ""); //trim trailing 
