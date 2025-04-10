@@ -9,6 +9,7 @@ export class AudioNode {
         this.playing = false;
         this.volume = 0.25;
         this.loaded = 0; // 0 = initial, 1 = loading started, 2 = data fetch complete, 3 = audio source node created, 4 = amplified audio node created, 5 = audio playback ready
+        this.error = false;
     
         // Audio Source Data
         this.src = srcURL;
@@ -32,6 +33,13 @@ export class AudioNode {
         }
 
         const response = await fetch(this.src);
+        console.log(response);
+        if(!response.ok)
+        {
+            element.style.backgroundColor = "#ff0000";
+            this.error = true;
+            return;
+        }
         const raw = await response.arrayBuffer();
         this.loaded = 2;
 
