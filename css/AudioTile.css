@@ -66,3 +66,8 @@
     
     width: 95%;
 }
+
+/** Disable interaction when the slider is overriden to communicate something else (such as loading progress) */
+.SLIDER.LOCKED {
+    pointer-events: none;
+}

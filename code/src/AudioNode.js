@@ -25,35 +25,90 @@ export class AudioNode {
 
     async load()
     {
+        // start loading, change the element color
         this.loaded = 1;
         for ( var element of this.elements )
         {
             element.style.backgroundColor = "#8800cc";
         }
 
-        const response = await fetch(this.src);
-        console.log(response);
-        if(!response.ok)
+        // Check the file exists and is readable
+        async function checkFileExists(url) {
+            try {
+                const response = await fetch(url, { 
+                method: 'HEAD', // only do a HEAD check to reduce bandwidth usage; we only want to know if it exists
+                cache: 'no-store' // Prevent caching
+            });
+
+            return response.ok; // Returns true if file exists, false otherwise
+            } catch (error) {
+                console.error('Error checking file:', error);
+                return false;
+            }
+        }
+        var urlok = await checkFileExists(this.src);
+        if(!urlok)
         {
-            element.style.backgroundColor = "#ff0000";
             this.error = true;
+            console.error(`Error loading ${this.src}`);
+            for (var element of this.elements)
+            {
+                element.style.backgroundColor = "#ff0000";
+            }
             return;
         }
-        const raw = await response.arrayBuffer();
+
+        // once we know the file exists, do the request via xmlHTTP for progress monitoring
+        var holdVolume = this.elements[0].querySelectorAll(".SLIDER")[0].value; // save the old volume level so we can return to it
+        for(var element of this.elements)
+        {
+            element.querySelectorAll(".SLIDER")[0].classList.add("LOCKED"); // disable pointer events
+        }
+        var arrayBuffer;
+        var xmlHTTP = new XMLHttpRequest();
+        xmlHTTP.open('GET', this.src, true);
+        xmlHTTP.responseType = 'arraybuffer';
+        xmlHTTP.onload = function(e) {
+            arrayBuffer = this.response;
+        };
+        xmlHTTP.onprogress = (pr) => {
+            for(var element of this.elements)
+            {
+                element.querySelectorAll(".SLIDER")[0].value = (pr.loaded/pr.total)*100;
+            }
+        };
+        xmlHTTP.onloadend = (e) => {
+            console.debug('ArrayBuffer loaded successfully:', arrayBuffer);
+        };
+        xmlHTTP.send();
+
+        // Wait for the request to complete
+        await new Promise(resolve => { console.log(xmlHTTP);
+            xmlHTTP.onloadend = () => resolve();
+        });
+        const raw = arrayBuffer;
+        for(let element of this.elements)
+        {
+            element.querySelectorAll(".SLIDER")[0].value = holdVolume; // restore the old volume
+            element.querySelectorAll(".SLIDER")[0].classList.remove("LOCKED"); // allow pointer events again
+        }
         this.loaded = 2;
 
+        // we now have fetched the file data as an array buffer, we need to parse it
         this.data = await this.audioCtx.decodeAudioData(raw);
         this.source = await this.audioCtx.createBufferSource();
         this.source.buffer = this.data;
         this.source.loop = true;
         this.loaded = 3;
 
+        // create an intermediate node for controlling volume
         this.noise = await this.audioCtx.createGain();
         this.noise.gain.setValueAtTime(this.volume, this.audioCtx.currentTime);
         await this.source.connect(this.noise);
         await this.noise.connect(this.audioCtx.destination);
         this.loaded = 4;
 
+        // start and immediately stop the node (make sure it is ready to go)
         await this.source.start(); // playback cant start until user interaction
         await this.noise.disconnect();
         this.loaded = 5;
