@@ -9,7 +9,7 @@ export class Loader
     async load()
     {
         this.activeList = this.compressor.pull().split(",");
-        console.debug(this);
+        document.getElementById("printout_loadparams").innerHTML = this.activeList.join("\n");
         var nodes = window.audioNodes;
         for ( var node of nodes )
         {
