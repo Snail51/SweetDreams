@@ -89,7 +89,7 @@
                     document.getElementById("loadbutton").disabled = false;
                 }
             }
-            window.addEventListener("DOMContentLoaded", () => window.disableLoad());
+            window.addEventListener("pageshow", () => window.disableLoad());
 
             window.stopAllSounds = function()
             {

@@ -20,7 +20,6 @@ export class AudioNode {
         this.noise; // intermediate GainNode to control volume, connects to the destination node to actually produce the sound
 
         // Event Listeners for initialization and shutdown
-        //document.addEventListener('DOMContentLoaded', () => this.load());
         window.addEventListener('beforeunload', () => this.shutdown());
     }
 
