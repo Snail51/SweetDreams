@@ -52,7 +52,10 @@
                 column-gap: 1%;
                 object-fit: contain;
             }
-            details > :not(summary,hr) {
+            details {
+                display: inline;
+            }
+            details > :not(hr):not(#content > details > summary) {
                 padding-left: 2em;
             }
         </style>
