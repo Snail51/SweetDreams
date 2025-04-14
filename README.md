@@ -7,3 +7,7 @@
 ## Directory Guide:
  - `raw-total` - all the files in their completely original states, as found in their original sources. Literally nothing has been touched.
  - `raw-ogg` - no effects applied to audio files. All files converted to `.ogg` with proper metadata and `detox`ed filenames. Exported at absolute max quality (`Sample Rate: 44100Hz`, `Nominal Bitrate: 500kbps`)
+ - `parse` - the following audacity macro applied to `raw-ogg`:
+   - LoudnessNormalization:DualMono="1" LUFSLevel="-23" NormalizeTo="0" RMSLevel="-20" StereoIndependent="0"
+   - Normalize:ApplyVolume="1" PeakLevel="-1" RemoveDcOffset="1" StereoIndependent="0"
+   - ExportOgg:SampleRate="44100Hz" Quality="5" NominalBitrate="160kbps" 
