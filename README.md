@@ -6,3 +6,4 @@
 
 ## Directory Guide:
  - `raw-total` - all the files in their completely original states, as found in their original sources. Literally nothing has been touched.
+ - `raw-ogg` - no effects applied to audio files. All files converted to `.ogg` with proper metadata and `detox`ed filenames. Exported at absolute max quality (`Sample Rate: 44100Hz`, `Nominal Bitrate: 500kbps`)
