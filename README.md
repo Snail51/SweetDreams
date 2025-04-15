@@ -9,5 +9,7 @@
  - `raw-ogg` - no effects applied to audio files. All files converted to `.ogg` with proper metadata and `detox`ed filenames. Exported at absolute max quality (`Sample Rate: 44100Hz`, `Nominal Bitrate: 500kbps`)
  - `parse` - the following audacity macro applied to `raw-ogg`:
    - LoudnessNormalization:DualMono="1" LUFSLevel="-23" NormalizeTo="0" RMSLevel="-20" StereoIndependent="0"
-   - Normalize:ApplyVolume="1" PeakLevel="-1" RemoveDcOffset="1" StereoIndependent="0"
-   - ExportOgg:SampleRate="44100Hz" Quality="5" NominalBitrate="160kbps" 
+   - Normalize:ApplyVolume="1" PeakLevel="-2" RemoveDcOffset="1" StereoIndependent="0"
+   - Compressor:attackMs="30" compressionRatio="10" kneeWidthDb="5" lookaheadMs="1" makeupGainDb="0" releaseMs="150" showActual="1" showInput="0" showOutput="1" showTarget="0" thresholdDb="-10"
+   - NoiseGate:ATTACK="10" DECAY="150" GATE-FREQ="0" HOLD="50" LEVEL-REDUCTION="-12" MODE="Gate" STEREO-LINK="LinkStereo" THRESHOLD="-40"
+   - ExportOgg:SampleRate="44100Hz" Quality="5" NominalBitrate="160kbps"
