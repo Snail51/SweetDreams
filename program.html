@@ -84,9 +84,10 @@
                 const url = new URL(window.location.href);
                 const query = url.searchParams;
                 const data = query.get("data");
-                if(data.length > 0 && data != "3YCAgIKAgICAgICAgIADf3t_f0CAgIA") // empty data or no data
+                if(data.length > 0 && data != "3YCAgIKAgICAgICAgIADf3t_f0CAgIA") // data is present
                 {
                     document.getElementById("loadbutton").disabled = false;
+                    document.getElementById("loadbutton").innerHTML = "Loaded Selected Soundscape";
                 }
             }
             window.addEventListener("pageshow", () => window.disableLoad());
@@ -126,7 +127,7 @@
             <br>
             <i>A sleepytime soundscape editor written by Brendan Rood</i><br>
             <button onclick="window.fadeApp()">Dream Anew</button>
-            <button id="loadbutton" onclick="window.fadeAndLoad()" disabled>Loaded Selected Soundscape</button>
+            <button id="loadbutton" onclick="window.fadeAndLoad()" disabled><del>Loaded Selected Soundscape</del></button>
         </div>
         <div id="content" class="content">
             <div style="display: flex; flex-direction: row; justify-content: space-between;">

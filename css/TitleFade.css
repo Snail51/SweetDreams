@@ -34,5 +34,10 @@
     
 }
 .title button:disabled {
-    filter: blur(2px);
+    /** filter: blur(2px); */
+    pointer-events: none;
+}
+
+.title button:disabled * {
+    pointer-events: none;
 }
