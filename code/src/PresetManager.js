@@ -44,7 +44,7 @@ export class Saver
         {
             if(node.playing)
             {
-                this.activeList.push(node.src + ";" + node.volume);
+                this.activeList.push(node.src + ";" + ((Math.round(node.volume*100))/100));
             }
         }
         var payload = this.activeList.join(",");
