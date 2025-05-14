@@ -63,10 +63,6 @@
         <!-- Consumes custom <AudioTile> elements and initializes all their logic and DOM elements -->
         <script type="module" src="./code/exe/AudioTile.js" defer></script>
 
-        <!-- Ensure compression libraries are available at global scope -->
-        <script src="./code/lib/lzma-min.js"></script>
-        <script src="./code/lib/pako-min.js"></script>
-
         <!-- Title -> Content Initalization -->
         <script>
             window.fadeApp = function()
@@ -115,6 +111,8 @@
             import { Saver } from "./code/exe/PresetManager.js";
             window.URIsaver = new Saver(); 
         </script>
+
+        <script src="./code/lib/uriCompressor-min.js"></script>
     </head>
 
     <body style="background-color: rgb(44, 46, 54); color: whitesmoke; font-size: 4vmin;">
