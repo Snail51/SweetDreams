@@ -129,7 +129,7 @@ export class AudioNode {
             {
                 element.style.backgroundColor = "#999999";
             }
-            await this.noise.connect(this.audioCtx.destination);
+            await this.noise.connect(window.amplifier);
             this.playing = true;
             console.debug(`${this.src} - Started Playback of AudioNode`);
         }
