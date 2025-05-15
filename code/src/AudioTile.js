@@ -3,12 +3,18 @@ import { AudioNode } from "./AudioNode.js";
 // initialization requires async steps so do a big `.then()` tree of this file
 setupGlobalAudioContext().then(() => setupGlobalAmplifier().then(() => setupAudioTiles()));
 
+/**
+ * Initialize a global AudioContext to `window.audioCTX`
+ */
 async function setupGlobalAudioContext()
 {
     window.audioCTX = new window.AudioContext();
     window.audioNodes = new Array();
 }
 
+/***
+ * Set up a global Gain node that all audio nodes will run though for global volume control
+ */
 async function setupGlobalAmplifier()
 {
     window.amplifier = await window.audioCTX.createGain();
@@ -27,6 +33,10 @@ async function setupGlobalAmplifier()
     window.adjustGlobalVolume();
 }
 
+/**
+ * Parse the DOM and consume all custom <AudioTile> elements
+ * The DOM elements of the <AudioTile> are populated, and an internal `AudioNode` is setup
+ */
 async function setupAudioTiles()
 {
     var AudioTileDOMs = document.querySelectorAll("AudioTile");
@@ -73,10 +83,15 @@ async function setupAudioTiles()
         newMetaLeft.className = "META-L";
         newMetaLeft.innerHTML = metaLeft;
 
-
+        // create new <i> for ICON
         var newIcon = document.createElement("div");
         newIcon.className = "ICON";
         newIcon.innerHTML = `<i class="fa-solid ${icon}"></i>`
+
+        // create new <p> for RIGHT metadata
+        var newMetaRight = document.createElement("div");
+        newMetaRight.className = "META-R";
+        newMetaRight.innerHTML = metaRight;
 
         // create new <input> of type `range`
         var newRange = document.createElement("input");
@@ -84,11 +99,6 @@ async function setupAudioTiles()
         newRange.className = "SLIDER";
         newRange.addEventListener("input", () => window.audioNodes[constIndex].adjustVolume(2 * ((event.target.value / 100) ** 3), event.target.value));
         newRange.addEventListener("change", () => window.URIsaver.save());
-
-        // create new <p> for RIGHT metadata
-        var newMetaRight = document.createElement("div");
-        newMetaRight.className = "META-R";
-        newMetaRight.innerHTML = metaRight;
 
         // create new <p> for LABEL
         var newLabel = document.createElement("div");

@@ -117,6 +117,7 @@
 
     <body style="background-color: rgb(44, 46, 54); color: whitesmoke; font-size: 4vmin;">
 
+        <!-- Title page overlays all until dismissed -->
         <div id="title" class="title">
             <br>
             <div style="object-fit: contain;">
@@ -128,7 +129,9 @@
             <button id="loadbutton" onclick="window.fadeAndLoad()" disabled><del>Loaded Selected Soundscape</del></button>
         </div>
         <div id="content" class="content">
+            <!-- Page Header -->
             <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                <!-- The fun little icon of the app. Also include a link to the GitHub! -->
                 <div style="display: flex; flex-direction: row; align-items: flex-end; ">
                     <a href="https://sleep.snailien.net">
                         <div style="object-fit: contain; width:50vmin; background-color: transparent;">
@@ -137,6 +140,7 @@
                     </a>
                     <a target="_blank" href="https://github.com/Snail51/SweetDreams"><i class="fa-brands fa-github"></i></a>
                 </div>
+                <!-- Global "Disable all Sounds" and Volume Slider -->
                 <div class="audioContainer" style="width: 20vw">
                     <button class="audioButton" onclick="window.stopAllSounds()" style="font-size: 4vmin; color: whitesmoke; width: 100%;">
                         <div class="META-L"> </div>
