@@ -9,7 +9,7 @@
 
 ## Installation / Usage
  - Can be run in any httpx environment with JavaScript execution.
- - ***A version of the app is already located at https://sleep.snailien.net or https://tools.snailien.net/SweetDreams***
+ - ***A version of the app is already located at https://dream.snailien.net or https://tools.snailien.net/SweetDreams***
 
 <hr>
 
