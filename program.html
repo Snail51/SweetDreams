@@ -90,6 +90,13 @@
 
             window.stopAllSounds = function()
             {
+                if(!window.stopAllWarned)
+                {
+                    alert("This will STOP all sounds. NOT mute them. Press again to confirm.");
+                    window.stopAllWarned = true;
+                    return;
+                }
+
                 for( var node of window.audioNodes )
                 {
                     if(node.playing)
@@ -145,12 +152,12 @@
                     <button class="audioButton" onclick="window.stopAllSounds()" style="font-size: 4vmin; color: whitesmoke; width: 100%;">
                         <div class="META-L"> </div>
                         <div class="ICON">
-                            <i class="fa-solid fa-volume-xmark"></i>
+                            <i class="fa-solid fa-volume-xmark" style="color: cyan;"></i>
                         </div>
                         <div class="META-R"> </div>
-                        <div class="LABEL" style="padding-top: 15%;">Global Volume</div>
+                        <div class="LABEL" style="padding-top: 15%; font-size: 4vmin;">Global Volume</div>
                     </button>
-                    <input id="globalVolume" type="range" class="SLIDER" oninput="window.adjustGlobalVolume()">
+                    <input id="globalVolume" type="range" class="SLIDER" oninput="window.adjustGlobalVolume()" onchange="window.storeGlobalVolume()">
                 </div>
             </div>
             

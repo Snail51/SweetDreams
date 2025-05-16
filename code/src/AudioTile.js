@@ -30,6 +30,13 @@ async function setupGlobalAmplifier()
         window.amplifier.gain.setValueAtTime(newVolume, window.audioCTX.currentTime);
     }
 
+    window.storeGlobalVolume = function()
+    {
+        var newVolume = document.getElementById("globalVolume").value;
+        localStorage.setItem("SWEET_DREAMS-global_volume", newVolume);
+    }
+
+    document.getElementById("globalVolume").value = localStorage.getItem("SWEET_DREAMS-global_volume") ? localStorage.getItem("SWEET_DREAMS-global_volume") : 50;
     window.adjustGlobalVolume();
 }
 
