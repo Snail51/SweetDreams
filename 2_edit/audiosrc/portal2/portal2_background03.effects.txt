@@ -1,0 +1,3 @@
+LOW PASS FILTER
+  - Frequency: 400Hz
+  - Roll-off: 48 dB
