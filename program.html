@@ -118,8 +118,10 @@
             import { Saver } from "./code/exe/PresetManager.js";
             window.URIsaver = new Saver(); 
         </script>
-
         <script src="./code/lib/uriCompressor-min.js"></script>
+
+        <!-- Set up 'beforeunload' listener to ask for confirmation before navigating away -->
+        <script src="./code/exe/ConfirmNavigation.js"></script>
     </head>
 
     <body style="background-color: rgb(44, 46, 54); color: whitesmoke; font-size: 4vmin;">
