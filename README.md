@@ -32,6 +32,8 @@
   **M** - Music from *My Singing Monsters* ([Steam Store](https://store.steampowered.com/app/1419170/)) ([Website](https://www.bigbluebubble.com/home/games/my-singing-monsters-series/my-singing-monsters/))<br>
   **N** - Sounds and Music from *gm_abstraction_extended* and *ph_resortmadness*. Check audio file header metadata for more info. ([gm_abstraction_extended](https://steamcommunity.com/sharedfiles/filedetails/?id=734919940)) ([ph_resortmadness](https://steamcommunity.com/sharedfiles/filedetails/?id=1389282477))<br>
   **P** - Music from *Portal 2* ([Steam Store](https://store.steampowered.com/app/620/))<br>
+  **S** - Music from *Stardew Valley* ([Steam Store](https://store.steampowered.com/app/413150/))<br>
+  **T** - Music from *Terraria* and mods. See file metadata for more details. ([Terraria](https://store.steampowered.com/app/105600/)) ([tModLoader](https://store.steampowered.com/app/1281930/))<br>
   **V** - Music of VRChat ([YouTube](https://youtu.be/8B1Xf58ws-4)) ([YouTube](https://youtu.be/1zcM_ULQZUY)) ([Steam Store](https://store.steampowered.com/app/438100/))<br>
   **2** - Music from *Aether II* Minecraft mod ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/aether-ii)) ([Bandcamp](https://emilevankrieken.bandcamp.com/album/the-aether-ii-original-soundtrack))<br>
 
