@@ -49,8 +49,24 @@ export class Saver
         }
         var payload = this.activeList.join(",");
 
+        // this is not cryptographically secure! but we are just using it to ease comparison
+        function simpleHash(str) {
+            let hash = 0;
+
+            if (!str || typeof str !== 'string') {
+                return hash;
+            }
+
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash + char);
+            }
+
+            return Math.abs(hash >>> 0); // Convert to positive number
+        }
+
         const encoder = new TextEncoder();
-        var newDigest = await crypto.subtle.digest("SHA-256",  encoder.encode(payload));
+        var newDigest = simpleHash(encoder.encode(payload));
         if(newDigest != this.oldDigest)
         {
             this.compressor.push(payload);
