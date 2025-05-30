@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title>Sweet Dreams</title>
+    <link rel="icon" href="./SweetDreams.icon.png" type="image/x-icon">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>Sweet Dreams</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Test .ogg Compatibility">
+    <meta name="keywords" content="tool,sleep,sonds,music,ambient,rest,relax">
+
+    <meta property="og:title" content="Sweet Dreams">
+    <meta property="og:description" content="Test .ogg Compatibility">
+    <meta property="og:site_name" content="Sweet Dreams">
+    <meta property="og:url" content="tools.snailien.net">
+    <meta property="og:image" content="./SweetDreams.icon.png">
+
+    <meta itemprop="name" content="Sweet Dreams">
+    <meta itemprop="description" content="Test .ogg Compatibility">
+    <meta itemprop="image" content="./SweetDreams.icon.png">
+
+    <meta name="twitter:card" content="Test .ogg Compatibility">
+    <meta name="twitter:url" content="tools.snailien.net">
+    <meta name="twitter:title" content="Sweet Dreams">
+    <meta name="twitter:description" content="Test .ogg Compatibility">
+    <meta name="twitter:image" content="./SweetDreams.icon.png">
+
+    <meta name="referrer" content="origin">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://note.snailien.net; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+
+    <script>
+        window.addEventListener("DOMContentLoaded", () => { window.doCheck() });
+
+        window.doCheck = function() {
+            var userAgent = window.navigator.userAgent ? window.navigator.userAgent : "CANT PARSE window.navigator.userAgent";
+            var agentData = window.navigator.userAgentData ? JSON.stringify(window.navigator.userAgentData) : "CANT PARSE window.navigator.userAgentData";
+            var audioElement = document.createElement('audio');
+            var canOgg = audioElement.canPlayType ? audioElement.canPlayType('audio/ogg') : "no";
+            var canMp3 = audioElement.canPlayType ? audioElement.canPlayType('audio/mp3') : "no";
+
+            var result = {
+                "userAgent": userAgent,
+                "userData": agentData,
+                "oggSupport": canOgg,
+                "mp3Support": canMp3,
+            }
+
+            document.getElementById("output").innerHTML = JSON.stringify(result, null, "\t");
+
+            var form = new FormData();
+            form.append("type", "SweetDreams Audio Compatibility Test");
+            form.append("userAgent", userAgent);
+            form.append("agentData", agentData);
+            form.append("oggSupport", canOgg);
+            form.append("mp3Support", canMp3);
+            
+            fetch('https://note.snailien.net/writer.php', {
+                method: 'POST',
+                body: form
+            });
+        }
+
+
+    </script>
+
+</head>
+
+<body style="background-color: rgb(44, 46, 54); color: whitesmoke; font-size: 4vmin;">
+
+    <h1>.ogg compatibility tester</h1>
+    <hr>
+    <pre id="output">NOT INIT</pre>
+</body>
+
+</html>

@@ -32,6 +32,15 @@ export class AudioNode {
             element.style.backgroundColor = "#8800cc";
         }
 
+        // fallback to .mp3 if cant play .ogg
+        var audioElement = document.createElement("audio");
+        var supportsOgg = audioElement.canPlayType("audio/ogg") != "" ? audioElement.canPlayType("audio/ogg") : "no";
+        audioElement.remove();
+        if(supportsOgg == "no")
+        {
+            this.src = this.src.replace(/\.ogg$/gm, ".mp3");
+        }
+
         // Check the file exists and is readable
         async function checkFileExists(url) {
             try {
