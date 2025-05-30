@@ -83,12 +83,13 @@ async function setupAudioTiles()
         // create new button object
         var newButton = document.createElement("button");
         newButton.className = "audioButton";
-        newButton.addEventListener("click", () => { window.audioNodes[constIndex].toggle(); });
+        newButton.addEventListener("click", (event) => { window.audioNodes[constIndex].toggle(event); });
 
         // create new <p> for LEFT metadata
         var newMetaLeft = document.createElement("div");
         newMetaLeft.className = "META-L";
-        newMetaLeft.innerHTML = metaLeft;
+        newMetaLeft.title = metaLeft.split(/ ?\| ?/)[1]; // use the second group of the metadata
+        newMetaLeft.innerHTML = metaLeft.split(/ ?\| ?/)[0]; // use the first group of the metadata
 
         // create new <i> for ICON
         var newIcon = document.createElement("div");
@@ -98,7 +99,8 @@ async function setupAudioTiles()
         // create new <p> for RIGHT metadata
         var newMetaRight = document.createElement("div");
         newMetaRight.className = "META-R";
-        newMetaRight.innerHTML = metaRight;
+        newMetaRight.title =  metaRight.split(/ ?\| ?/)[1]; // use the second group of the metadata
+        newMetaRight.innerHTML = metaRight.split(/ ?\| ?/)[0]; // use the first group of the metadata
 
         // create new <input> of type `range`
         var newRange = document.createElement("input");

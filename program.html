@@ -122,6 +122,12 @@
 
         <!-- Set up 'beforeunload' listener to ask for confirmation before navigating away -->
         <script src="./code/exe/ConfirmNavigation.js"></script>
+
+        <!-- Set up tooltips for -->
+        <script src="./code/exe/Tooltip.js"></script>
+
+        <!-- Debug background color assistant for elemnt boundary checking -->
+         <script src="./code/exe/debugRandomColors.js"></script>
     </head>
 
     <body style="background-color: rgb(44, 46, 54); color: whitesmoke; font-size: 4vmin;">
@@ -179,8 +185,8 @@
                             <li>An <b>icon</b> representing the sound.</li>
                             <li>The sound's <b>label</b>.</li>
                             <li>A <b>volume slider</b> for adjusting that specific sound's volume.</li>
-                            <li>A <b>category</b> tag.</li>
-                            <li>A <b>source</b> tag.</li>
+                            <li>A <b>category</b> tag. <i>(hover or click to view)</i></li>
+                            <li>A <b>source</b> tag. <i>(hover or click to view)</i></li>
                         </ul>
                     </div>
                     <div style="object-fit: contain; flex:1">
@@ -215,35 +221,35 @@
                 <summary>Forest <i class="fa-solid fa-trees"></i></summary>
                 <br>
                 <div class="mainGrid">
-                    <AudioTile name="Birds" src="./audiosrc/gloria/Bird-G.ogg" icon="fa-bird" metaLeft="A" metaRight="G"></AudioTile>
-                    <AudioTile name="Birds" src="./audiosrc/atmos/forest_birds.ogg" icon="fa-bird" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Crickets" src="./audiosrc/atmos/forest_crickets.ogg" icon="fa-locust" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Cicada" src="./audiosrc/nita/ph_resortmadness/cicada04d.ogg" icon="fa-bugs" metaLeft="A" metaRight="N"></AudioTile>
-                    <AudioTile name="Frogs" src="./audiosrc/atmos/forest_frogs.ogg" icon="fa-frog" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Owl" src="./audiosrc/atmos/forest_owl.ogg" icon="fa-bird" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Wolf" src="./audiosrc/atmos/forest_wolf.ogg" icon="fa-moon-stars" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Woodpecker" src="./audiosrc/atmos/forest_woodpecker.ogg" icon="fa-bird" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Tawny Owl" src="./audiosrc/atmos/forest_tawnyowl.ogg" icon="fa-bird" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Campfire" src="./audiosrc/atmos/forest_campfire.ogg" icon="fa-campfire" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Stepping in Snow" src="./audiosrc/dawnchorus/sfx/snow_steps.ogg" icon="fa-boot" metaLeft="N" metaRight="D"></AudioTile>
-                    <AudioTile name="Rain on Tent" src="./audiosrc/atmos/forest_rainontent.ogg" icon="fa-campground" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Rain" src="./audiosrc/atmos/forest_rain.ogg" icon="fa-cloud-showers-heavy" metaLeft="N" metaRight="A"></AudioTile>
-                    <AudioTile name="Rain" src="./audiosrc/gloria/Rain-G.ogg" icon="fa-cloud-showers-heavy" metaLeft="N" metaRight="G"></AudioTile>
-                    <AudioTile name="Storm" src="./audiosrc/atmos/forest_storm.ogg" icon="fa-cloud-bolt" metaLeft="N" metaRight="A"></AudioTile>
-                    <AudioTile name="Thunder (Only)" src="./audiosrc/gloria/Thunder-G.ogg" icon="fa-cloud-bolt" metaLeft="N" metaRight="G"></AudioTile>
-                    <AudioTile name="River" src="./audiosrc/atmos/forest_river.ogg" icon="fa-arrow-up-from-water-pump" metaLeft="N" metaRight="A"></AudioTile>
-                    <AudioTile name="Stream" src="./audiosrc/brendan/Stream-B.ogg" icon="fa-arrow-up-from-water-pump" metaLeft="N" metaRight="B"></AudioTile>
-                    <AudioTile name="Brook" src="./audiosrc/gloria/Brook-G.ogg" icon="fa-arrow-up-from-water-pump" metaLeft="N" metaRight="G"></AudioTile>
-                    <AudioTile name="Waterfall" src="./audiosrc/atmos/forest_waterfall.ogg" icon="fa-water" metaLeft="N" metaRight="A"></AudioTile>
-                    <AudioTile name="Wind" src="./audiosrc/atmos/forest_wind.ogg" icon="fa-wind" metaLeft="N" metaRight="A"></AudioTile>
-                    <AudioTile name="Wind" src="./audiosrc/gloria/Wind-G.ogg" icon="fa-wind" metaLeft="N" metaRight="G"></AudioTile>
-                    <AudioTile name="Wind" src="./audiosrc/dawnchorus/sfx/wind.ogg" icon="fa-wind" metaLeft="N" metaRight="D"></AudioTile>
-                    <AudioTile name="Summer Night" src="./audiosrc/brendan/Summer_Night-B.ogg" icon="fa-sun-haze" metaLeft="N" metaRight="B"></AudioTile>
-                    <AudioTile name="Summer Night" src="./audiosrc/gloria/Summer_Night-G.ogg" icon="fa-sun-haze" metaLeft="N" metaRight="G"></AudioTile>
-                    <AudioTile name="Tropical Forest" src="./audiosrc/brendan/Tropical_Forest-B.ogg" icon="fa-tree-palm" metaLeft="N" metaRight="B"></AudioTile>
-                    <AudioTile name="Tropical Forest" src="./audiosrc/nita/ph_resortmadness/tropical_forest001.ogg" icon="fa-tree-palm" metaLeft="N" metaRight="N"></AudioTile>
-                    <AudioTile name="Woodlands" src="./audiosrc/nita/ph_resortmadness/woodland_ambient_1.ogg" icon="fa-trees" metaLeft="N" metaRight="N"></AudioTile>
-                    <AudioTile name="Cave Ambience" src="./audiosrc/nita/ph_resortmadness/poolcave_ambience.ogg" icon="fa-pickaxe" metaLeft="N" metaRight="N"></AudioTile>
+                    <AudioTile name="Birds" src="./audiosrc/gloria/Bird-G.ogg" icon="fa-bird" metaLeft="A | Animals" metaRight="GL | Gloria"></AudioTile>
+                    <AudioTile name="Birds" src="./audiosrc/atmos/forest_birds.ogg" icon="fa-bird" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Crickets" src="./audiosrc/atmos/forest_crickets.ogg" icon="fa-locust" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Cicada" src="./audiosrc/nita/ph_resortmadness/cicada04d.ogg" icon="fa-bugs" metaLeft="A | Animals" metaRight="GM | Nita - Garry's Mod"></AudioTile>
+                    <AudioTile name="Frogs" src="./audiosrc/atmos/forest_frogs.ogg" icon="fa-frog" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Owl" src="./audiosrc/atmos/forest_owl.ogg" icon="fa-bird" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Wolf" src="./audiosrc/atmos/forest_wolf.ogg" icon="fa-moon-stars" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Woodpecker" src="./audiosrc/atmos/forest_woodpecker.ogg" icon="fa-bird" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Tawny Owl" src="./audiosrc/atmos/forest_tawnyowl.ogg" icon="fa-bird" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Campfire" src="./audiosrc/atmos/forest_campfire.ogg" icon="fa-campfire" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Stepping in Snow" src="./audiosrc/dawnchorus/sfx/snow_steps.ogg" icon="fa-boot" metaLeft="N | Nature" metaRight="DC | Dawn Chorus"></AudioTile>
+                    <AudioTile name="Rain on Tent" src="./audiosrc/atmos/forest_rainontent.ogg" icon="fa-campground" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Rain" src="./audiosrc/atmos/forest_rain.ogg" icon="fa-cloud-showers-heavy" metaLeft="N | Nature" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Rain" src="./audiosrc/gloria/Rain-G.ogg" icon="fa-cloud-showers-heavy" metaLeft="N | Nature" metaRight="GL | Gloria"></AudioTile>
+                    <AudioTile name="Storm" src="./audiosrc/atmos/forest_storm.ogg" icon="fa-cloud-bolt" metaLeft="N | Nature" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Thunder (Only)" src="./audiosrc/gloria/Thunder-G.ogg" icon="fa-cloud-bolt" metaLeft="N | Nature" metaRight="GL | Gloria"></AudioTile>
+                    <AudioTile name="River" src="./audiosrc/atmos/forest_river.ogg" icon="fa-arrow-up-from-water-pump" metaLeft="N | Nature" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Stream" src="./audiosrc/brendan/Stream-B.ogg" icon="fa-arrow-up-from-water-pump" metaLeft="N | Nature" metaRight="BR | Brendan"></AudioTile>
+                    <AudioTile name="Brook" src="./audiosrc/gloria/Brook-G.ogg" icon="fa-arrow-up-from-water-pump" metaLeft="N | Nature" metaRight="GL | Gloria"></AudioTile>
+                    <AudioTile name="Waterfall" src="./audiosrc/atmos/forest_waterfall.ogg" icon="fa-water" metaLeft="N | Nature" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Wind" src="./audiosrc/atmos/forest_wind.ogg" icon="fa-wind" metaLeft="N | Nature" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Wind" src="./audiosrc/gloria/Wind-G.ogg" icon="fa-wind" metaLeft="N | Nature" metaRight="GL | Gloria"></AudioTile>
+                    <AudioTile name="Wind" src="./audiosrc/dawnchorus/sfx/wind.ogg" icon="fa-wind" metaLeft="N | Nature" metaRight="DC | Dawn Chorus"></AudioTile>
+                    <AudioTile name="Summer Night" src="./audiosrc/brendan/Summer_Night-B.ogg" icon="fa-sun-haze" metaLeft="N | Nature" metaRight="BR | Brendan"></AudioTile>
+                    <AudioTile name="Summer Night" src="./audiosrc/gloria/Summer_Night-G.ogg" icon="fa-sun-haze" metaLeft="N | Nature" metaRight="GL | Gloria"></AudioTile>
+                    <AudioTile name="Tropical Forest" src="./audiosrc/brendan/Tropical_Forest-B.ogg" icon="fa-tree-palm" metaLeft="N | Nature" metaRight="BR | Brendan"></AudioTile>
+                    <AudioTile name="Tropical Forest" src="./audiosrc/nita/ph_resortmadness/tropical_forest001.ogg" icon="fa-tree-palm" metaLeft="N | Nature" metaRight="GM | Nita - Garry's Mod"></AudioTile>
+                    <AudioTile name="Woodlands" src="./audiosrc/nita/ph_resortmadness/woodland_ambient_1.ogg" icon="fa-trees" metaLeft="N | Nature" metaRight="GM | Nita - Garry's Mod"></AudioTile>
+                    <AudioTile name="Cave Ambience" src="./audiosrc/nita/ph_resortmadness/poolcave_ambience.ogg" icon="fa-pickaxe" metaLeft="N | Nature" metaRight="GM | Nita - Garry's Mod"></AudioTile>
                 </div>
                 <br><p></p><br>
             </details>
@@ -254,18 +260,18 @@
                 <summary>Beach <i class="fa-solid fa-umbrella-beach"></i></summary>
                 <br>
                 <div class="mainGrid">
-                    <AudioTile name="Guitar (Slow)" src="./audiosrc/atmos/beach_guitar.ogg" icon="fa-guitar" metaLeft="M" metaRight="A"></AudioTile>
-                    <AudioTile name="Guitar (Fast)" src="./audiosrc/atmos/beach_guitarplaying.ogg" icon="fa-guitar" metaLeft="M" metaRight="A"></AudioTile>
-                    <AudioTile name="Bonfire" src="./audiosrc/atmos/beach_bonefire.ogg" icon="fa-campfire" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Seagull" src="./audiosrc/atmos/beach_seagull.ogg" icon="fa-bird" metaLeft="N" metaRight="A"></AudioTile>
-                    <AudioTile name="Seagull" src="./audiosrc/gloria/Seagull-G.ogg" icon="fa-bird" metaLeft="A" metaRight="G"></AudioTile>
-                    <AudioTile name="Row Boat" src="./audiosrc/atmos/beach_rowing.ogg" icon="fa-sailboat" metaLeft="W" metaRight="A"></AudioTile>
-                    <AudioTile name="Ship" src="./audiosrc/atmos/beach_ship.ogg" icon="fa-ship" metaLeft="W" metaRight="A"></AudioTile>
-                    <AudioTile name="Rain" src="./audiosrc/atmos/beach_rain.ogg" icon="fa-cloud-showers-heavy" metaLeft="N" metaRight="A"></AudioTile>
-                    <AudioTile name="Storm" src="./audiosrc/atmos/beach_storm.ogg" icon="fa-cloud-showers-heavy" metaLeft="N" metaRight="A"></AudioTile>
-                    <AudioTile name="Waves" src="./audiosrc/atmos/beach_waves.ogg" icon="fa-wave" metaLeft="N" metaRight="A"></AudioTile>
-                    <AudioTile name="Waves" src="./audiosrc/gloria/Ocean-G.ogg" icon="fa-wave" metaLeft="W" metaRight="G"></AudioTile>
-                    <AudioTile name="Waves" src="./audiosrc/brendan/Ocean_Waves-B.ogg" icon="fa-wave" metaLeft="N" metaRight="B"></AudioTile>
+                    <AudioTile name="Guitar (Slow)" src="./audiosrc/atmos/beach_guitar.ogg" icon="fa-guitar" metaLeft="M | Music" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Guitar (Fast)" src="./audiosrc/atmos/beach_guitarplaying.ogg" icon="fa-guitar" metaLeft="M | Music" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Bonfire" src="./audiosrc/atmos/beach_bonefire.ogg" icon="fa-campfire" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Seagull" src="./audiosrc/atmos/beach_seagull.ogg" icon="fa-bird" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Seagull" src="./audiosrc/gloria/Seagull-G.ogg" icon="fa-bird" metaLeft="A | Animals" metaRight="GL | Gloria"></AudioTile>
+                    <AudioTile name="Row Boat" src="./audiosrc/atmos/beach_rowing.ogg" icon="fa-sailboat" metaLeft="W | Water" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Ship" src="./audiosrc/atmos/beach_ship.ogg" icon="fa-ship" metaLeft="W | Water" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Rain" src="./audiosrc/atmos/beach_rain.ogg" icon="fa-cloud-showers-heavy" metaLeft="N | Nature" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Storm" src="./audiosrc/atmos/beach_storm.ogg" icon="fa-cloud-showers-heavy" metaLeft="N | Nature" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Waves" src="./audiosrc/atmos/beach_waves.ogg" icon="fa-wave" metaLeft="N | Nature" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Waves" src="./audiosrc/gloria/Ocean-G.ogg" icon="fa-wave" metaLeft="W | Water" metaRight="GL | Gloria"></AudioTile>
+                    <AudioTile name="Waves" src="./audiosrc/brendan/Ocean_Waves-B.ogg" icon="fa-wave" metaLeft="N | Nature" metaRight="BR | Brendan"></AudioTile>
                 </div>
                 <br><p></p><br>
             </details>
@@ -276,19 +282,19 @@
                 <summary>City <i class="fa-solid fa-city"></i></summary>
                 <br>
                 <div class="mainGrid">
-                    <AudioTile name="Airport" src="./audiosrc/atmos/urban_airport.ogg" icon="fa-plane-departure" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Construction" src="./audiosrc/atmos/urban_construction.ogg" icon="fa-excavator" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Chatter" src="./audiosrc/atmos/urban_racket.ogg" icon="fa-users" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Chatter" src="./audiosrc/nita/ph_resortmadness/public_ambience.ogg" icon="fa-users" metaLeft="H" metaRight="N"></AudioTile>
-                    <AudioTile name="Traffic" src="./audiosrc/atmos/urban_traffic.ogg" icon="fa-cars" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Police Car" src="./audiosrc/atmos/urban_policesiren.ogg" icon="fa-siren-on" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Truck" src="./audiosrc/atmos/urban_truckengine.ogg" icon="fa-truck" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Train (Inside)" src="./audiosrc/atmos/urban_insidetrain.ogg" icon="fa-subway-tunnel" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Train (Outside)" src="./audiosrc/atmos/urban_train.ogg" icon="fa-subway" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Rain" src="./audiosrc/atmos/city_rain.ogg" icon="fa-cloud-showers-heavy" metaLeft="N" metaRight="A"></AudioTile>
-                    <AudioTile name="Wind" src="./audiosrc/atmos/city_wind.ogg" icon="fa-wind" metaLeft="W" metaRight="A"></AudioTile>
-                    <AudioTile name="Rain on Window" src="./audiosrc/atmos/city_windowrain.ogg" icon="fa-window-frame" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Pigeons" src="./audiosrc/atmos/urban_pigeons.ogg" icon="fa-bird" metaLeft="A" metaRight="A"></AudioTile>
+                    <AudioTile name="Airport" src="./audiosrc/atmos/urban_airport.ogg" icon="fa-plane-departure" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Construction" src="./audiosrc/atmos/urban_construction.ogg" icon="fa-excavator" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Chatter" src="./audiosrc/atmos/urban_racket.ogg" icon="fa-users" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Chatter" src="./audiosrc/nita/ph_resortmadness/public_ambience.ogg" icon="fa-users" metaLeft="HU | Humanity" metaRight="GM | Nita - Garry's Mod"></AudioTile>
+                    <AudioTile name="Traffic" src="./audiosrc/atmos/urban_traffic.ogg" icon="fa-cars" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Police Car" src="./audiosrc/atmos/urban_policesiren.ogg" icon="fa-siren-on" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Truck" src="./audiosrc/atmos/urban_truckengine.ogg" icon="fa-truck" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Train (Inside)" src="./audiosrc/atmos/urban_insidetrain.ogg" icon="fa-subway-tunnel" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Train (Outside)" src="./audiosrc/atmos/urban_train.ogg" icon="fa-subway" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Rain" src="./audiosrc/atmos/city_rain.ogg" icon="fa-cloud-showers-heavy" metaLeft="N | Nature" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Wind" src="./audiosrc/atmos/city_wind.ogg" icon="fa-wind" metaLeft="N | Nature" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Rain on Window" src="./audiosrc/atmos/city_windowrain.ogg" icon="fa-window-frame" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Pigeons" src="./audiosrc/atmos/urban_pigeons.ogg" icon="fa-bird" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
                 </div>
                 <br><p></p><br>
             </details>
@@ -299,13 +305,13 @@
                 <summary>Park <i class="fa-solid fa-bench-tree"></i></summary>
                 <br>
                 <div class="mainGrid">
-                    <AudioTile name="Birds" src="./audiosrc/atmos/park_birds.ogg" icon="fa-bird" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Ducks" src="./audiosrc/atmos/park_ducks.ogg" icon="fa-duck" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Dog" src="./audiosrc/atmos/park_dog.ogg" icon="fa-dog" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Children" src="./audiosrc/atmos/park_childrenplaying.ogg" icon="fa-children" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Fountain" src="./audiosrc/atmos/park_fountain.ogg" icon="fa-water-arrow-up" metaLeft="W" metaRight="A"></AudioTile>
-                    <AudioTile name="Lakeshore" src="./audiosrc/atmos/park_laketide.ogg" icon="fa-arrow-up-from-water-pump" metaLeft="W" metaRight="A"></AudioTile>
-                    <AudioTile name="Waves" src="./audiosrc/dawnchorus/sfx/waves.ogg" icon="fa-wave" metaLeft="W" metaRight="D"></AudioTile>
+                    <AudioTile name="Birds" src="./audiosrc/atmos/park_birds.ogg" icon="fa-bird" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Ducks" src="./audiosrc/atmos/park_ducks.ogg" icon="fa-duck" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Dog" src="./audiosrc/atmos/park_dog.ogg" icon="fa-dog" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Children" src="./audiosrc/atmos/park_childrenplaying.ogg" icon="fa-children" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Fountain" src="./audiosrc/atmos/park_fountain.ogg" icon="fa-water-arrow-up" metaLeft="W | Water" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Lakeshore" src="./audiosrc/atmos/park_laketide.ogg" icon="fa-arrow-up-from-water-pump" metaLeft="W | Water" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Waves" src="./audiosrc/dawnchorus/sfx/waves.ogg" icon="fa-wave" metaLeft="W | Water" metaRight="DC | Dawn Chorus"></AudioTile>
                 </div>
                 <br><p></p><br>
             </details>
@@ -316,12 +322,12 @@
                 <summary>Ocean <i class="fa-solid fa-wave"></i></summary>
                 <br>
                 <div class="mainGrid">
-                    <AudioTile name="Underwater (Shallow)" src="./audiosrc/atmos/underwater_ambiance.ogg" icon="fa-water-ladder" metaLeft="W" metaRight="A"></AudioTile>
-                    <AudioTile name="Underwater (Deep)" src="./audiosrc/atmos/underwater_ambiance2.ogg" icon="fa-mask-snorkel" metaLeft="W" metaRight="A"></AudioTile>
-                    <AudioTile name="Bubbles" src="./audiosrc/atmos/underwater_bubbles.ogg" icon="fa-soap" metaLeft="W" metaRight="A"></AudioTile>
-                    <AudioTile name="Sonar" src="./audiosrc/atmos/underwater_sonar.ogg" icon="fa-radar" metaLeft="W" metaRight="A"></AudioTile>
-                    <AudioTile name="Whale" src="./audiosrc/atmos/underwater_whale.ogg" icon="fa-whale" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Buoy" src="./audiosrc/gloria/Buoy-G.ogg" icon="fa-buoy" metaLeft="W" metaRight="G"></AudioTile>
+                    <AudioTile name="Underwater (Shallow)" src="./audiosrc/atmos/underwater_ambiance.ogg" icon="fa-water-ladder" metaLeft="W | Water" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Underwater (Deep)" src="./audiosrc/atmos/underwater_ambiance2.ogg" icon="fa-mask-snorkel" metaLeft="W | Water" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Bubbles" src="./audiosrc/atmos/underwater_bubbles.ogg" icon="fa-soap" metaLeft="W | Water" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Sonar" src="./audiosrc/atmos/underwater_sonar.ogg" icon="fa-radar" metaLeft="W | Water" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Whale" src="./audiosrc/atmos/underwater_whale.ogg" icon="fa-whale" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Buoy" src="./audiosrc/gloria/Buoy-G.ogg" icon="fa-buoy" metaLeft="W | Water" metaRight="GL | Gloria"></AudioTile>
                 </div>
                 <br><p></p><br>
             </details>
@@ -332,30 +338,30 @@
                 <summary>House <i class="fa-solid fa-house"></i></summary>
                 <br>
                 <div class="mainGrid">
-                    <AudioTile name="Heartbeat" src="./audiosrc/atmos/home_beats.ogg" icon="fa-heart-pulse" metaLeft="S" metaRight="A"></AudioTile>
-                    <AudioTile name="Heartbeat" src="./audiosrc/brendan/Heartbeat-B.ogg" icon="fa-heart-pulse" metaLeft="B" metaRight="B"></AudioTile>
-                    <AudioTile name="Womb" src="./audiosrc/gloria/Womb-G.ogg" icon="fa-person-pregnant" metaLeft="B" metaRight="G"></AudioTile>
-                    <AudioTile name="Cat (Purring)" src="./audiosrc/atmos/home_cat.ogg" icon="fa-cat" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Cat (Meowing)" src="./audiosrc/atmos/home_catmeowing.ogg" icon="fa-cat" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Clock" src="./audiosrc/atmos/home_clock.ogg" icon="fa-clock" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Coffeemaker" src="./audiosrc/atmos/home_coffeemaker.ogg" icon="fa-coffee-pot" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Computer" src="./audiosrc/dawnchorus/sfx/computer_hum.ogg" icon="fa-computer" metaLeft="H" metaRight="D"></AudioTile>
-                    <AudioTile name="Dripping" src="./audiosrc/atmos/home_drops.ogg" icon="fa-faucet-drip" metaLeft="W" metaRight="A"></AudioTile>
-                    <AudioTile name="Fan" src="./audiosrc/atmos/home_fan.ogg" icon="fa-fan" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Fireplace" src="./audiosrc/atmos/home_fireplace.ogg" icon="fa-fireplace" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Hairdrier" src="./audiosrc/atmos/home_hairdrier.ogg" icon="fa-scissors" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Keyboard" src="./audiosrc/atmos/home_keyboard.ogg" icon="fa-keyboard" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Shower" src="./audiosrc/atmos/home_shower.ogg" icon="fa-shower" metaLeft="W" metaRight="A"></AudioTile>
-                    <AudioTile name="Shower" src="./audiosrc/dawnchorus/sfx/shower.ogg" icon="fa-shower" metaLeft="W" metaRight="D"></AudioTile>
-                    <AudioTile name="Vacuum" src="./audiosrc/atmos/home_vacuum.ogg" icon="fa-vacuum" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Washing Machine" src="./audiosrc/atmos/home_washingmachine.ogg" icon="fa-washing-machine" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Wind" src="./audiosrc/atmos/home_wind.ogg" icon="fa-wind" metaLeft="N" metaRight="A"></AudioTile>
-                    <AudioTile name="White Noise" src="./audiosrc/atmos/home_whitenoise.ogg" icon="fa-waveform" metaLeft="S" metaRight="A"></AudioTile>
-                    <AudioTile name="White Noise" src="./audiosrc/brendan/White_Noise-B.ogg" icon="fa-waveform" metaLeft="S" metaRight="B"></AudioTile>
-                    <AudioTile name="Pink Noise" src="./audiosrc/atmos/home_pinknoise.ogg" icon="fa-waveform" metaLeft="S" metaRight="A"></AudioTile>
-                    <AudioTile name="Brown Noise" src="./audiosrc/atmos/home_brownnoise.ogg" icon="fa-waveform" metaLeft="S" metaRight="A"></AudioTile>
-                    <AudioTile name="Running Water" src="./audiosrc/nita/ph_resortmadness/waterrun.ogg" icon="fa-water" metaLeft="H" metaRight="N"></AudioTile>
-                    <AudioTile name="Wind Chimes" src="./audiosrc/nita/ph_resortmadness/windbell_amb_loop.ogg" icon="fa-bells" metaLeft="H" metaRight="N"></AudioTile>
+                    <AudioTile name="Heartbeat" src="./audiosrc/atmos/home_beats.ogg" icon="fa-heart-pulse" metaLeft="BI | Biology" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Heartbeat" src="./audiosrc/brendan/Heartbeat-B.ogg" icon="fa-heart-pulse" metaLeft="BI | Biology" metaRight="BR | Brendan"></AudioTile>
+                    <AudioTile name="Womb" src="./audiosrc/gloria/Womb-G.ogg" icon="fa-person-pregnant" metaLeft="BI | Biology" metaRight="GL | Gloria"></AudioTile>
+                    <AudioTile name="Cat (Purring)" src="./audiosrc/atmos/home_cat.ogg" icon="fa-cat" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Cat (Meowing)" src="./audiosrc/atmos/home_catmeowing.ogg" icon="fa-cat" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Clock" src="./audiosrc/atmos/home_clock.ogg" icon="fa-clock" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Coffeemaker" src="./audiosrc/atmos/home_coffeemaker.ogg" icon="fa-coffee-pot" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Computer" src="./audiosrc/dawnchorus/sfx/computer_hum.ogg" icon="fa-computer" metaLeft="HU | Humanity" metaRight="DC | Dawn Chorus"></AudioTile>
+                    <AudioTile name="Dripping" src="./audiosrc/atmos/home_drops.ogg" icon="fa-faucet-drip" metaLeft="W | Water" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Fan" src="./audiosrc/atmos/home_fan.ogg" icon="fa-fan" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Fireplace" src="./audiosrc/atmos/home_fireplace.ogg" icon="fa-fireplace" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Hairdrier" src="./audiosrc/atmos/home_hairdrier.ogg" icon="fa-scissors" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Keyboard" src="./audiosrc/atmos/home_keyboard.ogg" icon="fa-keyboard" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Shower" src="./audiosrc/atmos/home_shower.ogg" icon="fa-shower" metaLeft="W | Water" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Shower" src="./audiosrc/dawnchorus/sfx/shower.ogg" icon="fa-shower" metaLeft="W | Water" metaRight="DC | Dawn Chorus"></AudioTile>
+                    <AudioTile name="Vacuum" src="./audiosrc/atmos/home_vacuum.ogg" icon="fa-vacuum" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Washing Machine" src="./audiosrc/atmos/home_washingmachine.ogg" icon="fa-washing-machine" metaLeft="HU | Humanity" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Wind" src="./audiosrc/atmos/home_wind.ogg" icon="fa-wind" metaLeft="N | Nature" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="White Noise" src="./audiosrc/atmos/home_whitenoise.ogg" icon="fa-waveform" metaLeft="SO | Sounds" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="White Noise" src="./audiosrc/brendan/White_Noise-B.ogg" icon="fa-waveform" metaLeft="SO | Sounds" metaRight="BR | Brendan"></AudioTile>
+                    <AudioTile name="Pink Noise" src="./audiosrc/atmos/home_pinknoise.ogg" icon="fa-waveform" metaLeft="SO | Sounds" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Brown Noise" src="./audiosrc/atmos/home_brownnoise.ogg" icon="fa-waveform" metaLeft="SO | Sounds" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Running Water" src="./audiosrc/nita/ph_resortmadness/waterrun.ogg" icon="fa-water" metaLeft="HU | Humanity" metaRight="GM | Nita - Garry's Mod"></AudioTile>
+                    <AudioTile name="Wind Chimes" src="./audiosrc/nita/ph_resortmadness/windbell_amb_loop.ogg" icon="fa-bells" metaLeft="HU | Humanity" metaRight="GM | Nita - Garry's Mod"></AudioTile>
                 </div>
                 <br><p></p><br>
             </details>
@@ -366,18 +372,18 @@
                 <summary>Countryside <i class="fa-solid fa-farm"></i></summary>
                 <br>
                 <div class="mainGrid">
-                    <AudioTile name="Birds" src="./audiosrc/atmos/countryside_birds.ogg" icon="fa-bird" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Chickens" src="./audiosrc/atmos/countryside_chickens.ogg" icon="fa-bird" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Rooster" src="./audiosrc/atmos/countryside_cock.ogg" icon="fa-bird" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Cow" src="./audiosrc/atmos/countryside_cow.ogg" icon="fa-cow" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Dog" src="./audiosrc/atmos/countryside_dog.ogg" icon="fa-dog" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Horse" src="./audiosrc/atmos/countryside_horse.ogg" icon="fa-horse" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Pigs" src="./audiosrc/atmos/countryside_pigs.ogg" icon="fa-pig" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Sheep" src="./audiosrc/atmos/countryside_sheep.ogg" icon="fa-sheep" metaLeft="A" metaRight="A"></AudioTile>
-                    <AudioTile name="Rain" src="./audiosrc/atmos/countryside_rain.ogg" icon="fa-cloud-showers-heavy" metaLeft="N" metaRight="A"></AudioTile>
-                    <AudioTile name="Storm" src="./audiosrc/atmos/countryside_storm.ogg" icon="fa-cloud-bolt" metaLeft="N" metaRight="A"></AudioTile>
-                    <AudioTile name="Stream" src="./audiosrc/atmos/countryside_stream.ogg" icon="fa-arrow-up-from-water-pump" metaLeft="N" metaRight="A"></AudioTile>
-                    <AudioTile name="Wind" src="./audiosrc/atmos/countryside_wind.ogg" icon="fa-wind" metaLeft="N" metaRight="A"></AudioTile>
+                    <AudioTile name="Birds" src="./audiosrc/atmos/countryside_birds.ogg" icon="fa-bird" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Chickens" src="./audiosrc/atmos/countryside_chickens.ogg" icon="fa-bird" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Rooster" src="./audiosrc/atmos/countryside_cock.ogg" icon="fa-bird" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Cow" src="./audiosrc/atmos/countryside_cow.ogg" icon="fa-cow" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Dog" src="./audiosrc/atmos/countryside_dog.ogg" icon="fa-dog" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Horse" src="./audiosrc/atmos/countryside_horse.ogg" icon="fa-horse" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Pigs" src="./audiosrc/atmos/countryside_pigs.ogg" icon="fa-pig" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Sheep" src="./audiosrc/atmos/countryside_sheep.ogg" icon="fa-sheep" metaLeft="A | Animals" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Rain" src="./audiosrc/atmos/countryside_rain.ogg" icon="fa-cloud-showers-heavy" metaLeft="N | Nature" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Storm" src="./audiosrc/atmos/countryside_storm.ogg" icon="fa-cloud-bolt" metaLeft="N | Nature" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Stream" src="./audiosrc/atmos/countryside_stream.ogg" icon="fa-arrow-up-from-water-pump" metaLeft="N | Nature" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Wind" src="./audiosrc/atmos/countryside_wind.ogg" icon="fa-wind" metaLeft="N | Nature" metaRight="AS | Atmosphere"></AudioTile>
                 </div>
                 <br><p></p><br>
             </details>
@@ -392,27 +398,27 @@
                     <summary>Dawn Chorus <i class="fa-solid fa-cabin"></i></summary>
                     <br>
                     <div class="mainGrid">
-                        <AudioTile name="Dawn Chorus" src="./audiosrc/dawnchorus/music/main_menu_music.ogg" icon="fa-cabin" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="Charlie" src="./audiosrc/dawnchorus/music/charlie.ogg" icon="fa-turntable" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="Flannel" src="./audiosrc/dawnchorus/music/flannel.ogg" icon="fa-scarf" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="Dinnertime" src="./audiosrc/dawnchorus/music/dinnertime.ogg" icon="fa-plate-wheat" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="Underwater" src="./audiosrc/dawnchorus/music/underwater.ogg" icon="fa-house-water" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="Sunset" src="./audiosrc/dawnchorus/music/last_minutes_of_the_evening_sun.ogg" icon="fa-sun-haze" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="Goodbye" src="./audiosrc/dawnchorus/music/leave.ogg" icon="fa-door-open" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="December" src="./audiosrc/dawnchorus/music/memories_of_december.ogg" icon="fa-globe-snow" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="Lullaby" src="./audiosrc/dawnchorus/music/lullaby_2.ogg" icon="fa-gramophone" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="Meadow" src="./audiosrc/dawnchorus/music/meadow_2.ogg" icon="fa-wheat" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="Rainy Weather" src="./audiosrc/dawnchorus/music/rainy_weather.ogg" icon="fa-cloud-showers-heavy" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="Bittersweet Memory" src="./audiosrc/dawnchorus/music/secret_meadow.ogg" icon="fa-bench-tree" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="Train Tracks" src="./audiosrc/dawnchorus/music/train_tracks.ogg" icon="fa-train-track" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="Snowfall" src="./audiosrc/dawnchorus/music/snowfall.ogg" icon="fa-snowflakes" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="Cosmic Speck" src="./audiosrc/dawnchorus/music/stars.ogg" icon="fa-comet" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="Sunshine" src="./audiosrc/dawnchorus/music/watching_the_sun.ogg" icon="fa-sun-bright" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="Electric Heat" src="./audiosrc/dawnchorus/music/electric_heat.ogg" icon="fa-dryer-heat" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="Wooden Walls" src="./audiosrc/dawnchorus/music/wooden_walls.ogg" icon="fa-house-tree" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="Wood and Bone" src="./audiosrc/dawnchorus/music/wood_and_bone.ogg" icon="fa-fence" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="Antlers" src="./audiosrc/dawnchorus/music/rune.ogg" icon="fa-deer" metaLeft="D" metaRight="D"></AudioTile>
-                        <AudioTile name="Lakes" src="./audiosrc/dawnchorus/music/lake_song.ogg" icon="fa-arrow-up-from-water-pump" metaLeft="D" metaRight="D"></AudioTile>
+                        <AudioTile name="Dawn Chorus" src="./audiosrc/dawnchorus/music/main_menu_music.ogg" icon="fa-cabin" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="Charlie" src="./audiosrc/dawnchorus/music/charlie.ogg" icon="fa-turntable" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="Flannel" src="./audiosrc/dawnchorus/music/flannel.ogg" icon="fa-scarf" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="Dinnertime" src="./audiosrc/dawnchorus/music/dinnertime.ogg" icon="fa-plate-wheat" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="Underwater" src="./audiosrc/dawnchorus/music/underwater.ogg" icon="fa-house-water" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="Sunset" src="./audiosrc/dawnchorus/music/last_minutes_of_the_evening_sun.ogg" icon="fa-sun-haze" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="Goodbye" src="./audiosrc/dawnchorus/music/leave.ogg" icon="fa-door-open" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="December" src="./audiosrc/dawnchorus/music/memories_of_december.ogg" icon="fa-globe-snow" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="Lullaby" src="./audiosrc/dawnchorus/music/lullaby_2.ogg" icon="fa-gramophone" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="Meadow" src="./audiosrc/dawnchorus/music/meadow_2.ogg" icon="fa-wheat" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="Rainy Weather" src="./audiosrc/dawnchorus/music/rainy_weather.ogg" icon="fa-cloud-showers-heavy" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="Bittersweet Memory" src="./audiosrc/dawnchorus/music/secret_meadow.ogg" icon="fa-bench-tree" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="Train Tracks" src="./audiosrc/dawnchorus/music/train_tracks.ogg" icon="fa-train-track" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="Snowfall" src="./audiosrc/dawnchorus/music/snowfall.ogg" icon="fa-snowflakes" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="Cosmic Speck" src="./audiosrc/dawnchorus/music/stars.ogg" icon="fa-comet" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="Sunshine" src="./audiosrc/dawnchorus/music/watching_the_sun.ogg" icon="fa-sun-bright" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="Electric Heat" src="./audiosrc/dawnchorus/music/electric_heat.ogg" icon="fa-dryer-heat" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="Wooden Walls" src="./audiosrc/dawnchorus/music/wooden_walls.ogg" icon="fa-house-tree" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="Wood and Bone" src="./audiosrc/dawnchorus/music/wood_and_bone.ogg" icon="fa-fence" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="Antlers" src="./audiosrc/dawnchorus/music/rune.ogg" icon="fa-deer" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
+                        <AudioTile name="Lakes" src="./audiosrc/dawnchorus/music/lake_song.ogg" icon="fa-arrow-up-from-water-pump" metaLeft="M | Music" metaRight="DC | Dawn Chorus"></AudioTile>
                     </div>
                     <br><p></p><br>
                 </details>
@@ -421,12 +427,12 @@
                     <summary>Tennis Ace <i class="fa-solid fa-tennis-ball"></i></summary>
                     <br>
                     <div class="mainGrid">
-                        <AudioTile name="Two Together" src="./audiosrc/tennisace/Two_Together.ogg" icon="fa-tennis-ball" metaLeft="T" metaRight="K"></AudioTile>
-                        <AudioTile name="Autumn Day" src="./audiosrc/tennisace/Autumn_Day.ogg" icon="fa-leaf-maple" metaLeft="T" metaRight="K"></AudioTile>
-                        <AudioTile name="Dog Days" src="./audiosrc/tennisace/Dog_Days.ogg" icon="fa-sun-haze" metaLeft="T" metaRight="?"></AudioTile>
-                        <AudioTile name="Hanging Out" src="./audiosrc/tennisace/Hanging_Out.ogg" icon="fa-bowling-ball-pin" metaLeft="T" metaRight="?"></AudioTile>
-                        <AudioTile name="Snowy Day" src="./audiosrc/tennisace/Snowy_Day.ogg" icon="fa-snowflakes" metaLeft="T" metaRight="?"></AudioTile>
-                        <AudioTile name="The People Here" src="./audiosrc/tennisace/The_People_Here.ogg" icon="fa-hands-holding-heart" metaLeft="T" metaRight="?"></AudioTile>
+                        <AudioTile name="Two Together" src="./audiosrc/tennisace/Two_Together.ogg" icon="fa-tennis-ball" metaLeft="TA | Tennis Ace - Music" metaRight="KM | Kevin Macleoud"></AudioTile>
+                        <AudioTile name="Autumn Day" src="./audiosrc/tennisace/Autumn_Day.ogg" icon="fa-leaf-maple" metaLeft="TA | Tennis Ace - Music" metaRight="KM | Kevin Macleoud"></AudioTile>
+                        <AudioTile name="Dog Days" src="./audiosrc/tennisace/Dog_Days.ogg" icon="fa-sun-haze" metaLeft="TA | Tennis Ace - Music" metaRight="? | Unknown"></AudioTile>
+                        <AudioTile name="Hanging Out" src="./audiosrc/tennisace/Hanging_Out.ogg" icon="fa-bowling-ball-pin" metaLeft="TA | Tennis Ace - Music" metaRight="? | Unknown"></AudioTile>
+                        <AudioTile name="Snowy Day" src="./audiosrc/tennisace/Snowy_Day.ogg" icon="fa-snowflakes" metaLeft="TA | Tennis Ace - Music" metaRight="? | Unknown"></AudioTile>
+                        <AudioTile name="The People Here" src="./audiosrc/tennisace/The_People_Here.ogg" icon="fa-hands-holding-heart" metaLeft="TA | Tennis Ace - Music" metaRight="? | Unknown"></AudioTile>
                     </div>
                     <br><p></p><br>
                 </details>
@@ -435,33 +441,33 @@
                     <summary>Other <i class="fa-solid fa-infinity"></i></summary>
                     <br>
                     <div class="mainGrid">
-                        <AudioTile name="Beach Guitar" src="./audiosrc/atmos/beach_guitar.ogg" icon="fa-umbrella-beach" metaLeft="A" metaRight="A"></AudioTile>
-                        <AudioTile name="Beach Melody" src="./audiosrc/atmos/beach_guitarplaying.ogg" icon="fa-umbrella-beach" metaLeft="A" metaRight="A"></AudioTile>
-                        <AudioTile name="The German" src="./audiosrc/thegerman/TheGerman_Title.ogg" icon="fa-brands fa-apple" metaLeft=" " metaRight="?"></AudioTile>
-                        <AudioTile name="Demise" src="./audiosrc/aetherii/record/demise.ogg" icon="fa-cloud-rainbow" metaLeft="M" metaRight="2"></AudioTile>
-                        <AudioTile name="Paradise" src="./audiosrc/aetherii/music/Welcome_to_Paradise.ogg" icon="fa-cloud-rainbow" metaLeft="M" metaRight="2"></AudioTile>
-                        <AudioTile name="Meadow" src="./audiosrc/aetherii/music/Meadow.ogg" icon="fa-cloud-rainbow" metaLeft="M" metaRight="2"></AudioTile>
-                        <AudioTile name="Moa's Song" src="./audiosrc/aetherii/music/Moas_Song.ogg" icon="fa-cloud-rainbow" metaLeft="M" metaRight="2"></AudioTile>
-                        <AudioTile name="A Walk" src="./audiosrc/nita/gm_abstraction_extended/A_Walk.ogg" icon="fa-umbrella-beach" metaLeft="M" metaRight="N"></AudioTile>
-                        <AudioTile name="Harvest Moon" src="./audiosrc/nita/gm_abstraction_extended/Harvest_Moon.ogg" icon="fa-umbrella-beach" metaLeft="M" metaRight="N"></AudioTile>
-                        <AudioTile name="Nimbus" src="./audiosrc/nita/gm_abstraction_extended/Nimbus.ogg" icon="fa-umbrella-beach" metaLeft="M" metaRight="N"></AudioTile>
-                        <AudioTile name="The Sea" src="./audiosrc/nita/gm_abstraction_extended/The_Sea.ogg" icon="fa-umbrella-beach" metaLeft="M" metaRight="N"></AudioTile>
-                        <AudioTile name="Winter Dusk" src="./audiosrc/dst_duskandnightmusic/Winter_Dusk.ogg" icon="fa-drumstick-bite" metaLeft="M" metaRight="L"></AudioTile>
-                        <AudioTile name="New Age" src="./audiosrc/theincrediblemachine/TIM3_new_age.ogg" icon="fa-lightbulb-gear" metaLeft="M" metaRight="I"></AudioTile>
-                        <AudioTile name="Aquarium" src="./audiosrc/wiifishing/aquarium.ogg" icon="fa-fish-fins" metaLeft="M" metaRight="F"></AudioTile>
-                        <AudioTile name="Magical Sanctum" src="./audiosrc/magicalsanctum/MagicalSanctum.ogg" icon="fa-hat-wizard" metaLeft="M" metaRight="M"></AudioTile>
-                        <AudioTile name="Passing Though (VRChat)" src="./audiosrc/vrchat/PassingThrough.ogg" icon="fa-vr-cardboard" metaLeft="M" metaRight="V"></AudioTile>
-                        <AudioTile name="Passing Though (Sleep)" src="./audiosrc/vrchat/PassingThroughSleep.ogg" icon="fa-vr-cardboard" metaLeft="M" metaRight="V"></AudioTile>
-                        <AudioTile name="Tartarus" src="./audiosrc/portal2/tartarus.ogg" icon="fa-volcano" metaLeft="M" metaRight="P"></AudioTile>
-                        <AudioTile name="Cloth" src="./audiosrc/stardewvalley/Cloth.ogg" icon="fa-reel" metaLeft="M" metaRight="S"></AudioTile>
-                        <AudioTile name="Icicles" src="./audiosrc/stardewvalley/Icicles.ogg" icon="fa-icicles" metaLeft="M" metaRight="S"></AudioTile>
-                        <AudioTile name="Moonlight Jellyfish" src="./audiosrc/stardewvalley/MoonlightJellies.ogg" icon="fa-moon-stars" metaLeft="M" metaRight="S"></AudioTile>
-                        <AudioTile name="Nocturne of Ice" src="./audiosrc/stardewvalley/NocturneOfIce.ogg" icon="fa-hat-winter" metaLeft="M" metaRight="S"></AudioTile>
-                        <AudioTile name="Submarine" src="./audiosrc/stardewvalley/Submarine.ogg" icon="fa-fishing-rod" metaLeft="M" metaRight="S"></AudioTile>
-                        <AudioTile name="Ocean" src="./audiosrc/terraria/Ocean.ogg" icon="fa-umbrella-beach" metaLeft="M" metaRight="T"></AudioTile>
-                        <AudioTile name="Sulfurous Sea" src="./audiosrc/terraria/Wasteland.ogg" icon="fa-sun-haze" metaLeft="M" metaRight="T"></AudioTile>
-                        <AudioTile name="Sulfurous Night" src="./audiosrc/terraria/CausticTides.ogg" icon="fa-cloud-fog" metaLeft="M" metaRight="T"></AudioTile>
-                        <AudioTile name="Sunken Sea" src="./audiosrc/terraria/SunkenSea.ogg" icon="fa-treasure-chest" metaLeft="M" metaRight="T"></AudioTile>
+                        <AudioTile name="Beach Guitar" src="./audiosrc/atmos/beach_guitar.ogg" icon="fa-umbrella-beach" metaLeft="M | Music" metaRight="AS | Atmosphere"></AudioTile>
+                        <AudioTile name="Beach Melody" src="./audiosrc/atmos/beach_guitarplaying.ogg" icon="fa-umbrella-beach" metaLeft="M | Music" metaRight="AS | Atmosphere"></AudioTile>
+                        <AudioTile name="The German" src="./audiosrc/thegerman/TheGerman_Title.ogg" icon="fa-brands fa-apple" metaLeft="M | Music" metaRight="? | Unknown"></AudioTile>
+                        <AudioTile name="Demise" src="./audiosrc/aetherii/record/demise.ogg" icon="fa-cloud-rainbow" metaLeft="M | Music" metaRight="A2 | Aether II"></AudioTile>
+                        <AudioTile name="Paradise" src="./audiosrc/aetherii/music/Welcome_to_Paradise.ogg" icon="fa-cloud-rainbow" metaLeft="M | Music" metaRight="A2 | Aether II"></AudioTile>
+                        <AudioTile name="Meadow" src="./audiosrc/aetherii/music/Meadow.ogg" icon="fa-cloud-rainbow" metaLeft="M | Music" metaRight="A2 | Aether II"></AudioTile>
+                        <AudioTile name="Moa's Song" src="./audiosrc/aetherii/music/Moas_Song.ogg" icon="fa-cloud-rainbow" metaLeft="M | Music" metaRight="A2 | Aether II"></AudioTile>
+                        <AudioTile name="A Walk" src="./audiosrc/nita/gm_abstraction_extended/A_Walk.ogg" icon="fa-umbrella-beach" metaLeft="M | Music" metaRight="GM | Nita - Garry's Mod"></AudioTile>
+                        <AudioTile name="Harvest Moon" src="./audiosrc/nita/gm_abstraction_extended/Harvest_Moon.ogg" icon="fa-umbrella-beach" metaLeft="M | Music" metaRight="GM | Nita - Garry's Mod"></AudioTile>
+                        <AudioTile name="Nimbus" src="./audiosrc/nita/gm_abstraction_extended/Nimbus.ogg" icon="fa-umbrella-beach" metaLeft="M | Music" metaRight="GM | Nita - Garry's Mod"></AudioTile>
+                        <AudioTile name="The Sea" src="./audiosrc/nita/gm_abstraction_extended/The_Sea.ogg" icon="fa-umbrella-beach" metaLeft="M | Music" metaRight="GM | Nita - Garry's Mod"></AudioTile>
+                        <AudioTile name="Winter Dusk" src="./audiosrc/dst_duskandnightmusic/Winter_Dusk.ogg" icon="fa-drumstick-bite" metaLeft="M | Music" metaRight="WL | Dragon Wolf Leo - Don't Starve Music Mod"></AudioTile>
+                        <AudioTile name="New Age" src="./audiosrc/theincrediblemachine/TIM3_new_age.ogg" icon="fa-lightbulb-gear" metaLeft="M | Music" metaRight="IM | The Incredible Machine"></AudioTile>
+                        <AudioTile name="Aquarium" src="./audiosrc/wiifishing/aquarium.ogg" icon="fa-fish-fins" metaLeft="M | Music" metaRight="FR | Wii Fishing Resort"></AudioTile>
+                        <AudioTile name="Magical Sanctum" src="./audiosrc/magicalsanctum/MagicalSanctum.ogg" icon="fa-hat-wizard" metaLeft="M | Music" metaRight="MS | My Singing Monsters"></AudioTile>
+                        <AudioTile name="Passing Though (VRChat)" src="./audiosrc/vrchat/PassingThrough.ogg" icon="fa-vr-cardboard" metaLeft="M | Music" metaRight="VR | VRChat"></AudioTile>
+                        <AudioTile name="Passing Though (Sleep)" src="./audiosrc/vrchat/PassingThroughSleep.ogg" icon="fa-vr-cardboard" metaLeft="M | Music" metaRight="VR | VRChat"></AudioTile>
+                        <AudioTile name="Tartarus" src="./audiosrc/portal2/tartarus.ogg" icon="fa-volcano" metaLeft="M | Music" metaRight="P2 | Portal 2"></AudioTile>
+                        <AudioTile name="Cloth" src="./audiosrc/stardewvalley/Cloth.ogg" icon="fa-reel" metaLeft="M | Music" metaRight="SV | Stardew Valley"></AudioTile>
+                        <AudioTile name="Icicles" src="./audiosrc/stardewvalley/Icicles.ogg" icon="fa-icicles" metaLeft="M | Music" metaRight="SV | Stardew Valley"></AudioTile>
+                        <AudioTile name="Moonlight Jellyfish" src="./audiosrc/stardewvalley/MoonlightJellies.ogg" icon="fa-moon-stars" metaLeft="M | Music" metaRight="SV | Stardew Valley"></AudioTile>
+                        <AudioTile name="Nocturne of Ice" src="./audiosrc/stardewvalley/NocturneOfIce.ogg" icon="fa-hat-winter" metaLeft="M | Music" metaRight="SV | Stardew Valley"></AudioTile>
+                        <AudioTile name="Submarine" src="./audiosrc/stardewvalley/Submarine.ogg" icon="fa-fishing-rod" metaLeft="M | Music" metaRight="SV | Stardew Valley"></AudioTile>
+                        <AudioTile name="Ocean" src="./audiosrc/terraria/Ocean.ogg" icon="fa-umbrella-beach" metaLeft="M | Music" metaRight="TR | Terraria (and Mods)"></AudioTile>
+                        <AudioTile name="Sulfurous Sea" src="./audiosrc/terraria/Wasteland.ogg" icon="fa-sun-haze" metaLeft="M | Music" metaRight="TR | Terraria (and Mods)"></AudioTile>
+                        <AudioTile name="Sulfurous Night" src="./audiosrc/terraria/CausticTides.ogg" icon="fa-cloud-fog" metaLeft="M | Music" metaRight="TR | Terraria (and Mods)"></AudioTile>
+                        <AudioTile name="Sunken Sea" src="./audiosrc/terraria/SunkenSea.ogg" icon="fa-treasure-chest" metaLeft="M | Music" metaRight="TR | Terraria (and Mods)"></AudioTile>
                         
                     </div>
                     <br><p></p><br>
@@ -476,23 +482,23 @@
                 <summary>Weather <i class="fa-solid fa-cloud-bolt-sun"></i></summary>
                 <br>
                 <div class="mainGrid">
-                    <AudioTile name="Rain" src="./audiosrc/gloria/Rain-G.ogg" icon="fa-cloud-showers-heavy" metaLeft=" " metaRight="G"></AudioTile>
-                    <AudioTile name="Rain (Forest)" src="./audiosrc/atmos/forest_rain.ogg" icon="fa-cloud-showers-heavy" metaLeft="F" metaRight="A"></AudioTile>
-                    <AudioTile name="Rain (Beach)" src="./audiosrc/atmos/beach_rain.ogg" icon="fa-cloud-showers-heavy" metaLeft="B" metaRight="A"></AudioTile>
-                    <AudioTile name="Rain (City)" src="./audiosrc/atmos/city_rain.ogg" icon="fa-cloud-showers-heavy" metaLeft="U" metaRight="A"></AudioTile>
-                    <AudioTile name="Rain (Countryside)" src="./audiosrc/atmos/countryside_rain.ogg" icon="fa-cloud-showers-heavy" metaLeft="C" metaRight="A"></AudioTile>
-                    <AudioTile name="Rain on Tent" src="./audiosrc/atmos/forest_rainontent.ogg" icon="fa-campground" metaLeft="F" metaRight="A"></AudioTile>
-                    <AudioTile name="Rain on Window" src="./audiosrc/atmos/city_windowrain.ogg" icon="fa-window-frame" metaLeft="U" metaRight="A"></AudioTile>
-                    <AudioTile name="Storm (Forest)" src="./audiosrc/atmos/forest_storm.ogg" icon="fa-cloud-bolt" metaLeft="F" metaRight="A"></AudioTile>
-                    <AudioTile name="Storm (Beach)" src="./audiosrc/atmos/beach_storm.ogg" icon="fa-cloud-bolt" metaLeft="B" metaRight="A"></AudioTile>
-                    <AudioTile name="Storm (Countryside)" src="./audiosrc/atmos/countryside_storm.ogg" icon="fa-cloud-bolt" metaLeft="C" metaRight="A"></AudioTile>
-                    <AudioTile name="Thunder (Only)" src="./audiosrc/gloria/Thunder-G.ogg" icon="fa-cloud-bolt" metaLeft=" " metaRight="G"></AudioTile>
-                    <AudioTile name="Wind" src="./audiosrc/gloria/Wind-G.ogg" icon="fa-wind" metaLeft=" " metaRight="G"></AudioTile>
-                    <AudioTile name="Wind" src="./audiosrc/dawnchorus/sfx/wind.ogg" icon="fa-wind" metaLeft="N" metaRight="D"></AudioTile>
-                    <AudioTile name="Wind (Forest)" src="./audiosrc/atmos/forest_wind.ogg" icon="fa-wind" metaLeft="F" metaRight="A"></AudioTile>
-                    <AudioTile name="Wind (City)" src="./audiosrc/atmos/city_wind.ogg" icon="fa-wind" metaLeft="U" metaRight="A"></AudioTile>
-                    <AudioTile name="Wind (House)" src="./audiosrc/atmos/home_wind.ogg" icon="fa-wind" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Wind (Countryside)" src="./audiosrc/atmos/countryside_wind.ogg" icon="fa-wind" metaLeft="C" metaRight="A"></AudioTile>
+                    <AudioTile name="Rain" src="./audiosrc/gloria/Rain-G.ogg" icon="fa-cloud-showers-heavy" metaLeft="G | Gloria" metaRight="GL | Gloria"></AudioTile>
+                    <AudioTile name="Rain (Forest)" src="./audiosrc/atmos/forest_rain.ogg" icon="fa-cloud-showers-heavy" metaLeft="F | Forest" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Rain (Beach)" src="./audiosrc/atmos/beach_rain.ogg" icon="fa-cloud-showers-heavy" metaLeft="B | Beach" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Rain (City)" src="./audiosrc/atmos/city_rain.ogg" icon="fa-cloud-showers-heavy" metaLeft="U | Urban" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Rain (Countryside)" src="./audiosrc/atmos/countryside_rain.ogg" icon="fa-cloud-showers-heavy" metaLeft="C | Countryside" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Rain on Tent" src="./audiosrc/atmos/forest_rainontent.ogg" icon="fa-campground" metaLeft="F | Forest" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Rain on Window" src="./audiosrc/atmos/city_windowrain.ogg" icon="fa-window-frame" metaLeft="U | Urban" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Storm (Forest)" src="./audiosrc/atmos/forest_storm.ogg" icon="fa-cloud-bolt" metaLeft="F | Forest" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Storm (Beach)" src="./audiosrc/atmos/beach_storm.ogg" icon="fa-cloud-bolt" metaLeft="B | Beach" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Storm (Countryside)" src="./audiosrc/atmos/countryside_storm.ogg" icon="fa-cloud-bolt" metaLeft="C | Countryside" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Thunder (Only)" src="./audiosrc/gloria/Thunder-G.ogg" icon="fa-cloud-bolt" metaLeft="G | Gloria" metaRight="GL | Gloria"></AudioTile>
+                    <AudioTile name="Wind" src="./audiosrc/gloria/Wind-G.ogg" icon="fa-wind" metaLeft="G | Gloria" metaRight="GL | Gloria"></AudioTile>
+                    <AudioTile name="Wind" src="./audiosrc/dawnchorus/sfx/wind.ogg" icon="fa-wind" metaLeft="DC | Dawn Chorus" metaRight="DC | Dawn Chorus"></AudioTile>
+                    <AudioTile name="Wind (Forest)" src="./audiosrc/atmos/forest_wind.ogg" icon="fa-wind" metaLeft="F | Forest" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Wind (City)" src="./audiosrc/atmos/city_wind.ogg" icon="fa-wind" metaLeft="U | Urban" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Wind (House)" src="./audiosrc/atmos/home_wind.ogg" icon="fa-wind" metaLeft="HO | Home" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Wind (Countryside)" src="./audiosrc/atmos/countryside_wind.ogg" icon="fa-wind" metaLeft="C | Countryside" metaRight="AS | Atmosphere"></AudioTile>
                 </div>
                 <br><p></p><br>
             </details>
@@ -503,32 +509,32 @@
                 <summary>Animals <i class="fa-solid fa-pig"></i></summary>
                 <br>
                 <div class="mainGrid">
-                    <AudioTile name="Birds" src="./audiosrc/gloria/Bird-G.ogg" icon="fa-bird" metaLeft=" " metaRight="G"></AudioTile>
-                    <AudioTile name="Birds (Forest)" src="./audiosrc/atmos/forest_birds.ogg" icon="fa-bird" metaLeft="F" metaRight="A"></AudioTile>
-                    <AudioTile name="Birds (Park)" src="./audiosrc/atmos/park_birds.ogg" icon="fa-bird" metaLeft="A" metaRight="P"></AudioTile>
-                    <AudioTile name="Birds (Countryside)" src="./audiosrc/atmos/countryside_birds.ogg" icon="fa-bird" metaLeft="C" metaRight="A"></AudioTile>
-                    <AudioTile name="Ducks" src="./audiosrc/atmos/park_ducks.ogg" icon="fa-duck" metaLeft="P" metaRight="A"></AudioTile>
-                    <AudioTile name="Seagull" src="./audiosrc/atmos/beach_seagull.ogg" icon="fa-bird" metaLeft="B" metaRight="A"></AudioTile>
-                    <AudioTile name="Seagull" src="./audiosrc/gloria/Seagull-G.ogg" icon="fa-bird" metaLeft="B" metaRight="G"></AudioTile>
-                    <AudioTile name="Pigeons" src="./audiosrc/atmos/urban_pigeons.ogg" icon="fa-bird" metaLeft="U" metaRight="A"></AudioTile>
-                    <AudioTile name="Owl" src="./audiosrc/atmos/forest_owl.ogg" icon="fa-bird" metaLeft="F" metaRight="A"></AudioTile>
-                    <AudioTile name="Tawny Owl" src="./audiosrc/atmos/forest_tawnyowl.ogg" icon="fa-bird" metaLeft="F" metaRight="A"></AudioTile>
-                    <AudioTile name="Woodpecker" src="./audiosrc/atmos/forest_woodpecker.ogg" icon="fa-bird" metaLeft="F" metaRight="A"></AudioTile>
-                    <AudioTile name="Dog (Park)" src="./audiosrc/atmos/park_dog.ogg" icon="fa-dog" metaLeft="P" metaRight="A"></AudioTile>
-                    <AudioTile name="Dog (Countryside)" src="./audiosrc/atmos/countryside_dog.ogg" icon="fa-dog" metaLeft="C" metaRight="A"></AudioTile>
-                    <AudioTile name="Cat (Purring)" src="./audiosrc/atmos/home_cat.ogg" icon="fa-cat" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Cat (Meowing)" src="./audiosrc/atmos/home_catmeowing.ogg" icon="fa-cat" metaLeft="H" metaRight="A"></AudioTile>
-                    <AudioTile name="Wolf" src="./audiosrc/atmos/forest_wolf.ogg" icon="fa-moon-stars" metaLeft="F" metaRight="A"></AudioTile>
-                    <AudioTile name="Chickens" src="./audiosrc/atmos/countryside_chickens.ogg" icon="fa-bird" metaLeft="C" metaRight="A"></AudioTile>
-                    <AudioTile name="Rooster" src="./audiosrc/atmos/countryside_cock.ogg" icon="fa-bird" metaLeft="C" metaRight="A"></AudioTile>
-                    <AudioTile name="Cow" src="./audiosrc/atmos/countryside_cow.ogg" icon="fa-cow" metaLeft="C" metaRight="A"></AudioTile>
-                    <AudioTile name="Horse" src="./audiosrc/atmos/countryside_horse.ogg" icon="fa-horse" metaLeft="C" metaRight="A"></AudioTile>
-                    <AudioTile name="Pigs" src="./audiosrc/atmos/countryside_pigs.ogg" icon="fa-pig" metaLeft="C" metaRight="A"></AudioTile>
-                    <AudioTile name="Sheep" src="./audiosrc/atmos/countryside_sheep.ogg" icon="fa-sheep" metaLeft="C" metaRight="A"></AudioTile>
-                    <AudioTile name="Crickets" src="./audiosrc/atmos/forest_crickets.ogg" icon="fa-locust" metaLeft="F" metaRight="A"></AudioTile>
-                    <AudioTile name="Cicada" src="./audiosrc/nita/ph_resortmadness/cicada04d.ogg" icon="fa-bugs" metaLeft="A" metaRight="N"></AudioTile>
-                    <AudioTile name="Frogs" src="./audiosrc/atmos/forest_frogs.ogg" icon="fa-frog" metaLeft="F" metaRight="A"></AudioTile>
-                    <AudioTile name="Whale" src="./audiosrc/atmos/underwater_whale.ogg" icon="fa-whale" metaLeft="W" metaRight="A"></AudioTile>
+                    <AudioTile name="Birds" src="./audiosrc/gloria/Bird-G.ogg" icon="fa-bird" metaLeft="F | Forest" metaRight="GL | Gloria"></AudioTile>
+                    <AudioTile name="Birds (Forest)" src="./audiosrc/atmos/forest_birds.ogg" icon="fa-bird" metaLeft="F | Forest" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Birds (Park)" src="./audiosrc/atmos/park_birds.ogg" icon="fa-bird" metaLeft="P | Park" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Birds (Countryside)" src="./audiosrc/atmos/countryside_birds.ogg" icon="fa-bird" metaLeft="C | Countryside" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Ducks" src="./audiosrc/atmos/park_ducks.ogg" icon="fa-duck" metaLeft="P | Park" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Seagull" src="./audiosrc/atmos/beach_seagull.ogg" icon="fa-bird" metaLeft="B | Beach" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Seagull" src="./audiosrc/gloria/Seagull-G.ogg" icon="fa-bird" metaLeft="B | Beach" metaRight="GL | Gloria"></AudioTile>
+                    <AudioTile name="Pigeons" src="./audiosrc/atmos/urban_pigeons.ogg" icon="fa-bird" metaLeft="U | Urban" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Owl" src="./audiosrc/atmos/forest_owl.ogg" icon="fa-bird" metaLeft="F | Forest" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Tawny Owl" src="./audiosrc/atmos/forest_tawnyowl.ogg" icon="fa-bird" metaLeft="F | Forest" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Woodpecker" src="./audiosrc/atmos/forest_woodpecker.ogg" icon="fa-bird" metaLeft="F | Forest" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Dog (Park)" src="./audiosrc/atmos/park_dog.ogg" icon="fa-dog" metaLeft="P | Park" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Dog (Countryside)" src="./audiosrc/atmos/countryside_dog.ogg" icon="fa-dog" metaLeft="C | Countryside" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Cat (Purring)" src="./audiosrc/atmos/home_cat.ogg" icon="fa-cat" metaLeft="HO | Home" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Cat (Meowing)" src="./audiosrc/atmos/home_catmeowing.ogg" icon="fa-cat" metaLeft="HO | Home" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Wolf" src="./audiosrc/atmos/forest_wolf.ogg" icon="fa-moon-stars" metaLeft="F | Forest" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Chickens" src="./audiosrc/atmos/countryside_chickens.ogg" icon="fa-bird" metaLeft="C | Countryside" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Rooster" src="./audiosrc/atmos/countryside_cock.ogg" icon="fa-bird" metaLeft="C | Countryside" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Cow" src="./audiosrc/atmos/countryside_cow.ogg" icon="fa-cow" metaLeft="C | Countryside" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Horse" src="./audiosrc/atmos/countryside_horse.ogg" icon="fa-horse" metaLeft="C | Countryside" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Pigs" src="./audiosrc/atmos/countryside_pigs.ogg" icon="fa-pig" metaLeft="C | Countryside" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Sheep" src="./audiosrc/atmos/countryside_sheep.ogg" icon="fa-sheep" metaLeft="C | Countryside" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Crickets" src="./audiosrc/atmos/forest_crickets.ogg" icon="fa-locust" metaLeft="F | Forest" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Cicada" src="./audiosrc/nita/ph_resortmadness/cicada04d.ogg" icon="fa-bugs" metaLeft="F | Forest" metaRight="GM | Nita - Garry's Mod"></AudioTile>
+                    <AudioTile name="Frogs" src="./audiosrc/atmos/forest_frogs.ogg" icon="fa-frog" metaLeft="F | Forest" metaRight="AS | Atmosphere"></AudioTile>
+                    <AudioTile name="Whale" src="./audiosrc/atmos/underwater_whale.ogg" icon="fa-whale" metaLeft="W | Water" metaRight="AS | Atmosphere"></AudioTile>
                 </div>
                 <br><p></p><br>
             </details>
@@ -549,21 +555,21 @@
                     <summary>Audio Sources <i class="fa-solid fa-folder-music"></i></summary>
                     <b>Each audio tile has a single letter in the top right of each tile indicating the source of the sound. A legend is below.</b><br>
                     <ul>
-                        <li><b>A</b> - Sounds from <i>Atmosphere</i> Mobile Application (<a target="_blank" href="https://play.google.com/store/apps/details?id=com.peakpocketstudios.atmosphere">Google Play</a>) (<a target="_blank" href="https://peakpocketstudios.com/">Website</a>)</li>
-                        <li><b>B</b> - Sounds from <i>1999 Conair SU2R</i> (<a target="_blank" href="https://www.ebay.com/itm/226174116501">Listing</a>) (<a target="_blank" href="https://web.archive.org/web/20250407200159/https://www.ebay.com/itm/226174116501">Archive</a>)</li>
-                        <li><b>D</b> - Sounds from <i>Dawn Chorus</i> (<a target="_blank" href="https://dawn-chorus.itch.io/dawn-chorus">Game</a>) (<a target="_blank" href="https://buildingslikeradiators.bandcamp.com/album/dawn-chorus-soundtrack-vol-1">Soundtrack Vol 1</a>) (<a target="_blank" href="https://buildingslikeradiators.bandcamp.com/album/dawn-chorus-soundtrack-vol-2">Soundtrack Vol 2</a>)</li>
-                        <li><b>F</b> - Music from <i>Wii Fishing Resort</i> (<a target="_blank" href="https://en.wikipedia.org/wiki/Fishing_Resort">Wikipedia</a>)</li>
-                        <li><b>G</b> - Sounds from <i>DEX PRODUCTS SSWM-01&quot;SOUND SLEEPER&quot;</i> (<a target="_blank" href="https://www.dexbaby.com/s/SS-01_Instructions_0810.pdf">Manual</a>) (<a target="_blank" href="https://web.archive.org/web/20250407200524/https://www.dexbaby.com/s/SS-01_Instructions_0810.pdf">Archive</a>)</li>
-                        <li><b>I</b> - Music from <i>The Incredible Machine 3</i> (<a target="_blank" href="https://www.gog.com/en/game/the_incredible_machine_mega_pack">GOG Storepage</a>) (<a target="_blank" href="https://youtu.be/CWQZ8PEVn7o">YouTube</a>)</li>
-                        <li><b>K</b> - Royalty-free music from <i>Kevin MacLeod</i> (<a target="_blank" href="https://incompetech.com/music/royalty-free/music.html">Website</a>)</li>
-                        <li><b>L</b> - Music from <i>Dusk and Night Music</i> mod, composed by <i>Dragon Wolf Leo</i> (<a target="_blank" href="https://steamcommunity.com/sharedfiles/filedetails/?id=416991215">Steam Workshop</a>) (<a target="_blank" href="https://youtu.be/wK7E97Cdxfg">YouTube</a>) (<a target="_blank" href="https://drive.google.com/file/d/0B-TkVUjFUD-pd1NXUWR0emxsRjg/view?resourcekey=0-jSu8VIAPdQ33L8WmBeCigA">Google Drive</a>)</li>
-                        <li><b>M</b> - Music from <i>My Singing Monsters</i> (<a target="_blank", href="https://store.steampowered.com/app/1419170/">Steam Store</a>) (<a target="_blank" href="https://www.bigbluebubble.com/home/games/my-singing-monsters-series/my-singing-monsters/">Website</a>)</li>
-                        <li><b>N</b> - Sounds and Music from <i>gm_abstraction_extended</i> and <i>ph_resortmadness</i>. Check audio file header metadata for more info. (<a target="_blank" href="https://steamcommunity.com/sharedfiles/filedetails/?id=734919940">gm_abstraction_extended</a>) (<a target="_blank" href="https://steamcommunity.com/sharedfiles/filedetails/?id=1389282477">ph_resortmadness</a>)</li>
-                        <li><b>P</b> - Music from <i>Portal 2</i> (<a target="_blank" href="https://store.steampowered.com/app/620/">Steam Store</a>)</li>
-                        <li><b>S</b> - Music from <i>Stardew Valley</i> (<a target="_blank" href="https://store.steampowered.com/app/413150/">Steam Store</a>)</li>
-                        <li><b>T</b> - Music from <i>Terraria</i> and mods. See file metadata for more details. (<a target="_blank" href="https://store.steampowered.com/app/105600/">Terraria</a>) (<a target="_blank" href="https://store.steampowered.com/app/1281930/">tModLoader</a>)</li>
-                        <li><b>V</b> - Music of <i>VRChat</i> (<a target="_blank" href="https://youtu.be/8B1Xf58ws-4">YouTube</a>) (<a target="_blank" href="https://youtu.be/1zcM_ULQZUY">YouTube</a>) (<a target="_blank" href="https://store.steampowered.com/app/438100/">Steam Store</a>)</li>
-                        <li><b>2</b> - Music from <i>Aether II</i> Minecraft mod (<a target="_blank" href="https://www.curseforge.com/minecraft/mc-mods/aether-ii">CurseForge</a>) (<a target="_blank" href="https://emilevankrieken.bandcamp.com/album/the-aether-ii-original-soundtrack">Bandcamp</a>)</li>
+                        <li><b>AS</b> - Sounds from <i>Atmosphere</i> Mobile Application (<a target="_blank" href="https://play.google.com/store/apps/details?id=com.peakpocketstudios.atmosphere">Google Play</a>) (<a target="_blank" href="https://peakpocketstudios.com/">Website</a>)</li>
+                        <li><b>A2</b> - Music from <i>Aether II</i> Minecraft mod (<a target="_blank" href="https://www.curseforge.com/minecraft/mc-mods/aether-ii">CurseForge</a>) (<a target="_blank" href="https://emilevankrieken.bandcamp.com/album/the-aether-ii-original-soundtrack">Bandcamp</a>)</li>
+                        <li><b>BR</b> - Sounds from <i>1999 Conair SU2R</i> (<a target="_blank" href="https://www.ebay.com/itm/226174116501">Listing</a>) (<a target="_blank" href="https://web.archive.org/web/20250407200159/https://www.ebay.com/itm/226174116501">Archive</a>)</li>
+                        <li><b>DC</b> - Sounds from <i>Dawn Chorus</i> (<a target="_blank" href="https://dawn-chorus.itch.io/dawn-chorus">Game</a>) (<a target="_blank" href="https://buildingslikeradiators.bandcamp.com/album/dawn-chorus-soundtrack-vol-1">Soundtrack Vol 1</a>) (<a target="_blank" href="https://buildingslikeradiators.bandcamp.com/album/dawn-chorus-soundtrack-vol-2">Soundtrack Vol 2</a>)</li>
+                        <li><b>FR</b> - Music from <i>Wii Fishing Resort</i> (<a target="_blank" href="https://en.wikipedia.org/wiki/Fishing_Resort">Wikipedia</a>)</li>
+                        <li><b>GL</b> - Sounds from <i>DEX PRODUCTS SSWM-01&quot;SOUND SLEEPER&quot;</i> (<a target="_blank" href="https://www.dexbaby.com/s/SS-01_Instructions_0810.pdf">Manual</a>) (<a target="_blank" href="https://web.archive.org/web/20250407200524/https://www.dexbaby.com/s/SS-01_Instructions_0810.pdf">Archive</a>)</li>
+                        <li><b>GM</b> - Sounds and Music from <i>gm_abstraction_extended</i> and <i>ph_resortmadness</i>. Check audio file header metadata for more info. (<a target="_blank" href="https://steamcommunity.com/sharedfiles/filedetails/?id=734919940">gm_abstraction_extended</a>) (<a target="_blank" href="https://steamcommunity.com/sharedfiles/filedetails/?id=1389282477">ph_resortmadness</a>)</li>
+                        <li><b>IM</b> - Music from <i>The Incredible Machine 3</i> (<a target="_blank" href="https://www.gog.com/en/game/the_incredible_machine_mega_pack">GOG Storepage</a>) (<a target="_blank" href="https://youtu.be/CWQZ8PEVn7o">YouTube</a>)</li>
+                        <li><b>KM</b> - Royalty-free music from <i>Kevin MacLeod</i> (<a target="_blank" href="https://incompetech.com/music/royalty-free/music.html">Website</a>)</li>
+                        <li><b>MS</b> - Music from <i>My Singing Monsters</i> (<a target="_blank", href="https://store.steampowered.com/app/1419170/">Steam Store</a>) (<a target="_blank" href="https://www.bigbluebubble.com/home/games/my-singing-monsters-series/my-singing-monsters/">Website</a>)</li>
+                        <li><b>P2</b> - Music from <i>Portal 2</i> (<a target="_blank" href="https://store.steampowered.com/app/620/">Steam Store</a>)</li>
+                        <li><b>SV</b> - Music from <i>Stardew Valley</i> (<a target="_blank" href="https://store.steampowered.com/app/413150/">Steam Store</a>)</li>
+                        <li><b>TR</b> - Music from <i>Terraria</i> and mods. See file metadata for more details. (<a target="_blank" href="https://store.steampowered.com/app/105600/">Terraria</a>) (<a target="_blank" href="https://store.steampowered.com/app/1281930/">tModLoader</a>)</li>
+                        <li><b>VR</b> - Music of <i>VRChat</i> (<a target="_blank" href="https://youtu.be/8B1Xf58ws-4">YouTube</a>) (<a target="_blank" href="https://youtu.be/1zcM_ULQZUY">YouTube</a>) (<a target="_blank" href="https://store.steampowered.com/app/438100/">Steam Store</a>)</li>
+                        <li><b>WL</b> - Music from <i>Dusk and Night Music</i> mod, composed by <i>Dragon Wolf Leo</i> (<a target="_blank" href="https://steamcommunity.com/sharedfiles/filedetails/?id=416991215">Steam Workshop</a>) (<a target="_blank" href="https://youtu.be/wK7E97Cdxfg">YouTube</a>) (<a target="_blank" href="https://drive.google.com/file/d/0B-TkVUjFUD-pd1NXUWR0emxsRjg/view?resourcekey=0-jSu8VIAPdQ33L8WmBeCigA">Google Drive</a>)</li>
                     </ul>
                 </details>
                 <details>
@@ -582,8 +588,9 @@
                 <summary style="color: grey">DEBUG <i class="fa-solid fa-brain-circuit"></i></summary>
                 <br>
                 <div class="mainGrid">
-                    <AudioTile name="DEBUG" src="./audiosrc/debug/OVERLAP.ogg" icon="fa-text-size" metaLeft="X" metaRight="X"></AudioTile>
-                    <AudioTile name="INVALID" src="./audiosrc/debug/INVALID.ogg" icon="fa-text-size" metaLeft="X" metaRight="X"></AudioTile>
+                    <AudioTile name="DEBUG" src="./audiosrc/debug/OVERLAP.ogg" icon="fa-text-size" metaLeft="X | DEBUG" metaRight="X | DEBUG"></AudioTile>
+                    <AudioTile name="INVALID" src="./audiosrc/debug/INVALID.ogg" icon="fa-text-size" metaLeft="X | DEBUG" metaRight="X | DEBUG"></AudioTile>
+                    <button onclick="window.debugRandomColors()" class="audioContainer"><p style="color: whitesmoke">Debug Element Boundaries</p></button>
                 </div>
                 <pre id="printout_loadparams" style="font-family: monospace;">NO DATA LOADED</pre>
                 <br><p></p><br>

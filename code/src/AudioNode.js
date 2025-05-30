@@ -154,8 +154,15 @@ export class AudioNode {
         }
     }
 
-    async toggle()
+    async toggle(event)
     {
+        // check if the event just happened. If the user experiences a metadata popup, this will not be true. ( `alert()` is blocking )
+        if(!(performance.timing.navigationStart + event.timeStamp + 250 >= Date.now()))
+        {
+            console.debug("Alert blocked execution for too long. Aborting.");
+            return;
+        }
+
         if(this.playing == false)
         {
             await this.play();
