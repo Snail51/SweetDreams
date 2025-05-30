@@ -67,7 +67,8 @@ export class Saver
 
         const encoder = new TextEncoder();
         var newDigest = simpleHash(encoder.encode(payload));
-        if(newDigest != this.oldDigest)
+        //console.debug(newDigest, this.oldDigest);
+        if(newDigest !== this.oldDigest)
         {
             this.compressor.push(payload);
             this.oldDigest = newDigest;
