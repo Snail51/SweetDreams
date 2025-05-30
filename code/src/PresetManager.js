@@ -38,19 +38,12 @@ export class Saver
 
     async save()
     {
-        this.activeList = new Array();
-        var nodes = window.audioNodes;
-        for ( var node of nodes )
-        {
-            if(node.playing)
-            {
-                this.activeList.push(node.src + ";" + ((Math.round(node.volume*100))/100));
-            }
-        }
+        this.activeList = window.audioNodes.filter(node => node.playing == true).map(node => node.src + ";" + ((Math.round(node.volume*100))/100));
         var payload = this.activeList.join(",");
+        //console.log(payload);
 
         // this is not cryptographically secure! but we are just using it to ease comparison
-        function simpleHash(str) {
+        window.simpleHash = function(str) {
             let hash = 0;
 
             if (!str || typeof str !== 'string') {
@@ -62,11 +55,10 @@ export class Saver
                 hash = ((hash << 5) - hash + char);
             }
 
-            return Math.abs(hash >>> 0); // Convert to positive number
+            return Math.abs(hash >>> 0).toString(16); // Convert to positive number
         }
 
-        const encoder = new TextEncoder();
-        var newDigest = simpleHash(encoder.encode(payload));
+        var newDigest = simpleHash(payload);
         //console.debug(newDigest, this.oldDigest);
         if(newDigest !== this.oldDigest)
         {
