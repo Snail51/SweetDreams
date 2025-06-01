@@ -92,7 +92,7 @@
                     document.getElementById("loadbutton").innerHTML = "Loaded Selected Soundscape";
                 }
             }
-            window.addEventListener("pageshow", () => window.disableLoad());
+            window.addEventListener("DOMContentLoaded", () => window.disableLoad());
 
             window.stopAllSounds = function()
             {
