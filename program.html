@@ -61,6 +61,9 @@
             details > :not(hr):not(#content > details > summary) {
                 padding-left: 2em;
             }
+            #tutorial :not(summary, summary *) {
+                font-family: 'Courier New', Courier, monospace;
+            }
         </style>
 
         <!-- Consumes custom <AudioTile> elements and initializes all their logic and DOM elements (as well as the global amplifier) -->
@@ -175,7 +178,7 @@
             
             <br>
 
-            <details>
+            <details id="tutorial">
                 <summary style="color: grey">How-To <i class="fa-solid fa-head-side-gear"></i> <i>(click to expand)</i></summary>
                 <hr>
                 <p><i>Sweet Dreams</i> provides the user with the ability to design a custom soundscape though mixing and matching various <b>tiles</b>.</p><br>
