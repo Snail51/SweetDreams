@@ -1,3 +1,6 @@
+TRIMMING
+  - Fade In first 0.25 seconds
+  - Fade Out last 0.25 seconds
 LOW PASS FILTER
   - Frequency: 400Hz
   - Roll-off: 48 dB
