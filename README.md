@@ -25,6 +25,7 @@
   **A2** - Music from *Aether II* Minecraft mod ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/aether-ii)) ([Bandcamp](https://emilevankrieken.bandcamp.com/album/the-aether-ii-original-soundtrack))<br>
   **BR** - Sounds from *1999 Conair SU2R* ([Listing](https://www.ebay.com/itm/226174116501)) ([Archive](https://web.archive.org/web/20250407200159/https://www.ebay.com/itm/226174116501))<br>
   **DC** - Sounds and Music from *Dawn Chorus* ([Game](https://dawn-chorus.itch.io/dawn-chorus)) ([Soundtrack Vol 1](https://buildingslikeradiators.bandcamp.com/album/dawn-chorus-soundtrack-vol-1)) ([Soundtrack Vol 2](https://buildingslikeradiators.bandcamp.com/album/dawn-chorus-soundtrack-vol-2))<br>
+  **DS** - Music from *Dusk and Night Music* mod, composed by *Dragon Wolf Leo* ([Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=416991215)) ([YouTube](https://youtu.be/wK7E97Cdxfg)) ([Google Drive](https://drive.google.com/file/d/0B-TkVUjFUD-pd1NXUWR0emxsRjg/view?resourcekey=0-jSu8VIAPdQ33L8WmBeCigA))<br>
   **FR** - Music from *Wii Fishing Resort* ([Wikipedia](https://en.wikipedia.org/wiki/Fishing_Resort))<br>
   **GL** - Sounds taken from *DEX PRODUCTS SSWM-01&quot;SOUND SLEEPER&quot;* ([Manual](https://www.dexbaby.com/s/SS-01_Instructions_0810.pdf)) ([Archive](https://web.archive.org/web/20250407200524/https://www.dexbaby.com/s/SS-01_Instructions_0810.pdf))<br>
   **GM** - Sounds and Music from *gm_abstraction_extended* and *ph_resortmadness*. Check audio file header metadata for more info. ([gm_abstraction_extended](https://steamcommunity.com/sharedfiles/filedetails/?id=734919940)) ([ph_resortmadness](https://steamcommunity.com/sharedfiles/filedetails/?id=1389282477))<br>
@@ -36,7 +37,6 @@
   **SV** - Music from *Stardew Valley* ([Steam Store](https://store.steampowered.com/app/413150/))<br>
   **TR** - Music from *Terraria* and mods. See file metadata for more details. ([Terraria](https://store.steampowered.com/app/105600/)) ([tModLoader](https://store.steampowered.com/app/1281930/))<br>
   **VR** - Music of VRChat ([YouTube](https://youtu.be/8B1Xf58ws-4)) ([YouTube](https://youtu.be/1zcM_ULQZUY)) ([Steam Store](https://store.steampowered.com/app/438100/))<br>
-  **WL** - Music from *Dusk and Night Music* mod, composed by *Dragon Wolf Leo* ([Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=416991215)) ([YouTube](https://youtu.be/wK7E97Cdxfg)) ([Google Drive](https://drive.google.com/file/d/0B-TkVUjFUD-pd1NXUWR0emxsRjg/view?resourcekey=0-jSu8VIAPdQ33L8WmBeCigA))<br>
 
  ## Other Resources
   - **Title Icons:** Font Awesome ([Website](https://fontawesome.com/))
