@@ -32,6 +32,7 @@
   **KM** - Royalty-free music from *Kevin MacLeod* ([Website](https://incompetech.com/music/royalty-free/music.html))<br>
   **MS** - Music from *My Singing Monsters* ([Steam Store](https://store.steampowered.com/app/1419170/)) ([Website](https://www.bigbluebubble.com/home/games/my-singing-monsters-series/my-singing-monsters/))<br>
   **P2** - Music from *Portal 2* ([Steam Store](https://store.steampowered.com/app/620/))<br>
+  **SF** - Sounds from *Save a Fox* on YouTube ([YouTube Channel](https://www.youtube.com/@Saveafox))<br>
   **SV** - Music from *Stardew Valley* ([Steam Store](https://store.steampowered.com/app/413150/))<br>
   **TR** - Music from *Terraria* and mods. See file metadata for more details. ([Terraria](https://store.steampowered.com/app/105600/)) ([tModLoader](https://store.steampowered.com/app/1281930/))<br>
   **VR** - Music of VRChat ([YouTube](https://youtu.be/8B1Xf58ws-4)) ([YouTube](https://youtu.be/1zcM_ULQZUY)) ([Steam Store](https://store.steampowered.com/app/438100/))<br>
