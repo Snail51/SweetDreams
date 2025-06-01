@@ -131,6 +131,7 @@ export class AudioNode {
             }
             await this.noise.connect(window.amplifier);
             this.playing = true;
+            this.cloneToPlaying(); // add this node to the recently played list
             console.debug(`${this.src} - Started Playback of AudioNode`);
         }
     }
@@ -157,10 +158,14 @@ export class AudioNode {
     async toggle(event)
     {
         // check if the event just happened. If the user experiences a metadata popup, this will not be true. ( `alert()` is blocking )
-        if(!(performance.timing.navigationStart + event.timeStamp + 250 >= Date.now()))
+        // only do this check if this is toggle from an event... not if toggled manually
+        if(event)
         {
-            console.debug("Alert blocked execution for too long. Aborting.");
-            return;
+            if(!(performance.timing.navigationStart + event.timeStamp + 250 >= Date.now()))
+            {
+                console.debug("Alert blocked execution for too long. Aborting.");
+                return;
+            }
         }
 
         if(this.playing == false)
@@ -171,6 +176,7 @@ export class AudioNode {
         {
             await this.stop();
         }
+
         window.URIsaver.save();
     }
 
@@ -237,5 +243,28 @@ export class AudioNode {
     async addPointer(element)
     {
         this.elements.push(element);
+    }
+
+    async cloneToPlaying()
+    {
+        var sample = Array.from(document.querySelectorAll(".audioContainer")).filter(node => node.audioNode ? node.audioNode.src === this.src : false)[0];
+        var alreadyRecent = Array.from(document.querySelectorAll("#recentGrid .audioContainer")).map(element => element.audioNode ? element.audioNode.src : "NULL SOURCE").some(source => source === this.src);
+        if(!alreadyRecent)
+        {
+            var clone = sample.cloneNode(true); // clone the node (DOM elements only)
+            sample.audioNode.addPointer(clone); // instantiate a pointer to the new element
+            clone.audioNode = sample.audioNode; // manually copy the audioNode reference property to the new element
+
+            // copy over event listeners
+            clone.querySelector("button").addEventListener("click", (event) => { clone.audioNode.toggle(event); });
+            clone.querySelector("input").addEventListener("input", (event) => clone.audioNode.adjustVolume(2 * ((event.target.value / 100) ** 3), event.target.value));
+            clone.querySelector("input").addEventListener("change", (event) => window.URIsaver.save());
+            
+            // insert the clone into the DOM in the <div> with id="recentGrid"
+            document.querySelector("#recentGrid").insertAdjacentElement("afterbegin", clone);
+
+            // unhide the recent / currently playing section
+            Array.from(document.querySelectorAll(".recentSection")).forEach((element, index) => { element.classList.remove("recentSection") });
+        }
     }
 }
