@@ -15,13 +15,9 @@ export class Loader
         {
             if(this.activeList.some(item => item.startsWith(node.src)))
             {
-                await node.play();
                 var relevant = this.activeList.find(item => item.startsWith(node.src));
-                await node.adjustVolume(relevant.split(";")[1]);
-                for(var element of node.elements)
-                {
-                    element.querySelectorAll(".SLIDER")[0].value = (Math.cbrt(parseFloat(relevant.split(";")[1])/2))*100;
-                }
+                await node.adjustVolume(relevant.split(";")[1], ((Math.cbrt(parseFloat(relevant.split(";")[1])/2))*100));
+                node.elements[0].querySelectorAll("button")[0].click(); // I don't know why, but we have to click() to get loading to work. calling what this maps to programmatically doesn't work
             }
         }
     }

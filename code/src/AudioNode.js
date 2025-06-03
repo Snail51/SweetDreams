@@ -17,7 +17,7 @@ export class AudioNode {
 
         // Audio Elements
         this.source; // the source audio element that emits the sound specified at the source
-        this.noise; // intermediate GainNode to control volume, connects to the destination node to actually produce the sound
+        this.noise; // intermediate GainNode to control volume, connects to the window.amplifier (which connects to the destination node) to actually produce the sound
 
         // Event Listeners for initialization and shutdown
         window.addEventListener('beforeunload', () => this.shutdown());
@@ -31,6 +31,7 @@ export class AudioNode {
         {
             element.style.backgroundColor = "#8800cc";
         }
+        this.lock();
 
         // Check the file exists and is readable
         async function checkFileExists(url) {
@@ -53,19 +54,12 @@ export class AudioNode {
             console.error(`Error loading ${this.src}`);
             this.elements.forEach((element, index) => {
                 element.style.backgroundColor = "#ff0000"; // make it red
-                element.querySelectorAll(".audioButton")[0].setAttribute("disabled", ""); // use `not-allowed` cursor
-                element.querySelectorAll(".SLIDER")[0].setAttribute("disabled", ""); // disable pointer events
-            })
+            });
             return;
         }
 
         // once we know the file exists, do the request via xmlHTTP for progress monitoring
         var holdVolume = this.elements[0].querySelectorAll(".SLIDER")[0].value; // save the old volume level so we can return to it
-        for(var element of this.elements)
-        {
-            element.querySelectorAll(".audioButton")[0].setAttribute("disabled", "");
-            element.querySelectorAll(".SLIDER")[0].setAttribute("disabled", ""); // disable pointer events
-        }
         var arrayBuffer;
         var xmlHTTP = new XMLHttpRequest();
         xmlHTTP.open('GET', this.src, true);
@@ -92,8 +86,6 @@ export class AudioNode {
         for(let element of this.elements)
         {
             element.querySelectorAll(".SLIDER")[0].value = holdVolume; // restore the old volume
-            element.querySelectorAll(".audioButton")[0].removeAttribute("disabled");
-            element.querySelectorAll(".SLIDER")[0].removeAttribute("disabled"); // allow pointer events again
         }
         this.loaded = 2;
 
@@ -106,9 +98,9 @@ export class AudioNode {
 
         // create an intermediate node for controlling volume
         this.noise = await this.audioCtx.createGain();
-        this.noise.gain.setValueAtTime(this.volume, this.audioCtx.currentTime);
         await this.source.connect(this.noise);
-        await this.noise.connect(this.audioCtx.destination);
+        this.noise.gain.setValueAtTime(0, this.audioCtx.currentTime); // start volume at 0, playing will slide to target
+        await this.noise.connect(window.amplifier);
         this.loaded = 4;
 
         // start and immediately stop the node (make sure it is ready to go)
@@ -116,6 +108,7 @@ export class AudioNode {
         await this.noise.disconnect();
         this.loaded = 5;
 
+        this.unlock();
         console.debug(`${this.src} - Finished loading data for AudioNode`);
     }
 
@@ -132,10 +125,13 @@ export class AudioNode {
             {
                 element.style.backgroundColor = "#999999";
             }
+            this.noise.gain.setValueAtTime(0, this.audioCtx.currentTime); // ensure immediate silence
             await this.noise.connect(window.amplifier);
+            this.noise.gain.setTargetAtTime(this.volume, this.audioCtx.currentTime, 0.183); // return to target volume over 0.5 seconds (sliding) [why 0.183? - exponentially approaches target via timestamp https://webaudio.github.io/web-audio-api/#dom-audioparam-settargetattime]
             this.playing = true;
             this.cloneToPlaying(); // add this node to the recently played list
             console.debug(`${this.src} - Started Playback of AudioNode`);
+            window.URIsaver.save();
         }
     }
 
@@ -152,9 +148,18 @@ export class AudioNode {
             {
                 element.style.backgroundColor = "#555555";
             }
-            this.noise.disconnect();
-            this.playing = false;
-            console.debug(`${this.src} - Halted Playback of AudioNode`);
+            this.noise.gain.setTargetAtTime(0, this.audioCtx.currentTime, 0.183); // scale to silence after 0.5 seconds [why 0.183? - exponentially approaches target via timestamp https://webaudio.github.io/web-audio-api/#dom-audioparam-settargetattime]
+            this.lock(); // disallow interaction until shutdown is complete
+            console.debug(`${this.src} - Started Shutdown of AudioNode`);
+
+            // after 0.5 seconds (allow for fade out), disconnect the actual node
+            window.setTimeout(() => {
+                this.noise.disconnect();
+                this.playing = false;
+                this.unlock(); // disconnection successful, re-enable interaction
+                console.debug(`${this.src} - Halted Playback of AudioNode`);
+                window.URIsaver.save();
+            }, 1000);
         }
     }
 
@@ -179,14 +184,14 @@ export class AudioNode {
         {
             await this.stop();
         }
-
-        window.URIsaver.save();
     }
 
     async adjustVolume(newVolume, elementValue)
     {
         this.volume = newVolume;
-        this.noise.gain.setValueAtTime(this.volume, this.audioCtx.currentTime);
+
+        // if the gain node does not yet exist, just store that value as the volume for later initialization
+        this.noise ? this.noise.gain.setValueAtTime(this.volume, this.audioCtx.currentTime) : void 0;
 
         if(elementValue) //propagate to other pointers
         {
@@ -205,6 +210,24 @@ export class AudioNode {
         }
         
         // execution of window.URIsaver.save(); done by a seperate "onchange" event listener
+    }
+
+    lock()
+    {
+        for(var element of this.elements)
+        {
+            element.querySelectorAll(".audioButton")[0].setAttribute("disabled", "");
+            element.querySelectorAll(".SLIDER")[0].setAttribute("disabled", ""); // disable pointer events
+        }
+    }
+
+    unlock()
+    {
+        for(var element of this.elements)
+        {
+            element.querySelectorAll(".audioButton")[0].removeAttribute("disabled");
+            element.querySelectorAll(".SLIDER")[0].removeAttribute("disabled"); // disable pointer events
+        }
     }
 
     async shutdown()
