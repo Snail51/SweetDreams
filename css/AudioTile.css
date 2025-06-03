@@ -23,6 +23,11 @@
     height: 20vmin;
     max-width: 100%;
     max-height: 100%;
+    cursor: pointer;
+}
+
+.audioButton:disabled {
+    cursor: not-allowed;
 }
 
 .audioButton * {
@@ -69,11 +74,12 @@
 }
 
 .SLIDER { 
-    
     width: 95%;
+    cursor: pointer;
 }
 
 /** Disable interaction when the slider is overriden to communicate something else (such as loading progress) */
-.SLIDER.LOCKED {
-    pointer-events: none;
+.SLIDER:disabled {
+    /** pointer-events: none; */
+    cursor: not-allowed;
 }

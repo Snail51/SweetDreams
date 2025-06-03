@@ -51,10 +51,11 @@ export class AudioNode {
         {
             this.error = true;
             console.error(`Error loading ${this.src}`);
-            for (var element of this.elements)
-            {
-                element.style.backgroundColor = "#ff0000";
-            }
+            this.elements.forEach((element, index) => {
+                element.style.backgroundColor = "#ff0000"; // make it red
+                element.querySelectorAll(".audioButton")[0].setAttribute("disabled", ""); // use `not-allowed` cursor
+                element.querySelectorAll(".SLIDER")[0].setAttribute("disabled", ""); // disable pointer events
+            })
             return;
         }
 
@@ -62,7 +63,8 @@ export class AudioNode {
         var holdVolume = this.elements[0].querySelectorAll(".SLIDER")[0].value; // save the old volume level so we can return to it
         for(var element of this.elements)
         {
-            element.querySelectorAll(".SLIDER")[0].classList.add("LOCKED"); // disable pointer events
+            element.querySelectorAll(".audioButton")[0].setAttribute("disabled", "");
+            element.querySelectorAll(".SLIDER")[0].setAttribute("disabled", ""); // disable pointer events
         }
         var arrayBuffer;
         var xmlHTTP = new XMLHttpRequest();
@@ -90,7 +92,8 @@ export class AudioNode {
         for(let element of this.elements)
         {
             element.querySelectorAll(".SLIDER")[0].value = holdVolume; // restore the old volume
-            element.querySelectorAll(".SLIDER")[0].classList.remove("LOCKED"); // allow pointer events again
+            element.querySelectorAll(".audioButton")[0].removeAttribute("disabled");
+            element.querySelectorAll(".SLIDER")[0].removeAttribute("disabled"); // allow pointer events again
         }
         this.loaded = 2;
 
