@@ -94,6 +94,7 @@
                 {
                     document.getElementById("loadbutton").disabled = false;
                     document.getElementById("loadbutton").innerHTML = "Loaded Selected Soundscape";
+                    document.getElementById("loadbutton").removeAttribute("title");
                 }
             }
             window.addEventListener("DOMContentLoaded", () => window.disableLoad());
@@ -151,7 +152,7 @@
             <br>
             <i>An atmospheric soundscape editor written by Brendan Rood</i><br>
             <button onclick="window.fadeApp()">Dream Anew</button>
-            <button id="loadbutton" onclick="window.fadeAndLoad()" disabled><del>Loaded Selected Soundscape</del></button>
+            <button id="loadbutton" onclick="window.fadeAndLoad()" disabled title="No saved soundscape included in this link!"><del>Loaded Selected Soundscape</del></button>
         </div>
         <div id="content" class="content">
             <!-- Page Header -->
@@ -168,7 +169,7 @@
                 </div>
                 <!-- Global "Disable all Sounds" and Volume Slider -->
                 <div class="audioContainer" style="width: 20vw">
-                    <button class="audioButton" onclick="window.stopAllSounds()" style="font-size: 4vmin; color: whitesmoke; width: 100%;">
+                    <button class="audioButton" onclick="window.stopAllSounds()" title="Stop playback of all Audio Sources" style="font-size: 4vmin; color: whitesmoke; width: 100%;">
                         <div class="META-L"> </div>
                         <div class="ICON">
                             <i class="fa-solid fa-volume-xmark" style="color: cyan;"></i>
