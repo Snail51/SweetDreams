@@ -32,7 +32,7 @@
     color: whitesmoke;
     height: 10vh;
     cursor: pointer;
-    
+    transition: opacity 0.5s ease-in;
 }
 .title button:disabled {
     /** filter: blur(2px); */

@@ -35,6 +35,7 @@
 
         <!-- Title Fading Logic -->
         <link rel="stylesheet" href="./css/TitleFade.css">
+        <script src="./code/exe/TitleFade.js"></script>
 
         <!-- <a> Styling -->
         <link rel="stylesheet" href="./css/Links.css">
@@ -75,29 +76,7 @@
 
         <!-- Title -> Content Initalization -->
         <script>
-            window.fadeApp = function()
-            {
-                document.getElementById("title").classList.toggle("fade");
-                window.URIsaver.save();
-            }
-            window.fadeAndLoad = function()
-            {
-                document.getElementById("title").classList.toggle("fade");
-                window.URIloader.load();
-            }
-            window.disableLoad = function()
-            {
-                const url = new URL(window.location.href);
-                const query = url.searchParams;
-                const data = query.get("data");
-                if(data.length > 0 && data != "3YCAgIKAgICAgICAgIADf3t_f0CAgIA" && data != "eNoDAAAAAAE") // data is present
-                {
-                    document.getElementById("loadbutton").disabled = false;
-                    document.getElementById("loadbutton").innerHTML = "Loaded Selected Soundscape";
-                    document.getElementById("loadbutton").removeAttribute("title");
-                }
-            }
-            window.addEventListener("DOMContentLoaded", () => window.disableLoad());
+            
 
             window.stopAllSounds = function()
             {
@@ -139,6 +118,8 @@
 
         <!-- Debug background color assistant for elemnt boundary checking -->
          <script src="./code/exe/debugRandomColors.js"></script>
+
+
     </head>
 
     <body style="background-color: rgb(44, 46, 54); color: whitesmoke; font-size: 4vmin;">
@@ -151,8 +132,7 @@
             </div>
             <br>
             <i>An atmospheric soundscape editor written by Brendan Rood</i><br>
-            <button onclick="window.fadeApp()">Dream Anew</button>
-            <button id="loadbutton" onclick="window.fadeAndLoad()" disabled title="No saved soundscape included in this link!"><del>Loaded Selected Soundscape</del></button>
+            
         </div>
         <div id="content" class="content">
             <!-- Page Header -->
