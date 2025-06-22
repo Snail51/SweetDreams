@@ -87,13 +87,25 @@
                     return;
                 }
 
-                for( var node of window.audioNodes )
+                window.audioNodes.filter((node, index) => node.playing === true).forEach((node, index) => {
+                    node.stop();
+                });
+
+                window.URIsaver.save();
+            }
+
+            window.playAllSounds = function()
+            {
+                if(!window.playAllWarned)
                 {
-                    if(node.playing)
-                    {
-                        node.stop();
-                    }
+                    alert("This will play ALL sounds. This is just for debug, it will be very loud!");
+                    window.playAllWarned = true;
+                    return;
                 }
+
+                window.audioNodes.filter((node, index) => node.playing === false).forEach((node, index) => {
+                    node.play();
+                });
 
                 window.URIsaver.save();
             }
@@ -716,6 +728,7 @@
                     <AudioTile name="DEBUG" src="./audiosrc/debug/OVERLAP.ogg" icon="fa-text-size" metaLeft="X | DEBUG" metaRight="X | DEBUG"></AudioTile>
                     <AudioTile name="INVALID" src="./audiosrc/debug/INVALID.ogg" icon="fa-text-size" metaLeft="X | DEBUG" metaRight="X | DEBUG"></AudioTile>
                     <button onclick="window.debugRandomColors()" class="audioContainer"><p style="color: whitesmoke; font-size: 4vmin;">Debug Element Boundaries</p></button>
+                    <button onclick="window.playAllSounds()" class="audioContainer"><p style="color: whitesmoke; font-size: 4vmin;">Play ALL Sounds</p></button>
                 </div>
                 <pre id="printout_loadparams" style="font-family: monospace;">NO DATA LOADED</pre>
                 <br><p></p><br>
