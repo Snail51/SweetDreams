@@ -2,7 +2,7 @@
 
 ## How to use
 - Run the included Executible
-- http://localhost:8000 should open automatically. If it does not, visit that URL manually.
+- http://localhost:8080 should open automatically. If it does not, visit that URL manually.
 - Close the executible (terminal) when done.
 
 ## Additional Information
