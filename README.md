@@ -8,7 +8,7 @@
  - `1_source` - all the files in their completely original states, as found in their original sources. Literally nothing has been touched.
  - `2_edit` - first round of executive parsing; substantive changes (trimming, etc.). NOT AUTOMATED
    - files in this directory should include instructions on how they were edited
- - `3_ogg` - no effects applied to audio files. All files converted to `.ogg` with proper metadata and `detox`ed filenames. Exported at absolute max quality (`Sample Rate: 44100Hz`, `Nominal Bitrate: 500kbps`)
+ - `3_ogg_and_rename` - no effects applied to audio files. All files converted to `.ogg` with proper metadata and `detox`ed filenames. Exported at absolute max quality (`Sample Rate: 44100Hz`, `Nominal Bitrate: 500kbps`)
  - `4_normalize` - the following audacity macro applied to `edit`:
    - LoudnessNormalization:DualMono="1" LUFSLevel="-23" NormalizeTo="0" RMSLevel="-20" StereoIndependent="0"
    - Normalize:ApplyVolume="1" PeakLevel="-2" RemoveDcOffset="1" StereoIndependent="0"
