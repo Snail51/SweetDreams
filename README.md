@@ -42,3 +42,13 @@
  ## Other Resources
   - **Title Icons:** Font Awesome ([Website](https://fontawesome.com/))
   - **Main Font:** Dawn Chorus ([Page](https://dawn-chorus.itch.io/dawn-chorus)). Will take down at request.
+
+ ## How Audio is Sourced
+  1. Procurement
+     1. The largest reasonable purchase/donation to the source work is made.
+     2. If the audio can be directly extracted from an existing digital medium, the source is decompiled to obtain that maximum quality resource.
+     3. If extraction is not possible, an official soundtrack is purchased and used.
+     4. If neither is available, [yt-dlp](https://github.com/yt-dlp/yt-dlp) is used with the parameters `-f bestaudio`.
+  2. Processing
+     1. Audio is edited at maximum quality.
+     2. The apparent loudness of the audio is normalized via [this Audacity macro](https://github.com/Snail51/SweetDreams/issues/2#issuecomment-3476617317).
