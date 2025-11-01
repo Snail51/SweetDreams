@@ -9,7 +9,7 @@
 
 ## Installation / Usage
  - Can be run in any httpx environment with JavaScript execution.
- - ***A version of the app is already located at https://dream.snailien.net or https://tools.snailien.net/SweetDreams***
+ - ***A version of the app is already located at https://dream.snailien.net***
 
 <hr>
 
@@ -52,4 +52,5 @@
   2. Processing
      1. Audio is edited at maximum quality.
      2. The apparent loudness of the audio is normalized via [this Audacity macro](https://github.com/Snail51/SweetDreams/issues/2#issuecomment-3476617317).
+
 
