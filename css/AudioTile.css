@@ -76,10 +76,12 @@
 .SLIDER { 
     width: 95%;
     cursor: pointer;
+    accent-color: #0276FF;
 }
 
 /** Disable interaction when the slider is overriden to communicate something else (such as loading progress) */
 .SLIDER:disabled {
     /** pointer-events: none; */
     cursor: not-allowed;
+    accent-color: #C5C5C5;
 }
