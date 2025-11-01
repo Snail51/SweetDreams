@@ -36,7 +36,7 @@
   **SF** - Sounds from *Save a Fox* on YouTube ([YouTube Channel](https://www.youtube.com/@Saveafox))<br>
   **SV** - Music from *Stardew Valley* ([Steam Store](https://store.steampowered.com/app/413150/))<br>
   **TR** - Music from *Terraria*. See file metadata for more details. ([Terraria](https://store.steampowered.com/app/105600/))<br>
-  <li><b>TC</b> - Music and sounds from <i>Calamity</i> mods for Terraria. See file metadata for more details. ([Calamity Mod Music](https://steamcommunity.com/sharedfiles/filedetails/?id=2824688266)) ([Vanilla Calamity Music](https://steamcommunity.com/sharedfiles/filedetails/?id=2816188633))<br>
+  **TC** - Music and sounds from <i>Calamity</i> mods for Terraria. See file metadata for more details. ([Calamity Mod Music](https://steamcommunity.com/sharedfiles/filedetails/?id=2824688266)) ([Vanilla Calamity Music](https://steamcommunity.com/sharedfiles/filedetails/?id=2816188633))<br>
   **VR** - Music of VRChat ([YouTube](https://youtu.be/8B1Xf58ws-4)) ([YouTube](https://youtu.be/1zcM_ULQZUY)) ([Steam Store](https://store.steampowered.com/app/438100/))<br>
 
  ## Other Resources
@@ -52,3 +52,4 @@
   2. Processing
      1. Audio is edited at maximum quality.
      2. The apparent loudness of the audio is normalized via [this Audacity macro](https://github.com/Snail51/SweetDreams/issues/2#issuecomment-3476617317).
+
